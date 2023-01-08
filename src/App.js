@@ -20,7 +20,7 @@ import MainNavigation from "./shared/components/navigation/MainNavigation";
 
 //each user has workouts.
 
-//test comment
+//test comment 2
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
