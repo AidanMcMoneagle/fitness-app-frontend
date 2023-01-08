@@ -1,24 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+
+import NewWorkout from "./workouts/pages/NewWorkout";
+import MyWorkouts from "./workouts/pages/MyWorkouts";
+import MyProgress from "./workouts/pages/MyProgress";
+import MyPhotos from "./workouts/pages/MyPhotos";
+import AuthContext from "./shared/context/auth-context";
+
+import MainNavigation from "./shared/components/navigation/MainNavigation";
+
+//users // we have multiple users. Each User has workout.
+
+//workouts
+
+//each user has workouts.
+
+//test comment
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = () => {
+    setIsLoggedIn(true);
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const routes = (
+    <Switch>
+      <Route exact path="/">
+        <MainNavigation />
+      </Route>
+      <Route exact path="/:userId/myworkouts">
+        <MyWorkouts />
+      </Route>
+      <Route exact path="/workouts/new">
+        <NewWorkout />
+      </Route>
+      <Route exact path="/:userId/myprogress">
+        <MyProgress />
+      </Route>
+      <Route exact path="/:userId/myphotos">
+        <MyPhotos />
+      </Route>
+      <Redirect to="/" />
+    </Switch>
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      <Router>
+        <MainNavigation />
+        <main>{routes}</main>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

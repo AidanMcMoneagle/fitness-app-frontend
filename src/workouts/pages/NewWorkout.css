@@ -1,0 +1,42 @@
+.section-center {
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 35rem;
+  margin-top: 8rem;
+}
+
+.section-center {
+  background: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s linear;
+  padding: 2rem;
+}
+
+.add-excercise-btn {
+  text-align: center;
+  background-color: transparent;
+  background: transparent;
+  border: none;
+}
+
+.add-excercise-btn button {
+  background-color: transparent;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0;
+}
+
+.add-excercise-btn button:hover {
+  font-size: 2.2rem;
+}
+
+.new-workout-form h3 {
+  color: black;
+  margin-bottom: 1.5rem;
+  margin-left: 10px;
+  text-align: center;
+}
