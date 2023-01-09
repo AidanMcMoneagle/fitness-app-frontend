@@ -13,14 +13,14 @@
   padding: 2rem;
 }
 
-.add-excercise-btn {
+.add-exercise-btn {
   text-align: center;
   background-color: transparent;
   background: transparent;
   border: none;
 }
 
-.add-excercise-btn button {
+.add-exercise-btn button {
   background-color: transparent;
   background: transparent;
   border: none;
@@ -30,7 +30,7 @@
   padding: 0;
 }
 
-.add-excercise-btn button:hover {
+.add-exercise-btn button:hover {
   font-size: 2.2rem;
 }
 
