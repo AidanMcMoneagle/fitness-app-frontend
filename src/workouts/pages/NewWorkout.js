@@ -1,39 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import ExcerciseInput from "../../shared/components/FormElements/ExcerciseInput";
+import ExerciseList from "../components/ExerciseList";
 
 import "./NewWorkout.css";
 
-// TODO - change exercise spelling
-
-// we have a search form. We enter in the form
-//controlled input first
+const inputReducer = (state, action) => {
+  if (action.type === "EXERCISE ADDED") {
+    return [
+      ...state,
+      {
+        excerciseId: action.payload.id,
+        value: action.payload.value,
+      },
+    ];
+  }
+};
 const NewWorkout = () => {
-  const [excerciseNumber, setExcerciseNumber] = useState([]);
+  const [exerciseNumber, setExerciseNumber] = useState([]); // useState to control the state of the number of exercises on the page
 
-  const addExcercise = () => {
-    const newList = [...excerciseNumber, <ExcerciseInput />];
-    setExcerciseNumber(newList);
+  const [formData, dispatch] = useReducer(inputReducer, []);
+
+  // addExercise Function adds a new Exercise Input component to the a
+  const addExercise = () => {
+    const newList = [...exerciseNumber, "Exercise"];
+    setExerciseNumber(newList);
+  };
+
+  const workoutSubmitHandler = () => {
+    console.log(formData);
+    //send this data to the backend
+  };
+
+  useEffect(() => {
+    if (formData.length > 0) {
+      console.log(formData);
+    }
+  }, [formData]);
+
+  const onInput = (id, value) => {
+    dispatch({
+      type: "EXERCISE ADDED",
+      payload: {
+        id,
+        value,
+      },
+    });
   };
 
   return (
     <section className="section-center">
-      <form className="new-workout-form">
-        <h3>NEW WORKOUT</h3>
-        {excerciseNumber.map((excercise, index) => {
-          return (
-            <div>
-              <h4>{`Excercise ${index + 1}`}</h4>
-              {excercise}
-            </div>
-          );
-        })}
-      </form>
-      <div className="add-excercise-btn">
-        <button onClick={addExcercise}>
+      <h3>NEW WORKOUT</h3>
+      <ExerciseList exerciseNumber={exerciseNumber} onInput={onInput} />
+      <div className="add-exercise-btn">
+        <button onClick={addExercise}>
           <HiOutlinePlusCircle />
         </button>
       </div>
+      {exerciseNumber.length > 0 && (
+        <button onClick={workoutSubmitHandler}>Create Workout</button>
+      )}
     </section>
   );
 };
