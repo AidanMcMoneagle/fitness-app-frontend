@@ -1,9 +1,8 @@
 import React, { useState, useReducer, useEffect } from "react";
 
 const inputReducer = (state, action) => {
-  if (action.type === "ADD EXCERCISE") {
+  if (action.type === "ADD/EDIT EXERCISE") {
     return {
-      ...state,
       id: action.payload.id,
       value: {
         exerciseName: action.payload.exerciseName,
@@ -19,34 +18,46 @@ const ExerciseInput = (props) => {
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
 
+  // useReducer to manage the state of each excercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
 
-  // need to pass up the exercise data to NewWorkout where it can be submitted. Need to pass the data to a function that has been passed down from the parent as props. Important that when we send the data we include the index.
+  // need to pass up exercise data to NewWorkout where it can be submitted. Need to pass the data to a function that has been passed down from the parent as props. Important that when we send the data we include the id. Allows us to edit and delete later if required.
 
   const { onInput } = props;
   const { id, value } = exerciseState;
+
+  // onInupt function is called which sends id and exercise data to NewWorkout. Here it is added to the state of the entire form.
   useEffect(() => {
     if (exerciseState.value) {
       console.log(exerciseState);
       onInput(id, value);
     }
-  }, [id]);
+  }, [id, value]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch({
-      type: "ADD EXCERCISE",
+      type: "ADD/EDIT EXERCISE",
       payload: {
         exerciseName,
         repetitions,
         sets,
-        id: props.index,
+        id: props.id,
       },
     });
   };
 
+  const { deleteExercise } = props;
+  const deleteExerciseHandler = (e) => {
+    e.preventDefault();
+    deleteExercise(props.id);
+  };
+
   return (
     <form onSubmit={submitHandler}>
+      <span>
+        <h4>{`Exercise ${props.index + 1}`}</h4>
+      </span>
       <div>
         <label htmlFor="exercise">Exercise</label>
         <input
@@ -78,9 +89,9 @@ const ExerciseInput = (props) => {
         />
       </div>
       {exerciseName && repetitions && sets && (
-        <button type="submit">Add Excercise</button>
+        <button type="submit">{!exerciseState.value ? "ADD" : "EDIT"}</button>
       )}
-      {/* When button is clicked form for individual exercise is Submitted. We manage the state of this form using useReducer*/}
+      <button onClick={deleteExerciseHandler}>DELETE</button>
     </form>
   );
 };

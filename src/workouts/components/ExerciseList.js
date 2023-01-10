@@ -7,11 +7,15 @@ const ExerciseList = (props) => {
 
   return (
     <div>
-      {exerciseNumber.map((exercise, index) => {
+      {exerciseNumber.map((id, index) => {
         return (
-          <div key={index}>
-            <h4>{`Exercise ${index + 1}`}</h4>
-            <ExerciseInput index={index + 1} onInput={onInput} />
+          <div key={id} className="exercise-element">
+            <ExerciseInput
+              index={index}
+              onInput={onInput}
+              id={id}
+              deleteExercise={props.deleteExercise}
+            />
           </div>
         );
       })}
