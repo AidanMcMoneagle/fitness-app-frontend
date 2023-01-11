@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { validate } from "../../utils/validators";
 
 // manage the state of each input here inlcuding validity. Then when we have a re-render we pass this up to the parent component to manage overall validity there. We manage the overall validity of the form in parent component.
 
@@ -9,7 +10,7 @@ const inputReducer = (state, action) => {
     return {
       ...state,
       value: action.payload,
-      isValid: true, // this will be changed later will be true or false
+      isValid: validate(action.payload, action.validators),
     };
   }
   if (action.type === "TOUCHED") {
@@ -49,13 +50,15 @@ const Input = (props) => {
   const { value, isValid } = inputState;
 
   useEffect(() => {
-    if (inputState.value) {
-      onInput(id, value, isValid);
-    }
-  }, [id, value, isValid]);
+    onInput(id, value, isValid);
+  }, [id, value, isValid, onInput]);
 
   return (
-    <div className={`form-control`}>
+    <div
+      className={`form-control ${
+        !inputState.isValid && inputState.isTouched && "form-control--invalid"
+      }`}
+    >
       <label htmlFor={props.id}>{props.labelText}</label>
       <input
         type={props.type}
