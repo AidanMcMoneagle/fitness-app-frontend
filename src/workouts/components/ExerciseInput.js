@@ -1,5 +1,7 @@
 import React, { useState, useReducer, useEffect } from "react";
 
+import "./ExerciseInput.css";
+
 const inputReducer = (state, action) => {
   if (action.type === "ADD/EDIT EXERCISE") {
     return {
@@ -58,7 +60,7 @@ const ExerciseInput = (props) => {
       <span>
         <h4>{`Exercise ${props.index + 1}`}</h4>
       </span>
-      <div>
+      <div className={`form-control-exercise`}>
         <label htmlFor="exercise">Exercise</label>
         <input
           type="text"
@@ -68,7 +70,7 @@ const ExerciseInput = (props) => {
         />
         <label htmlFor="reps"></label>
       </div>
-      <div>
+      <div className={"form-control-reps"}>
         <label htmlFor="reps">Reps</label>
         <input
           className="input-reps-box"
@@ -78,7 +80,7 @@ const ExerciseInput = (props) => {
           onChange={(e) => setRepetitions(e.target.value)}
         />
       </div>
-      <div>
+      <div className={`form-control-sets`}>
         <label htmlFor="sets">Sets</label>
         <input
           className="input-sets-box"

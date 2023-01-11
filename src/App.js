@@ -11,6 +11,7 @@ import MyWorkouts from "./workouts/pages/MyWorkouts";
 import MyProgress from "./workouts/pages/MyProgress";
 import MyPhotos from "./workouts/pages/MyPhotos";
 import AuthContext from "./shared/context/auth-context";
+import Auth from "./users/pages/Auth";
 
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 
@@ -49,6 +50,9 @@ function App() {
       </Route>
       <Route exact path="/:userId/myphotos">
         <MyPhotos />
+      </Route>
+      <Route exact path="/login">
+        <Auth />
       </Route>
       <Redirect to="/" />
     </Switch>

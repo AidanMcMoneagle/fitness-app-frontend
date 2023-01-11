@@ -3,45 +3,40 @@
 }
 
 .form-control label,
-.form-control input,
-.form-control textarea {
+.form-control input {
   display: block;
 }
 
 .form-control label {
   font-weight: bold;
-  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.form-control-exercise input,
-.form-control textarea {
-  width: 50%;
+.form-control input {
+  width: 100%;
   font: inherit;
   border: 1px solid #ccc;
   background: #f8f8f8;
   padding: 0.15rem 0.25rem;
 }
 
-.form-control-sets input,
-.form-control textarea {
-  width: 10%;
+.form-control input {
+  width: 100%;
   font: inherit;
   border: 1px solid #ccc;
   background: #f8f8f8;
   padding: 0.15rem 0.25rem;
 }
 
-.form-control-reps input,
-.form-control textarea {
-  width: 15%;
+.form-control input {
+  width: 100%;
   font: inherit;
   border: 1px solid #ccc;
   background: #f8f8f8;
   padding: 0.15rem 0.25rem;
 }
 
-.form-control input:focus,
-.form-control textarea:focus {
+.form-control input:focus {
   outline: none;
   background: #ebebeb;
   border-color: #510077;
@@ -52,8 +47,7 @@
   color: red;
 }
 
-.form-control--invalid input,
-.form-control--invalid textarea {
+.form-control--invalid input {
   border-color: red;
   background: #ffd1d1;
 }

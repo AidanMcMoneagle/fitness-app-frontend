@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import AuthContext from "../../context/auth-context";
 
 import "./NavLinks.css";
@@ -75,11 +75,18 @@ const NavLinks = () => {
           </NavLink>
         </li>
       )}
-      <li>
-        <button onClick={context.isLoggedIn ? context.logout : context.login}>
-          {context.isLoggedIn ? "LOGOUT" : "LOGIN"}
-        </button>
-      </li>
+      {!context.isLoggedIn && (
+        <li>
+          <Link exact to="/login" onClick={context.login}>
+            LOGIN
+          </Link>
+        </li>
+      )}
+      {context.isLoggedIn && (
+        <li>
+          <button onClick={context.logout}>LOGOUT</button>
+        </li>
+      )}
     </ul>
   );
 };
