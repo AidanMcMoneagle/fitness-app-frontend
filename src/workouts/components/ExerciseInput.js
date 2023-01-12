@@ -1,4 +1,6 @@
 import React, { useState, useReducer, useEffect } from "react";
+import { FaTimes, FaEdit, FaTrash, FaAdd } from "react-icons/fa";
+import { HiPlus } from "react-icons/hi";
 
 import "./ExerciseInput.css";
 
@@ -19,6 +21,7 @@ const ExerciseInput = (props) => {
   const [exerciseName, setExerciseName] = useState("");
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
+  const [hasExcerciseBeenAdded, setHasExerciseBeenAdded] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
 
   // useReducer to manage the state of each excercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
@@ -33,6 +36,7 @@ const ExerciseInput = (props) => {
     if (exerciseState.value) {
       console.log(exerciseState);
       onInput(id, value);
+      setHasExerciseBeenAdded(true);
     }
   }, [id, value]);
 
@@ -56,13 +60,31 @@ const ExerciseInput = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <span>
+    <form
+      onSubmit={submitHandler}
+      className={
+        hasExcerciseBeenAdded ? "exercise-added" : "exercise-not-added"
+      }
+    >
+      <div className="exercise-header">
         <h4>{`Exercise ${props.index + 1}`}</h4>
-      </span>
-      <div className={`form-control-exercise`}>
+        <div className="btn-container">
+          <button
+            type="submit"
+            className={exerciseState.value ? `edit-btn` : `add-btn`}
+            disabled={!exerciseName || !repetitions || !sets}
+          >
+            {!exerciseState.value ? <HiPlus /> : <FaEdit />}
+          </button>
+          <button className="delete-btn" onClick={deleteExerciseHandler}>
+            <FaTrash />
+          </button>
+        </div>
+      </div>
+      <div className={`exercise-form-control`}>
         <label htmlFor="exercise">Exercise</label>
         <input
+          className="input-exerciseName"
           type="text"
           id="exercise"
           value={exerciseName}
@@ -70,30 +92,28 @@ const ExerciseInput = (props) => {
         />
         <label htmlFor="reps"></label>
       </div>
-      <div className={"form-control-reps"}>
+      <div className={"exercise-form-control"}>
         <label htmlFor="reps">Reps</label>
         <input
-          className="input-reps-box"
-          type="text"
+          className="input-reps"
+          type="number"
+          min="1"
           id="exercise"
           value={repetitions}
           onChange={(e) => setRepetitions(e.target.value)}
         />
       </div>
-      <div className={`form-control-sets`}>
+      <div className={`exercise-form-control`}>
         <label htmlFor="sets">Sets</label>
         <input
-          className="input-sets-box"
-          type="text"
+          className="input-sets"
+          type="number"
           id="sets"
+          min="1"
           value={sets}
           onChange={(e) => setSets(e.target.value)}
         />
       </div>
-      {exerciseName && repetitions && sets && (
-        <button type="submit">{!exerciseState.value ? "ADD" : "EDIT"}</button>
-      )}
-      <button onClick={deleteExerciseHandler}>DELETE</button>
     </form>
   );
 };
