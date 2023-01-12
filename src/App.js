@@ -25,13 +25,19 @@ import MainNavigation from "./shared/components/navigation/MainNavigation";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const login = () => {
+  const login = (uid, token) => {
     setIsLoggedIn(true);
+    setToken(token);
+    setUserId(uid);
   };
 
   const logout = () => {
     setIsLoggedIn(false);
+    setToken(null);
+    setUserId(null);
   };
 
   const routes = (
@@ -59,7 +65,7 @@ function App() {
   );
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, token, userId }}>
       <Router>
         <MainNavigation />
         <main>{routes}</main>

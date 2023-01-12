@@ -1,7 +1,8 @@
-import React, { useState, useReducer, useEffect, useCallback } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
+import AuthContext from "../../shared/context/auth-context";
 
 import ExerciseList from "../components/ExerciseList";
 
@@ -49,6 +50,8 @@ const NewWorkout = () => {
 
   const { error, isLoading, sendRequest, clearError } =
     useHttpClientCustomHook();
+
+  const auth = useContext(AuthContext);
 
   // creates a new element in the array. UUID will be used to remove element from array when deleting exercise.
   const addExercise = () => {
@@ -98,7 +101,7 @@ const NewWorkout = () => {
       });
   };
 
-  // need to ensure we send the user id also.
+  // need to ensure we send the token. Can be used to authenticate user. We then extract the userId from the token.
   const workoutSubmitHandler = async () => {
     console.log(formData);
     try {
@@ -106,9 +109,13 @@ const NewWorkout = () => {
         "http://localhost:5000/api/workouts/new",
         "POST",
         JSON.stringify(formData),
-        { "Content-Type": "application/json" }
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
       );
       console.log(responseData);
+      // need to redirect somewhere. Potentially to the my workouts page.
     } catch (e) {}
   };
 
