@@ -8,7 +8,6 @@ import "./NavLinks.css";
 // user id is required as will be included in request to backend. enable us to fetch specific data in the backend
 const NavLinks = () => {
   const context = useContext(AuthContext);
-  console.log(context);
   return (
     <ul className="nav-links">
       {context.isLoggedIn && (
@@ -77,7 +76,7 @@ const NavLinks = () => {
       )}
       {!context.isLoggedIn && (
         <li>
-          <Link exact to="/login" onClick={context.login}>
+          <Link exact to="/login">
             LOGIN
           </Link>
         </li>
