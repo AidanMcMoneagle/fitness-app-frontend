@@ -1,6 +1,7 @@
 import React, { useState, useReducer, useEffect, useCallback } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
+import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 
 import ExerciseList from "../components/ExerciseList";
 
@@ -46,6 +47,9 @@ const NewWorkout = () => {
 
   const [formData, dispatch] = useReducer(inputReducer, []);
 
+  const { error, isLoading, sendRequest, clearError } =
+    useHttpClientCustomHook();
+
   // creates a new element in the array. UUID will be used to remove element from array when deleting exercise.
   const addExercise = () => {
     const newList = [...exerciseNumber, uuidv4()];
@@ -71,17 +75,6 @@ const NewWorkout = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (
-  //     formData.exercises &&
-  //     formData.exercises.length === exerciseNumber.length
-  //   ) {
-  //     setFormIsValid(true);
-  //   } else {
-  //     setFormIsValid(false);
-  //   }
-  // }, [exerciseNumber, formData]);
-
   const onInput = (id, value) => {
     const hasExerciseBeenAdded = formData.find((exercise) => {
       return exercise.id === id;
@@ -105,9 +98,18 @@ const NewWorkout = () => {
       });
   };
 
-  const workoutSubmitHandler = () => {
+  // need to ensure we send the user id also.
+  const workoutSubmitHandler = async () => {
     console.log(formData);
-    //send this data to the backend
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/workouts/new",
+        "POST",
+        JSON.stringify(formData),
+        { "Content-Type": "application/json" }
+      );
+      console.log(responseData);
+    } catch (e) {}
   };
 
   return (

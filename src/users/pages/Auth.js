@@ -11,6 +11,8 @@
 
 import React, { useState, useReducer, useEffect, useCallback } from "react";
 
+import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
+
 import Input from "../../shared/components/FormElements/Input";
 import {
   VALIDATOR_MINLENGTH,
@@ -93,6 +95,9 @@ const Auth = () => {
     formIsValid: false,
   });
 
+  const { error, isLoading, sendRequest, clearError } =
+    useHttpClientCustomHook();
+
   const toggleLoginMode = (e) => {
     e.preventDefault();
     if (isLoginMode) {
@@ -123,10 +128,39 @@ const Auth = () => {
     console.log("formState", formState);
   });
 
+  // send request to backend using hook. Need to include formState in the body. The response
+  const onSubmitHandler = async () => {
+    if (isLoginMode) {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/users/login",
+          "POST",
+          JSON.stringify(formState),
+          { "Content-Type": "application/json" }
+        );
+        console.log(responseData);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const responseData = sendRequest(
+          "http://localhost:5000/api/users/signup",
+          "POST",
+          JSON.stringify(formState),
+          { "Content-Type": "application/json" }
+        );
+        console.log(responseData);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
   return (
     <section className="section-center">
       <h3>{isLoginMode ? "Login Required" : "Sign up Required"}</h3>
-      <form>
+      <form onSubmit={onSubmitHandler}>
         {!isLoginMode && (
           <Input
             id="name"
