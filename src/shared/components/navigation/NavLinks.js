@@ -83,7 +83,9 @@ const NavLinks = () => {
       )}
       {context.isLoggedIn && (
         <li>
-          <button onClick={context.logout}>LOGOUT</button>
+          <Link exact to="/" onClick={context.logout}>
+            LOGOUT
+          </Link>
         </li>
       )}
     </ul>
