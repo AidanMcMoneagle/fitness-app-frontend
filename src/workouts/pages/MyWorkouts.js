@@ -16,15 +16,20 @@ const MyWorkouts = () => {
   const deleteWorkoutHandler = async (workoutId) => {
     // send request to backend to delete workout.
     console.log(workoutId);
-    // const response = await sendRequest(
-    //   `http://localhost:5000/api/workouts/:${workoutId}`,
-    //   "DELETE",
-    //   null,
-    //   {
-    //     Authorization: "Bearer " + auth.token,
-    //   }
-    // );
-    // console.log(response)
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/workouts/${workoutId}`,
+        "DELETE",
+        null,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+      const newUserWorkoutArray = userWorkouts.filter((workout) => {
+        return workoutId !== workout._id;
+      });
+      setUserWorkouts(newUserWorkoutArray);
+    } catch (err) {}
   };
 
   // we then want the re render the workout page with the workout that has been deleted removed.

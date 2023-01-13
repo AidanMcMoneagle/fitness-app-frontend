@@ -5,7 +5,9 @@ import UserWorkout from "./UserWorkout";
 //userWorkoutsArray is an array of objects. each object represents a workout.
 const UserWorkoutList = (props) => {
   const userWorkoutsArray = props.userWorkouts;
+  const { deleteHandler } = props;
   console.log(userWorkoutsArray);
+
   return (
     <div>
       {userWorkoutsArray.map((workout, index) => {
@@ -13,7 +15,7 @@ const UserWorkoutList = (props) => {
           <div className="section-center">
             <h5>{`Workout Number ${index + 1}`}</h5>
             <UserWorkout key={workout._id} userWorkout={workout} />;
-            <button onClick={props.deleteHandler(workout._id)}>
+            <button onClick={() => deleteHandler(workout._id)}>
               DELETE WORKOUT
             </button>
           </div>
