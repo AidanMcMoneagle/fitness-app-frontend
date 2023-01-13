@@ -34,6 +34,7 @@ function App() {
     setUserId(uid);
   };
 
+  // redirect to home page
   const logout = () => {
     setIsLoggedIn(false);
     setToken(null);
