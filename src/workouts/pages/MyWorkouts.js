@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
 import UserWorkoutList from "../components/UserWorkoutList";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 // here we show all user workouts.
 const MyWorkouts = () => {
@@ -59,6 +61,8 @@ const MyWorkouts = () => {
 
   return (
     <React.Fragment>
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorModal error={error} clearError={clearError} />}
       {userWorkouts && userWorkouts.length === 0 && (
         <div className="section-center">
           {"You Currently have not added any workouts, Please add one"}
