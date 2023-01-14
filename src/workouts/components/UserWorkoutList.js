@@ -19,13 +19,12 @@ const UserWorkoutList = (props) => {
         {userWorkoutsArray.map((workout, index) => {
           return (
             <div className="section-center">
-              <h5>{`Workout Number ${index + 1}`}</h5>
               <UserWorkout
                 key={workout._id}
                 userWorkout={workout}
                 deleteHandler={deleteHandler}
+                index={index}
               />
-              ;
             </div>
           );
         })}
