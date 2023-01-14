@@ -23,13 +23,14 @@ const useHttpClientCustomHook = () => {
 
       responseData = await response.json();
 
-      // fetch will return a response if the response contains
+      //throw new error object with the message property equal responseData.message=err.message on Backend(what we want to display to client)
       if (!response.ok) {
         throw new Error(responseData.message);
       }
 
       setIsLoading(false);
     } catch (error) {
+      console.log(error, "THIS IS THE ERROR");
       setError(error.message);
       setIsLoading(false);
       throw error;

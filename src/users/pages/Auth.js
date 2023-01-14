@@ -157,7 +157,7 @@ const Auth = () => {
         auth.login(userId, token);
         history.push("/"); // redirect to home page once we have logged in
       } catch (err) {
-        console.log(err);
+        console.log(error);
       }
     } else {
       try {
