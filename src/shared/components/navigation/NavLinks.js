@@ -14,7 +14,7 @@ const NavLinks = () => {
         <li>
           <NavLink
             exact
-            to="/userId/myworkouts"
+            to="/myworkouts"
             activeStyle={{
               color: "white",
               backgroundColor: "#1e90ff",

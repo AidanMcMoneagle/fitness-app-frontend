@@ -15,14 +15,6 @@ import Auth from "./users/pages/Auth";
 
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 
-//users // we have multiple users. Each User has workout.
-
-//workouts
-
-//each user has workouts.
-
-//test comment 3
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
@@ -46,7 +38,7 @@ function App() {
       <Route exact path="/">
         <MainNavigation />
       </Route>
-      <Route exact path="/:userId/myworkouts">
+      <Route exact path="/myworkouts">
         <MyWorkouts />
       </Route>
       <Route exact path="/workouts/new">

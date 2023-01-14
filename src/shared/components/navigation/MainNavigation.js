@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
-import BackDrop from "./BackDrop";
+import BackDrop from "../UIElements/BackDrop";
 
 import "./MainNavigation.css";
 

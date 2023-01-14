@@ -1,4 +1,5 @@
 import React, { useState, useReducer, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
@@ -7,6 +8,8 @@ import AuthContext from "../../shared/context/auth-context";
 import ExerciseList from "../components/ExerciseList";
 
 import "./NewWorkout.css";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 const inputReducer = (state, action) => {
   if (action.type === "EXERCISE ADDED") {
@@ -52,6 +55,8 @@ const NewWorkout = () => {
     useHttpClientCustomHook();
 
   const auth = useContext(AuthContext);
+
+  const history = useHistory();
 
   // creates a new element in the array. UUID will be used to remove element from array when deleting exercise.
   const addExercise = () => {
@@ -115,32 +120,38 @@ const NewWorkout = () => {
         }
       );
       console.log(responseData);
+      history.push("/workouts");
       // need to redirect somewhere. Potentially to the my workouts page.
     } catch (e) {}
   };
 
   return (
-    <section className="section-center">
-      <h3>NEW WORKOUT</h3>
-      <ExerciseList
-        exerciseNumber={exerciseNumber}
-        onInput={onInput}
-        deleteExercise={deleteExercise}
-      />
-      <div className="add-exercise-btn">
-        <button onClick={addExercise}>
-          <HiOutlinePlusCircle />
-        </button>
-      </div>
-      {exerciseNumber.length > 0 && (
-        <button
-          onClick={workoutSubmitHandler}
-          disabled={!formIsValid || formData.length !== exerciseNumber.length}
-        >
-          Create Workout
-        </button>
-      )}
-    </section>
+    <React.Fragment>
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorModal error={error} clearError={clearError} />}
+      <section className="section-center">
+        <h3>NEW WORKOUT</h3>
+        <ExerciseList
+          exerciseNumber={exerciseNumber}
+          onInput={onInput}
+          deleteExercise={deleteExercise}
+        />
+        <div className="add-exercise-btn">
+          <button onClick={addExercise}>
+            <HiOutlinePlusCircle />
+          </button>
+        </div>
+        {exerciseNumber.length > 0 && (
+          <button
+            type="button"
+            onClick={workoutSubmitHandler}
+            disabled={!formIsValid || formData.length !== exerciseNumber.length}
+          >
+            Create Workout
+          </button>
+        )}
+      </section>
+    </React.Fragment>
   );
 };
 

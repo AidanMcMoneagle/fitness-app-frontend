@@ -21,6 +21,8 @@ import { useHistory } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 import Input from "../../shared/components/FormElements/Input";
 import {
@@ -183,6 +185,8 @@ const Auth = () => {
 
   return (
     <React.Fragment>
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorModal error={error} clearError={clearError} />}
       <section className="section-center">
         <h3>{isLoginMode ? "Login Required" : "Sign up Required"}</h3>
         <form onSubmit={onSubmitHandler}>
