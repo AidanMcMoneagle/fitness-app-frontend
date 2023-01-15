@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import UserExercise from "./UserExercise";
 import Modal from "../../shared/components/UIElements/Modal";
 import { v4 as uuidv4 } from "uuid";
 
 import "./UserWorkout.css";
 
+
+// we want to have a reducer here. This reducer will hold all info for workout. Will be an array of objects. Each obj
+
+/*[{
+    exerciseId: 
+    exerciseSets: [
+            weightforSet1, weightforSet2, weightforSet3
+        ]
+    }
+}, 
+{}]
+*/
+
+
+
 const UserWorkout = (props) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [inTrackingMode, setIsTrackingMode] = useState(false);
+  const [numberOfSetHeaders, setNumberOfSetHeaders] = useState([]);
 
   const openDeleteModal = () => {
     setIsDeleteModalOpen(true);
@@ -19,13 +35,22 @@ const UserWorkout = (props) => {
 
   const openTrackingMode = () => {
     setIsTrackingMode(!inTrackingMode);
-    // call a function that has been passed up by the UserExercise.
-    // const setNumberOfInputs = (numSets) => {
-
-    // }
   };
 
+  // write some commnets about what this function is. What is it meant to do?
+  const passNumberOfSetInputs = useCallback(
+    (inputArray) => {
+      if (inputArray.length > numberOfSetHeaders.length) {
+        setNumberOfSetHeaders(inputArray);
+      } else {
+        return;
+      }
+    },
+    [numberOfSetHeaders.length]
+  );
+
   const { userWorkout, deleteHandler } = props;
+
   return (
     <React.Fragment>
       {isDeleteModalOpen && (
@@ -55,9 +80,16 @@ const UserWorkout = (props) => {
               <th>Exercise</th>
               <th>Repetitions</th>
               <th>Sets</th>
-              {inTrackingMode && <th>Weight</th>} {/* Need to pass up data  */}
-              {inTrackingMode && <th>Weight</th>} {/* Need to pass up data  */}
-              {inTrackingMode && <th>Weight</th>} {/* Need to pass up data  */}
+              {inTrackingMode &&
+                numberOfSetHeaders.length > 0 &&
+                numberOfSetHeaders.map((input, index) => {
+                  return (
+                    <th className="track-input" key={index}>{`Set ${
+                      index + 1
+                    }`}</th>
+                  );
+                })}
+              {inTrackingMode && numberOfSetHeaders.length > 0 && <th></th>}
             </tr>
           </thead>
           <tbody>
@@ -65,9 +97,11 @@ const UserWorkout = (props) => {
               return (
                 <tr>
                   <UserExercise
-                    key={uuidv4()}
+                    key={exercise._id}
                     exercise={exercise}
                     inTrackingMode={inTrackingMode}
+                    passNumberOfSetInputs={passNumberOfSetInputs}
+                    numberOfSetHeaders={numberOfSetHeaders}
                   />
                 </tr>
               );
@@ -75,7 +109,6 @@ const UserWorkout = (props) => {
           </tbody>
         </table>
       </form>
-
       <button onClick={openDeleteModal}>DELETE WORKOUT</button>
       <button onClick={openTrackingMode}>TRACK WORKOUT</button>
     </React.Fragment>

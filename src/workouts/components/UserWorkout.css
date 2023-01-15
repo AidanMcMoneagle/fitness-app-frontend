@@ -38,3 +38,19 @@
 .workout-table td input {
   width: 30px;
 }
+
+.workout-table button.track-exercise-btn {
+  background: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: var(--transition);
+}
+
+.workout-table button.track-exercise-btn {
+  color: var(--clr-green-light);
+}
+.workout-table button.track-exercise-btn {
+  color: var(--clr-green-dark);
+  font-size: 1rem;
+}

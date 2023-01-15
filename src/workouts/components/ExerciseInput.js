@@ -21,7 +21,7 @@ const ExerciseInput = (props) => {
   const [exerciseName, setExerciseName] = useState("");
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
-  const [hasExcerciseBeenAdded, setHasExerciseBeenAdded] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
+  const [hasExerciseBeenAdded, setHasExerciseBeenAdded] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
 
   // useReducer to manage the state of each excercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
@@ -62,9 +62,7 @@ const ExerciseInput = (props) => {
   return (
     <form
       onSubmit={submitHandler}
-      className={
-        hasExcerciseBeenAdded ? "exercise-added" : "exercise-not-added"
-      }
+      className={hasExerciseBeenAdded ? "exercise-added" : "exercise-not-added"}
     >
       <div className="exercise-header">
         <h4>{`Exercise ${props.index + 1}`}</h4>

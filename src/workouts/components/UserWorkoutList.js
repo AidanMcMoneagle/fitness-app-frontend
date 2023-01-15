@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 // each element in the array is a userWorkout
 import UserWorkout from "./UserWorkout";
-import Modal from "../../shared/components/UIElements/Modal";
+import { v4 as uuidv4 } from "uuid";
 
 //userWorkoutsArray is an array of objects. each object represents a workout.
 const UserWorkoutList = (props) => {
   const userWorkoutsArray = props.userWorkouts;
   const { deleteHandler } = props;
   console.log(userWorkoutsArray);
-
-  {
-    /* <button onClick={() => deleteHandler(workout._id)}> */
-  }
 
   return (
     <React.Fragment>
