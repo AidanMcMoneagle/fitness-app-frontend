@@ -50,7 +50,17 @@
 .workout-table button.track-exercise-btn {
   color: var(--clr-green-light);
 }
+
 .workout-table button.track-exercise-btn {
   color: var(--clr-green-dark);
   font-size: 1rem;
+}
+
+.workout-table button.track-exercise-btn--disabled {
+  background: transparent;
+  border-color: transparent;
+  cursor: not-allowed;
+  font-size: 0.7rem;
+  transition: var(--transition);
+  color: grey;
 }
