@@ -62,8 +62,8 @@ const UserExercise = (props) => {
 
 export default UserExercise;
 
-//button submits the each row. updates the state of the tracking form to be sent.
-// we want the button styling to change when the form is valid and ready to be submitted.
+//button sends data to reducer in parent in each row. updates the state of the tracking data to be sent.
+// we want the button styling to change when all inputs have been added.
 // when we click the button we want to call a function created in the parent to pass the data.
 // this is where the reducer is.
 // the reducer then dispatches an action and we change the state of the tracking.
