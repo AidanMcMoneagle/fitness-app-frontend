@@ -42,23 +42,23 @@ const NavLinks = () => {
           </NavLink>
         </li>
       )}
-      {context.isLoggedIn && (
-        <li>
-          <NavLink
-            exact
-            to="/userId/myprogress"
-            activeStyle={{
-              color: "white",
-              backgroundColor: "#1e90ff",
-              borderRadius: "2em",
-              textDecoration: "underline white",
-            }}
-          >
-            MY PROGRESS
-          </NavLink>
-        </li>
-      )}
-      {context.isLoggedIn && (
+      {/* {context.isLoggedIn && (
+      //   <li>
+      //     <NavLink
+      //       exact
+      //       to="/userId/myprogress"
+      //       activeStyle={{
+      //         color: "white",
+      //         backgroundColor: "#1e90ff",
+      //         borderRadius: "2em",
+      //         textDecoration: "underline white",
+      //       }}
+      //     >
+      //       MY PROGRESS
+      //     </NavLink>
+      //   </li>
+      // )} */}
+      {/* {context.isLoggedIn && (
         <li>
           <NavLink
             exact
@@ -73,7 +73,7 @@ const NavLinks = () => {
             MY PHOTOS
           </NavLink>
         </li>
-      )}
+      )} */}
       {!context.isLoggedIn && (
         <li>
           <Link exact to="/login">

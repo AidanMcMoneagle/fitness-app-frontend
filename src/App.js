@@ -44,7 +44,7 @@ function App() {
       <Route exact path="/workouts/new">
         <NewWorkout />
       </Route>
-      <Route exact path="/:userId/myprogress">
+      <Route exact path="/:workoutId/myprogress">
         <MyProgress />
       </Route>
       <Route exact path="/:userId/myphotos">
