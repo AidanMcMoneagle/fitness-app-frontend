@@ -23,7 +23,7 @@ const ExerciseInput = (props) => {
   const [sets, setSets] = useState("");
   const [hasExerciseBeenAdded, setHasExerciseBeenAdded] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
 
-  // useReducer to manage the state of each excercise (name, reps, sets)
+  // useReducer to manage the state of each exercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
 
   // need to pass up exercise data to NewWorkout where it can be submitted. Need to pass the data to a function that has been passed down from the parent as props. Important that when we send the data we include the id. Allows us to edit and delete later if required.
