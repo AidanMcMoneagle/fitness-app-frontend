@@ -1,9 +1,22 @@
-import React, { useState, useCallback, useReducer, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useReducer,
+  useEffect,
+  useContext,
+} from "react";
+import { useHistory } from "react-router-dom";
 import UserExercise from "./UserExercise";
 import Modal from "../../shared/components/UIElements/Modal";
-import { v4 as uuidv4 } from "uuid";
+import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
+import AuthContext from "../../shared/context/auth-context";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 import "./UserWorkout.css";
+
+// need a link here to view workout progress.
+// this will redirect to the my progress page. In the link it will contain the workout id. This will allow when the page loads to only display info for certain workout. Get workout progress.
 
 // we want to have a reducer here. This reducer will hold all info for workout. Will be an array of objects. Each obj
 
@@ -38,6 +51,13 @@ const UserWorkout = (props) => {
   const [areAllExercisesTracked, setAreAllExercisesTracked] = useState(false);
 
   const [inputState, dispatch] = useReducer(inputReducer, []);
+
+  const { error, isLoading, sendRequest, clearError } =
+    useHttpClientCustomHook();
+
+  const auth = useContext(AuthContext);
+
+  const history = useHistory();
 
   const openDeleteModal = () => {
     setIsDeleteModalOpen(true);
@@ -83,12 +103,31 @@ const UserWorkout = (props) => {
   };
 
   // want to redirect somewhere once we have submitted. Need to ensure we sent the workout Id. Should include this in the url. Important so we can ensure we adding tracked workouts.
-  const submitWorkoutTrackingData = () => {
+  const submitWorkoutTrackingData = async () => {
     console.log(inputState);
+    try {
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/trackworkouts/${userWorkout._id}`,
+        "POST",
+        JSON.stringify({
+          exerciseWeights: inputState,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+      console.log(responseData);
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <React.Fragment>
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorModal error={error} clearError={clearError} />}
       {isDeleteModalOpen && (
         <Modal
           show
