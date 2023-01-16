@@ -4,8 +4,9 @@ import { AiOutlineCheck } from "react-icons/ai";
 // if we want to track our workout need weight to pop up
 // need to write some comments on below code
 const UserExercise = (props) => {
-  const { name, sets, reps } = props.exercise;
-  const { passNumberOfSetInputs, numberOfSetHeaders, inTrackingMode } = props;
+  const { name, sets, reps, _id } = props.exercise;
+  const { passNumberOfSetInputs, numberOfSetHeaders, inTrackingMode, onInput } =
+    props;
 
   //state for number of sets for each exercise. We map over array and for each element (set) we return a form input.
   const [numberOfSetInputs, setNumberOfSetInputs] = useState([]);
@@ -15,6 +16,8 @@ const UserExercise = (props) => {
 
   //store the state if the all inputs are populated. Used to conditionally apply styling and enable button to send data to parent.
   const [isSetInputPopulated, setIsSetInputPopulated] = useState(false);
+
+  const [isInputsReadOnly, setisInputsReadOnly] = useState(false);
 
   //Need to do if Check otherwise we create an infinite loop.
   useEffect(() => {
@@ -68,7 +71,6 @@ const UserExercise = (props) => {
   }, [inputState]);
 
   const changeHandler = (index, e) => {
-    e.preventDefault();
     const inputValue = e.target.value;
     console.log(inputValue);
     console.log(index);
@@ -89,6 +91,13 @@ const UserExercise = (props) => {
     console.log(isSetInputPopulated);
   }, [inputState, isSetInputPopulated]);
 
+  // passes the state of the set inputs to parent. Once we have passed data to parent we set the inputs to be read only so these cannot be edited.
+  const passDataToParent = (e) => {
+    e.preventDefault();
+    onInput(_id, inputState);
+    setisInputsReadOnly(true);
+  };
+
   return (
     <React.Fragment>
       <td>{name}</td>
@@ -103,6 +112,7 @@ const UserExercise = (props) => {
                 type="number"
                 value={inputState[index]}
                 onChange={(e) => changeHandler(index, e)}
+                readOnly={isInputsReadOnly ? true : false}
               ></input>
             </td>
           );
@@ -114,6 +124,7 @@ const UserExercise = (props) => {
               !isSetInputPopulated && "track-exercise-btn--disabled"
             }`}
             disabled={!isSetInputPopulated}
+            onClick={(e) => passDataToParent(e)}
           >
             <AiOutlineCheck />
           </button>
