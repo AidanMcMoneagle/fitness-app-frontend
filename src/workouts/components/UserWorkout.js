@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useContext,
 } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import UserExercise from "./UserExercise";
 import Modal from "../../shared/components/UIElements/Modal";
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
@@ -34,7 +34,11 @@ const inputReducer = (state, action) => {
   if (action.type === "EXERCISE_ADDED") {
     return [
       ...state,
-      { exerciseId: action.payload.id, exerciseSets: action.payload.value },
+      {
+        exerciseId: action.payload.id,
+        exerciseName: action.payload.name,
+        exerciseSets: action.payload.value,
+      },
     ];
   }
 };
@@ -92,11 +96,12 @@ const UserWorkout = (props) => {
     [numberOfSetHeaders.length]
   );
 
-  const onInput = (id, value) => {
+  const onInput = (id, value, name) => {
     dispatch({
       type: "EXERCISE_ADDED",
       payload: {
         id,
+        name,
         value,
       },
     });
@@ -190,6 +195,9 @@ const UserWorkout = (props) => {
       {areAllExercisesTracked && (
         <button onClick={submitWorkoutTrackingData}>SUBMIT NUMBERS</button>
       )}
+      <Link exact to={`/${userWorkout._id}/myprogress`}>
+        <button>View Workout Progress</button>
+      </Link>
     </React.Fragment>
   );
 };
