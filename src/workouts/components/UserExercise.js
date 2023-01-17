@@ -94,7 +94,7 @@ const UserExercise = (props) => {
   // passes the state of the set inputs to parent. Once we have passed data to parent we set the inputs to be read only so these cannot be edited.
   const passDataToParent = (e) => {
     e.preventDefault();
-    onInput(_id, inputState);
+    onInput(_id, inputState, name);
     setisInputsReadOnly(true);
   };
 

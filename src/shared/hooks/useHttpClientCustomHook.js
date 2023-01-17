@@ -1,42 +1,40 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useHttpClientCustomHook = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
   // send request is configurable. Wrap in useCallback to ensure that the function never gets recreated when the component that uses the hook re renders.
-  const sendRequest = async (
-    url,
-    method = "GET",
-    body = null,
-    headers = {}
-  ) => {
-    setIsLoading(true);
+  const sendRequest = useCallback(
+    async (url, method = "GET", body = null, headers = {}) => {
+      setIsLoading(true);
 
-    let responseData;
-    try {
-      const response = await fetch(url, {
-        method,
-        body,
-        headers,
-      });
+      let responseData;
+      try {
+        const response = await fetch(url, {
+          method,
+          body,
+          headers,
+        });
 
-      responseData = await response.json();
+        responseData = await response.json();
 
-      //throw new error object with the message property equal responseData.message=err.message on Backend(what we want to display to client)
-      if (!response.ok) {
-        throw new Error(responseData.message);
+        //throw new error object with the message property equal responseData.message=err.message on Backend(what we want to display to client)
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error, "THIS IS THE ERROR");
+        setError(error.message);
+        setIsLoading(false);
+        throw error;
       }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error, "THIS IS THE ERROR");
-      setError(error.message);
-      setIsLoading(false);
-      throw error;
-    }
-    return responseData;
-  };
+      return responseData;
+    },
+    []
+  );
 
   // will return this aswell so the componenets that use the hook can clear the error.
   const clearError = () => {
