@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 
+import "./UserExercise.css";
+
 // if we want to track our workout need weight to pop up
 // need to write some comments on below code
 const UserExercise = (props) => {
@@ -96,6 +98,8 @@ const UserExercise = (props) => {
     e.preventDefault();
     onInput(_id, inputState, name);
     setisInputsReadOnly(true);
+    //set input is populated however we must change back to false so we cannot re-submit data
+    setIsSetInputPopulated(false);
   };
 
   return (
@@ -113,6 +117,7 @@ const UserExercise = (props) => {
                 value={inputState[index]}
                 onChange={(e) => changeHandler(index, e)}
                 readOnly={isInputsReadOnly ? true : false}
+                className={isInputsReadOnly ? "fill-input" : "input"}
               ></input>
             </td>
           );
@@ -120,9 +125,7 @@ const UserExercise = (props) => {
       {inTrackingMode && numberOfSetInputs.length > 0 && (
         <td>
           <button
-            className={`track-exercise-btn ${
-              !isSetInputPopulated && "track-exercise-btn--disabled"
-            }`}
+            className={"track-exercise-btn"}
             disabled={!isSetInputPopulated}
             onClick={(e) => passDataToParent(e)}
           >

@@ -1,15 +1,15 @@
 .section-center {
   width: 90vw;
   margin: 0 auto;
-  max-width: 35rem;
-  margin-top: 8rem;
+  max-width: 100rem;
+  margin-top: 2rem;
 }
 
 .section-center {
   background: #fff;
   border-radius: 0.25rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s linear;
+  transition: all 0.1s linear;
   padding: 2rem;
 }
 
