@@ -15,21 +15,6 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 import "./UserWorkout.css";
 
-// need a link here to view workout progress.
-// this will redirect to the my progress page. In the link it will contain the workout id. This will allow when the page loads to only display info for certain workout. Get workout progress.
-
-// we want to have a reducer here. This reducer will hold all info for workout. Will be an array of objects. Each obj
-
-/*[{
-    exerciseId: 
-    exerciseSets: [
-            weightforSet1, weightforSet2, weightforSet3
-        ]
-    }
-}, 
-]
-*/
-
 const inputReducer = (state, action) => {
   if (action.type === "EXERCISE_ADDED") {
     return [
@@ -44,8 +29,8 @@ const inputReducer = (state, action) => {
 };
 
 const UserWorkout = (props) => {
-  const { userWorkout, deleteHandler } = props;
-  console.log(userWorkout);
+  const { userWorkout, deleteHandler, isViewingArchivedWorkouts } = props;
+  console.log(userWorkout, userWorkout);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [inTrackingMode, setIsTrackingMode] = useState(false);
@@ -129,6 +114,18 @@ const UserWorkout = (props) => {
     }
   };
 
+  const { archiveWorkout } = props;
+
+  // send a request to Update Workout.
+  const archiveWorkoutHandler = () => {
+    return archiveWorkout(userWorkout._id);
+  };
+
+  const { unArchiveWorkout } = props;
+  const unArchiveWorkoutHandler = () => {
+    return unArchiveWorkout(userWorkout._id);
+  };
+
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
@@ -152,52 +149,67 @@ const UserWorkout = (props) => {
           </p>
         </Modal>
       )}
-      <h5>{`Workout Number ${props.index + 1}`}</h5>
-      <form>
-        <table class="workout-table">
-          <thead>
-            <tr>
-              <th>Exercise</th>
-              <th>Repetitions</th>
-              <th>Sets</th>
-              {inTrackingMode &&
-                numberOfSetHeaders.length > 0 &&
-                numberOfSetHeaders.map((input, index) => {
-                  return (
-                    <th className="track-input" key={index}>{`Set ${
-                      index + 1
-                    }`}</th>
-                  );
-                })}
-              {inTrackingMode && numberOfSetHeaders.length > 0 && <th></th>}
-            </tr>
-          </thead>
-          <tbody>
-            {userWorkout.exercises.map((exercise) => {
-              return (
-                <tr>
-                  <UserExercise
-                    key={exercise._id}
-                    exercise={exercise}
-                    inTrackingMode={inTrackingMode}
-                    passNumberOfSetInputs={passNumberOfSetInputs}
-                    numberOfSetHeaders={numberOfSetHeaders}
-                    onInput={onInput}
-                  />
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </form>
-      <button onClick={openDeleteModal}>DELETE WORKOUT</button>
-      <button onClick={openTrackingMode}>TRACK WORKOUT</button>
-      {areAllExercisesTracked && (
-        <button onClick={submitWorkoutTrackingData}>SUBMIT NUMBERS</button>
-      )}
-      <Link exact to={`/${userWorkout._id}/myprogress`}>
-        <button>View Workout Progress</button>
-      </Link>
+      <div className="section-center">
+        <h5>{`Workout Number ${props.index + 1}`}</h5>
+        <form>
+          <table class="workout-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Repetitions</th>
+                <th>Sets</th>
+                {inTrackingMode &&
+                  numberOfSetHeaders.length > 0 &&
+                  numberOfSetHeaders.map((input, index) => {
+                    return (
+                      <th className="track-input" key={index}>{`Set ${
+                        index + 1
+                      }`}</th>
+                    );
+                  })}
+                {inTrackingMode && numberOfSetHeaders.length > 0 && <th></th>}
+              </tr>
+            </thead>
+            <tbody>
+              {userWorkout.exercises.map((exercise) => {
+                return (
+                  <tr>
+                    <UserExercise
+                      key={exercise._id}
+                      exercise={exercise}
+                      inTrackingMode={inTrackingMode}
+                      passNumberOfSetInputs={passNumberOfSetInputs}
+                      numberOfSetHeaders={numberOfSetHeaders}
+                      onInput={onInput}
+                    />
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </form>
+        <button onClick={openDeleteModal}>DELETE WORKOUT</button>
+        {!isViewingArchivedWorkouts && (
+          <button onClick={openTrackingMode}>TRACK WORKOUT</button>
+        )}
+        {!isViewingArchivedWorkouts && (
+          <button onClick={archiveWorkoutHandler}>ARCHIVE WORKOUT</button>
+        )}
+        {isViewingArchivedWorkouts && (
+          <button onClick={unArchiveWorkoutHandler}>
+            ADD TO ACTIVE WORKOUTS
+          </button>
+        )}
+        {areAllExercisesTracked && (
+          <button onClick={submitWorkoutTrackingData}>SUBMIT NUMBERS</button>
+        )}
+        {/* we can only view workout progress if the workoutprogress array is greater than 0 in length */}
+        {userWorkout.workoutProgress.length > 0 && (
+          <Link exact to={`/${userWorkout._id}/myprogress`}>
+            <button>View Workout Progress</button>
+          </Link>
+        )}
+      </div>
     </React.Fragment>
   );
 };
