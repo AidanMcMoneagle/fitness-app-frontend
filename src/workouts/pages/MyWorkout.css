@@ -1,0 +1,21 @@
+.btn-container {
+  position: relative;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.active-page {
+  color: white;
+  background-color: #1e90ff;
+  border-radius: 2em;
+  text-decoration: underline white;
+  border-color: #1e90ff;
+}
+
+.not-active-page {
+  color: black;
+  background-color: grey;
+  border-radius: 2em;
+  text-decoration: none;
+  border-color: grey;
+}
