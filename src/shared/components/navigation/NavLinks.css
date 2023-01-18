@@ -24,7 +24,7 @@
 .nav-links li a:hover {
   color: white;
   background-color: #1e90ff;
-  border-radius: 2em;
+  border-radius: 18px;
 }
 
 @media (min-width: 1200px) {

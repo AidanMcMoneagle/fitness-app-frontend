@@ -1,15 +1,79 @@
+.workout-data {
+  width: 90%;
+  max-width: 40rem;
+  margin: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.workout-data .workout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.workout-data .workout-header .workout-header-btns {
+  display: flex;
+  align-items: center;
+}
+
+.archive,
+.unarchive {
+  padding: 0.3rem 1rem;
+  border: 1px solid #979797;
+  border-radius: 18px;
+  background: #979797;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.7rem;
+}
+
+.archive:hover,
+.unarchive:hover {
+  background-color: grey;
+}
+
+.workout-data .btn-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.section-center {
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 100rem;
+  margin-top: 2rem;
+}
+
+.section-center {
+  background: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s linear;
+  padding: 2rem;
+}
+
 .workout-table {
   border-collapse: collapse;
-  margin: 25px 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   font-size: 0.9em;
-  font-family: sans-serif;
   min-width: 400px;
+  max-width: 40rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
 }
 
 .workout-table thead tr {
-  background-color: #009879;
+  background-color: #1e90ff;
   color: #ffffff;
 }
 
@@ -37,6 +101,7 @@
 
 .workout-table td input {
   width: 30px;
+  font-family: inherit;
 }
 
 .workout-table button.track-exercise-btn {
@@ -53,14 +118,31 @@
 
 .workout-table button.track-exercise-btn {
   color: var(--clr-green-dark);
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
-.workout-table button.track-exercise-btn--disabled {
+.workout-table button.track-exercise-btn:disabled {
   background: transparent;
   border-color: transparent;
   cursor: not-allowed;
-  font-size: 0.7rem;
-  transition: var(--transition);
+  font-size: 1rem;
   color: grey;
+}
+
+.btn-container button {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #000080;
+  border-radius: 18px;
+  background: #000080;
+  color: white;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-container button:hover,
+.btn-container button:active {
+  background: #87cefa;
+  border-color: #87cefa;
 }

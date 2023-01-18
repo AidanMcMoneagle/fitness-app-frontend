@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 // each element in the array is a userWorkout
 import UserWorkout from "./UserWorkout";
-import { v4 as uuidv4 } from "uuid";
 
 //userWorkoutsArray is an array of objects. each object represents a workout.
 const UserWorkoutList = (props) => {

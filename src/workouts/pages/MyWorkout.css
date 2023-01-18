@@ -1,4 +1,4 @@
-.btn-container {
+.navigation-btn-container {
   position: relative;
   margin-top: 100px;
   text-align: center;
@@ -7,15 +7,20 @@
 .active-page {
   color: white;
   background-color: #1e90ff;
-  border-radius: 2em;
+  border-radius: 18px;
   text-decoration: underline white;
   border-color: #1e90ff;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
 }
 
 .not-active-page {
   color: black;
-  background-color: grey;
-  border-radius: 2em;
+  border-radius: 18px;
   text-decoration: none;
-  border-color: grey;
+  background: #ccc;
+  color: #979797;
+  border-color: #ccc;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
 }

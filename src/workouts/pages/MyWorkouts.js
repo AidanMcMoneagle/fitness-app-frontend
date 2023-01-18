@@ -115,7 +115,8 @@ const MyWorkouts = () => {
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
       {userWorkouts && (
-        <div className="btn-container">
+        <div className="navigation-btn-container">
+          <h4>{"Navigate to:"}</h4>
           <button
             className={
               isViewingArchivedWorkouts ? "not-active-page" : "active-page"
@@ -144,17 +145,15 @@ const MyWorkouts = () => {
           </button>
         </div>
       )}
-      <div>
-        {userWorkouts && (
-          <UserWorkoutList
-            userWorkouts={userWorkouts}
-            deleteHandler={deleteWorkoutHandler}
-            archiveWorkout={archiveWorkout}
-            unArchiveWorkout={unArchiveWorkout}
-            isViewingArchivedWorkouts={isViewingArchivedWorkouts}
-          />
-        )}
-      </div>
+      {userWorkouts && (
+        <UserWorkoutList
+          userWorkouts={userWorkouts}
+          deleteHandler={deleteWorkoutHandler}
+          archiveWorkout={archiveWorkout}
+          unArchiveWorkout={unArchiveWorkout}
+          isViewingArchivedWorkouts={isViewingArchivedWorkouts}
+        />
+      )}
     </React.Fragment>
   );
 };
