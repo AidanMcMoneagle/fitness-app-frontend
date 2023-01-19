@@ -57,6 +57,7 @@ const UserExercise = (props) => {
     createInputArray(sets);
   }, [sets]); // changed dep array to sets
 
+  // when the inputState changes we check if all inputs have been populated.
   useEffect(() => {
     const areAllSetInputsPopulated = () => {
       let tracker = true;

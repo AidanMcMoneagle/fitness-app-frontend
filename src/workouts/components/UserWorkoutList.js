@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // each element in the array is a userWorkout
 import UserWorkout from "./UserWorkout";
 
+import "./UserWorkoutList.css";
+
 //userWorkoutsArray is an array of objects. each object represents a workout.
 const UserWorkoutList = (props) => {
   const userWorkoutsArray = props.userWorkouts;
@@ -11,7 +13,7 @@ const UserWorkoutList = (props) => {
   // here we distinguish between archived and not archived workouts. We need to do an if check and continue. We render two userworkout components.
   return (
     <React.Fragment>
-      <div>
+      <div className="user-workout-list">
         {!isViewingArchivedWorkouts &&
           userWorkoutsArray.map((workout, index) => {
             if (workout.isArchived === true) {
