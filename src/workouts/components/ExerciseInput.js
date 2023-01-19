@@ -1,6 +1,7 @@
 import React, { useState, useReducer, useEffect } from "react";
 import { FaTimes, FaEdit, FaTrash, FaAdd } from "react-icons/fa";
 import { HiPlus } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
 
 import "./ExerciseInput.css";
 
@@ -65,52 +66,55 @@ const ExerciseInput = (props) => {
       className={hasExerciseBeenAdded ? "exercise-added" : "exercise-not-added"}
     >
       <div className="exercise-header">
-        <h4>{`Exercise ${props.index + 1}`}</h4>
-        <div className="btn-container">
+        <h4 className="exercise-title">{`Exercise ${props.index + 1}`}</h4>
+        <div className="exercise-btn-container">
           <button
             type="submit"
-            className={exerciseState.value ? `edit-btn` : `add-btn`}
+            className={
+              exerciseState.value ? `exercise-edit-btn` : `exercise-add-btn`
+            }
             disabled={!exerciseName || !repetitions || !sets}
           >
             {!exerciseState.value ? <HiPlus /> : <FaEdit />}
           </button>
           <button className="delete-btn" onClick={deleteExerciseHandler}>
-            <FaTrash />
+            <AiOutlineClose />
           </button>
         </div>
       </div>
-      <div className={`exercise-form-control`}>
-        <label htmlFor="exercise">Exercise</label>
-        <input
-          className="input-exerciseName"
-          type="text"
-          id="exercise"
-          value={exerciseName}
-          onChange={(e) => setExerciseName(e.target.value)}
-        />
-        <label htmlFor="reps"></label>
-      </div>
-      <div className={"exercise-form-control"}>
-        <label htmlFor="reps">Reps</label>
-        <input
-          className="input-reps"
-          type="number"
-          min="1"
-          id="exercise"
-          value={repetitions}
-          onChange={(e) => setRepetitions(e.target.value)}
-        />
-      </div>
-      <div className={`exercise-form-control`}>
-        <label htmlFor="sets">Sets</label>
-        <input
-          className="input-sets"
-          type="number"
-          id="sets"
-          min="1"
-          value={sets}
-          onChange={(e) => setSets(e.target.value)}
-        />
+      <div className="exercise-form-control">
+        <div className="exercise-input">
+          <label htmlFor="exercise">Exercise</label>
+          <input
+            className="input-exerciseName"
+            type="text"
+            id="exercise"
+            value={exerciseName}
+            onChange={(e) => setExerciseName(e.target.value)}
+          />
+        </div>
+        <div className="exercise-input">
+          <label htmlFor="reps">Reps</label>
+          <input
+            className="input-reps"
+            type="number"
+            min="1"
+            id="exercise"
+            value={repetitions}
+            onChange={(e) => setRepetitions(e.target.value)}
+          />
+        </div>
+        <div className="exercise-input">
+          <label htmlFor="sets">Sets</label>
+          <input
+            className="input-sets"
+            type="number"
+            id="sets"
+            min="1"
+            value={sets}
+            onChange={(e) => setSets(e.target.value)}
+          />
+        </div>
       </div>
     </form>
   );

@@ -1,42 +1,54 @@
-.section-center {
-  width: 90vw;
-  margin: 0 auto;
-  max-width: 100rem;
-  margin-top: 2rem;
+.workout-title {
+  max-width: 510px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.section-center {
-  background: #fff;
-  border-radius: 0.25rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.1s linear;
-  padding: 2rem;
+.workout-title-form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.add-exercise-btn {
-  text-align: center;
-  background-color: transparent;
-  background: transparent;
-  border: none;
+.workout-title-form label {
+  font-weight: bold;
+  margin: 0.5rem 0;
 }
 
-.add-exercise-btn button {
-  background-color: transparent;
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 2rem;
+.workoutName-input {
+  width: 160px;
+  font: inherit;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  padding: 0.15rem 0.25rem;
+}
+
+.new-exercise-list {
+  width: 90%;
   padding: 0;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.add-exercise-btn button:hover {
-  font-size: 2.2rem;
+.add-exercise-btn,
+.create-workout-btn,
+.add-workoutname-btn {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #000080;
+  border-radius: 18px;
+  background: #000080;
+  color: white;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.new-workout-form h3 {
-  color: black;
-  margin-bottom: 1.5rem;
-  margin-left: 10px;
-  text-align: center;
+.add-workoutname-btn {
+  margin: 0.5rem 0;
+  border: none;
 }

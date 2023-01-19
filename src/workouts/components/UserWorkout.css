@@ -79,12 +79,7 @@
 }
 
 .workout-table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
-}
-
-.workout-table tbody tr.active-row {
-  font-weight: bold;
-  color: #009879;
+  border-bottom: 2px solid #1e90ff;
 }
 
 .workout-table td input {
@@ -96,17 +91,9 @@
   background: transparent;
   border-color: transparent;
   cursor: pointer;
-  font-size: 0.7rem;
-  transition: var(--transition);
-}
-
-.workout-table button.track-exercise-btn {
-  color: var(--clr-green-light);
-}
-
-.workout-table button.track-exercise-btn {
   color: var(--clr-green-dark);
   font-size: 1.2rem;
+  transition: var(--transition);
 }
 
 .workout-table button.track-exercise-btn:disabled {
