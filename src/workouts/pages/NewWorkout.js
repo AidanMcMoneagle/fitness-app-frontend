@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useState, useReducer, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
@@ -10,6 +10,7 @@ import ExerciseList from "../components/ExerciseList";
 import "./NewWorkout.css";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import Card from "../../shared/components/UIElements/Card";
 
 const inputReducer = (state, action) => {
   if (action.type === "EXERCISE ADDED") {
@@ -45,9 +46,12 @@ const inputReducer = (state, action) => {
 };
 
 const NewWorkout = () => {
-  const [exerciseNumber, setExerciseNumber] = useState([]); // useState to control the state of the number of exercises on the page
+  // contains the state of the number of exercises on the page
+  const [exerciseNumber, setExerciseNumber] = useState([]);
 
   const [formIsValid, setFormIsValid] = useState(false);
+
+  const [workoutName, setWorkoutName] = useState("");
 
   const [formData, dispatch] = useReducer(inputReducer, []);
 
@@ -58,7 +62,7 @@ const NewWorkout = () => {
 
   const history = useHistory();
 
-  // creates a new element in the array. UUID will be used to remove element from array when deleting exercise.
+  // creates a new element in the exerciseNumber array. UUID will be used to remove element from array when deleting exercise.
   const addExercise = () => {
     const newList = [...exerciseNumber, uuidv4()];
     setExerciseNumber(newList);
@@ -125,32 +129,56 @@ const NewWorkout = () => {
     } catch (e) {}
   };
 
+  const workoutTitleSubmitHandler = (e) => {
+    e.preventDefault();
+    // dispatch an action to add the workoutName to the formData.
+  };
+
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
-      <section className="section-center">
-        <h3>NEW WORKOUT</h3>
-        <ExerciseList
-          exerciseNumber={exerciseNumber}
-          onInput={onInput}
-          deleteExercise={deleteExercise}
-        />
-        <div className="add-exercise-btn">
-          <button onClick={addExercise}>
-            <HiOutlinePlusCircle />
+      <h3 className="page-title">NEW WORKOUT</h3>
+      <Card className="workout-title">
+        <form
+          onSubmit={workoutTitleSubmitHandler}
+          className="workout-title-form"
+        >
+          <label htmlFor="workoutName">Workout Name</label>
+          <input
+            value={workoutName}
+            id="workoutName"
+            type="text"
+            onChange={(e) => setWorkoutName(e.target.value)}
+            className="workoutName-input"
+          ></input>
+          <button disabled={!workoutName} className="add-workoutname-btn">
+            ADD NAME
           </button>
-        </div>
-        {exerciseNumber.length > 0 && (
+        </form>
+      </Card>
+
+      <ExerciseList
+        exerciseNumber={exerciseNumber}
+        onInput={onInput}
+        deleteExercise={deleteExercise}
+      />
+      <div className="center">
+        <button onClick={addExercise} className="add-exercise-btn">
+          ADD EXERCISE
+        </button>
+      </div>
+      {exerciseNumber.length > 0 && (
+        <div className="center">
           <button
-            type="button"
             onClick={workoutSubmitHandler}
             disabled={!formIsValid || formData.length !== exerciseNumber.length}
+            className="create-workout-btn"
           >
-            Create Workout
+            CREATE WORKOUT
           </button>
-        )}
-      </section>
+        </div>
+      )}
     </React.Fragment>
   );
 };

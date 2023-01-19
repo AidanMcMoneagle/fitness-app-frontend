@@ -20,23 +20,8 @@
   padding: 0.15rem 0.25rem;
 }
 
-.form-control input {
-  width: 100%;
-  font: inherit;
-  border: 1px solid #ccc;
-  background: #f8f8f8;
-  padding: 0.15rem 0.25rem;
-}
-
-.form-control input {
-  width: 100%;
-  font: inherit;
-  border: 1px solid #ccc;
-  background: #f8f8f8;
-  padding: 0.15rem 0.25rem;
-}
-
-.form-control input:focus {
+/*Apply below globally to all inputs*/
+input:focus {
   outline: none;
   background: #ebebeb;
   border-color: #510077;

@@ -28,6 +28,7 @@
   border-color: #87cefa;
 }
 
+/*SET GLOBALLY - specificity warning. Style may not apply due to specificity*/
 button:disabled,
 button:hover:disabled {
   background: #ccc;
