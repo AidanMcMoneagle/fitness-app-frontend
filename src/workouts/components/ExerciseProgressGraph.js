@@ -11,6 +11,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import Card from "../../shared/components/UIElements/Card";
+
+import "./ExerciseProgressGraph.css";
+
 const ExerciseProgressGraph = (props) => {
   const { workoutData, exerciseId, name } = props;
   const [graphData, setGraphData] = useState([]);
@@ -46,7 +50,7 @@ const ExerciseProgressGraph = (props) => {
         }
         return {
           date: new Date(workoutDate).toLocaleDateString(),
-          averageLoadKg: averageWeightLifted,
+          average_weight: averageWeightLifted,
         };
       });
       return arrayofObjects;
@@ -56,7 +60,7 @@ const ExerciseProgressGraph = (props) => {
   }, [workoutData, exerciseId]);
 
   return (
-    <div className="section-center">
+    <Card className="exercise-progress-graph">
       <h3>{name}</h3>
       {graphData && graphData.length > 0 && (
         <ResponsiveContainer width="100%" aspect="2">
@@ -66,8 +70,8 @@ const ExerciseProgressGraph = (props) => {
             data={graphData}
             margin={{
               top: 5,
-              right: 30,
-              left: 20,
+              right: 20,
+              left: 0,
               bottom: 5,
             }}
           >
@@ -78,14 +82,14 @@ const ExerciseProgressGraph = (props) => {
             <Legend />
             <Line
               type="monotone"
-              dataKey="averageLoadKg"
-              stroke="#8884d8"
+              dataKey="average_weight"
+              stroke="#1E90FF"
               activeDot={{ r: 8 }}
             />
           </LineChart>
         </ResponsiveContainer>
       )}
-    </div>
+    </Card>
   );
 };
 

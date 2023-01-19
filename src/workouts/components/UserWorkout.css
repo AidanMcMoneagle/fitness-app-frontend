@@ -1,11 +1,10 @@
 .workout-data {
-  width: 90%;
-  max-width: 40rem;
-  margin: 1rem;
+  max-width: 700px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  text-align: center;
-  padding: 1rem;
 }
 
 .workout-data .workout-header {
@@ -44,19 +43,8 @@
   align-items: center;
 }
 
-.section-center {
-  width: 90vw;
-  margin: 0 auto;
-  max-width: 100rem;
-  margin-top: 2rem;
-}
-
-.section-center {
-  background: #fff;
-  border-radius: 0.25rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.1s linear;
-  padding: 2rem;
+.workout-table-form {
+  overflow-x: auto;
 }
 
 .workout-table {

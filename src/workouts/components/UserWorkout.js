@@ -151,86 +151,84 @@ const UserWorkout = (props) => {
           </p>
         </Modal>
       )}
-      <div className="center">
-        <Card className="workout-data">
-          <div className="workout-header">
-            <h3>{`Workout Number ${props.index + 1}`}</h3>
-            <div className="workout-header-btns">
-              {!isViewingArchivedWorkouts && !inTrackingMode && (
-                <button className="archive" onClick={archiveWorkoutHandler}>
-                  ARCHIVE WORKOUT
-                </button>
-              )}
-              {isViewingArchivedWorkouts && (
-                <button className="unarchive" onClick={unArchiveWorkoutHandler}>
-                  ADD TO ACTIVE WORKOUTS
-                </button>
-              )}
-              <button className="delete-btn" onClick={openDeleteModal}>
-                <AiOutlineClose />
-              </button>
-            </div>
-          </div>
-          <form>
-            <table class="workout-table">
-              <thead>
-                <tr>
-                  <th>Exercise</th>
-                  <th>Repetitions</th>
-                  <th>Sets</th>
-                  {inTrackingMode &&
-                    numberOfSetHeaders.length > 0 &&
-                    numberOfSetHeaders.map((input, index) => {
-                      return (
-                        <th className="track-input" key={index}>{`Set ${
-                          index + 1
-                        }`}</th>
-                      );
-                    })}
-                  {inTrackingMode && numberOfSetHeaders.length > 0 && <th></th>}
-                </tr>
-              </thead>
-              <tbody>
-                {userWorkout.exercises.map((exercise) => {
-                  return (
-                    <tr>
-                      <UserExercise
-                        key={exercise._id}
-                        exercise={exercise}
-                        inTrackingMode={inTrackingMode}
-                        passNumberOfSetInputs={passNumberOfSetInputs}
-                        numberOfSetHeaders={numberOfSetHeaders}
-                        onInput={onInput}
-                      />
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </form>
-          <div className="btn-container">
-            {!isViewingArchivedWorkouts && (
-              <button onClick={openTrackingMode}>
-                {!inTrackingMode ? "TRACK WORKOUT" : "BACK"}
+      <Card className="workout-data">
+        <div className="workout-header">
+          <h3>{`Workout Number ${props.index + 1}`}</h3>
+          <div className="workout-header-btns">
+            {!isViewingArchivedWorkouts && !inTrackingMode && (
+              <button className="archive" onClick={archiveWorkoutHandler}>
+                ARCHIVE WORKOUT
               </button>
             )}
-            {inTrackingMode && (
-              <button
-                onClick={submitWorkoutTrackingData}
-                disabled={!areAllExercisesTracked}
-              >
-                LOG WORKOUT
+            {isViewingArchivedWorkouts && (
+              <button className="unarchive" onClick={unArchiveWorkoutHandler}>
+                ADD TO ACTIVE WORKOUTS
               </button>
             )}
-            {/* we can only view workout progress if the workoutprogress array is greater than 0 in length */}
-            <Link exact to={`/${userWorkout._id}/myprogress`}>
-              <button disabled={userWorkout.workoutProgress.length === 0}>
-                VIEW PROGRESS
-              </button>
-            </Link>
+            <button className="delete-btn" onClick={openDeleteModal}>
+              <AiOutlineClose />
+            </button>
           </div>
-        </Card>
-      </div>
+        </div>
+        <form className="workout-table-form">
+          <table className="workout-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Repetitions</th>
+                <th>Sets</th>
+                {inTrackingMode &&
+                  numberOfSetHeaders.length > 0 &&
+                  numberOfSetHeaders.map((input, index) => {
+                    return (
+                      <th className="track-input" key={index}>{`Set ${
+                        index + 1
+                      }`}</th>
+                    );
+                  })}
+                {inTrackingMode && numberOfSetHeaders.length > 0 && <th></th>}
+              </tr>
+            </thead>
+            <tbody>
+              {userWorkout.exercises.map((exercise) => {
+                return (
+                  <tr>
+                    <UserExercise
+                      key={exercise._id}
+                      exercise={exercise}
+                      inTrackingMode={inTrackingMode}
+                      passNumberOfSetInputs={passNumberOfSetInputs}
+                      numberOfSetHeaders={numberOfSetHeaders}
+                      onInput={onInput}
+                    />
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </form>
+        <div className="btn-container">
+          {!isViewingArchivedWorkouts && (
+            <button onClick={openTrackingMode}>
+              {!inTrackingMode ? "TRACK WORKOUT" : "BACK"}
+            </button>
+          )}
+          {inTrackingMode && (
+            <button
+              onClick={submitWorkoutTrackingData}
+              disabled={!areAllExercisesTracked}
+            >
+              LOG WORKOUT
+            </button>
+          )}
+          {/* we can only view workout progress if the workoutprogress array is greater than 0 in length */}
+          <Link exact to={`/${userWorkout._id}/myprogress`}>
+            <button disabled={userWorkout.workoutProgress.length === 0}>
+              VIEW PROGRESS
+            </button>
+          </Link>
+        </div>
+      </Card>
     </React.Fragment>
   );
 };
