@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext, useRef } from "react";
+import React, { useState, useReducer, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
@@ -13,35 +13,83 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Card from "../../shared/components/UIElements/Card";
 
 const inputReducer = (state, action) => {
-  if (action.type === "EXERCISE ADDED") {
+  if (action.type === "EXERCISE_ADDED") {
     // if this is the first exercise. the id will be an empty string.
-    return [
-      ...state,
-      {
-        id: action.payload.id,
-        value: action.payload.value,
-      },
-    ];
+    if (state.exercises[0].value) {
+      return {
+        ...state,
+        exercises: [
+          ...state.exercises,
+          {
+            id: action.payload.id,
+            value: action.payload.value,
+          },
+        ],
+      };
+    } else {
+      return {
+        ...state,
+        exercises: [
+          {
+            id: action.payload.id,
+            value: action.payload.value,
+          },
+        ],
+      };
+    }
   }
 
-  if (action.type === "EDIT EXERCISE") {
-    const stateWithItemToEditRemoved = state.filter((exercise) => {
+  if (action.type === "EDIT_EXERCISE") {
+    const stateWithItemToEditRemoved = state.exercises.filter((exercise) => {
       return action.payload.id !== exercise.id;
     });
-    return [
-      ...stateWithItemToEditRemoved,
-      {
-        id: action.payload.id,
-        value: action.payload.value,
-      },
-    ];
+    return {
+      ...state,
+      exercises: [
+        ...stateWithItemToEditRemoved,
+        {
+          id: action.payload.id,
+          value: action.payload.value,
+        },
+      ],
+    };
   }
 
-  if (action.type === "DELETE EXERCISE") {
-    const newState = state.filter((exercise) => {
+  if (action.type === "DELETE_EXERCISE") {
+    const newExercisesState = state.exercises.filter((exercise) => {
       return exercise.id !== action.payload;
     });
-    return newState;
+    if (newExercisesState.length !== 0) {
+      return {
+        ...state,
+        exercises: [...newExercisesState],
+      };
+    } else {
+      return {
+        ...state,
+        exercises: [
+          {
+            value: "",
+            id: "",
+          },
+        ],
+      };
+    }
+  }
+
+  if (action.type === "ADD_WORKOUT_NAME") {
+    const workoutName = action.payload;
+    return {
+      ...state,
+      workoutName,
+    };
+  }
+
+  if (action.type === "EDIT_WORKOUT_NAME") {
+    return {
+      ...state,
+      workoutName: "",
+    };
   }
 };
 
@@ -53,7 +101,16 @@ const NewWorkout = () => {
 
   const [workoutName, setWorkoutName] = useState("");
 
-  const [formData, dispatch] = useReducer(inputReducer, []);
+  // holds the state of the formData we will send to the client. Form validity is not managed here.
+  const [formData, dispatch] = useReducer(inputReducer, {
+    workoutName: "",
+    exercises: [
+      {
+        value: "",
+        id: "",
+      },
+    ],
+  });
 
   const { error, isLoading, sendRequest, clearError } =
     useHttpClientCustomHook();
@@ -70,31 +127,26 @@ const NewWorkout = () => {
   };
 
   const deleteExercise = (id) => {
+    dispatch({
+      type: "DELETE_EXERCISE",
+      payload: id,
+    });
+
+    // loops through exerciseNumber Array and creates new Array with the deleted exercise not included.
     const newList = exerciseNumber.filter((element) => {
       return element !== id;
     });
     setExerciseNumber(newList);
-
-    const exerciseToBeDeleted = formData.find((exercise) => {
-      return exercise.id === id;
-    });
-
-    if (exerciseToBeDeleted) {
-      dispatch({
-        type: "DELETE EXERCISE",
-        payload: id,
-      });
-    }
   };
 
-  const onInput = (id, value) => {
-    const hasExerciseBeenAdded = formData.find((exercise) => {
+  const addExerciseData = (id, value) => {
+    const hasExerciseBeenAdded = formData.exercises.find((exercise) => {
       return exercise.id === id;
     });
     setFormIsValid(true);
     if (!hasExerciseBeenAdded) {
       dispatch({
-        type: "EXERCISE ADDED",
+        type: "EXERCISE_ADDED",
         payload: {
           id,
           value,
@@ -102,13 +154,17 @@ const NewWorkout = () => {
       });
     } else
       dispatch({
-        type: "EDIT EXERCISE",
+        type: "EDIT_EXERCISE",
         payload: {
           id,
           value,
         },
       });
   };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   // need to ensure we send the token. Can be used to authenticate user. We then extract the userId from the token.
   const workoutSubmitHandler = async () => {
@@ -131,7 +187,12 @@ const NewWorkout = () => {
 
   const workoutTitleSubmitHandler = (e) => {
     e.preventDefault();
-    // dispatch an action to add the workoutName to the formData.
+    if (!formData.workoutName)
+      dispatch({ type: "ADD_WORKOUT_NAME", payload: workoutName });
+    else {
+      dispatch({ type: "EDIT_WORKOUT_NAME" });
+      setWorkoutName("");
+    }
   };
 
   return (
@@ -150,18 +211,21 @@ const NewWorkout = () => {
             id="workoutName"
             type="text"
             onChange={(e) => setWorkoutName(e.target.value)}
-            className="workoutName-input"
+            className={`workoutName-input ${
+              formData.workoutName ? "fill-input-workoutName" : ""
+            }`}
+            readOnly={formData.workoutName ? true : false}
           ></input>
           <button disabled={!workoutName} className="add-workoutname-btn">
-            ADD NAME
+            {formData.workoutName ? "EDIT" : "ADD"}
           </button>
         </form>
       </Card>
-
       <ExerciseList
         exerciseNumber={exerciseNumber}
-        onInput={onInput}
+        addExerciseData={addExerciseData}
         deleteExercise={deleteExercise}
+        setFormIsValid={setFormIsValid}
       />
       <div className="center">
         <button onClick={addExercise} className="add-exercise-btn">
@@ -172,7 +236,11 @@ const NewWorkout = () => {
         <div className="center">
           <button
             onClick={workoutSubmitHandler}
-            disabled={!formIsValid || formData.length !== exerciseNumber.length}
+            disabled={
+              !formIsValid ||
+              formData.exercises.length !== exerciseNumber.length ||
+              !formData.workoutName
+            }
             className="create-workout-btn"
           >
             CREATE WORKOUT

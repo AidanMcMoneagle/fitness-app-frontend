@@ -1,12 +1,11 @@
 import React, { useState, useReducer, useEffect } from "react";
-import { FaTimes, FaEdit, FaTrash, FaAdd } from "react-icons/fa";
-import { HiPlus } from "react-icons/hi";
-import { AiOutlineClose } from "react-icons/ai";
+import { FaEdit } from "react-icons/fa";
+import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 
 import "./ExerciseInput.css";
 
 const inputReducer = (state, action) => {
-  if (action.type === "ADD/EDIT EXERCISE") {
+  if (action.type === "ADD_EXERCISE") {
     return {
       id: action.payload.id,
       value: {
@@ -16,43 +15,58 @@ const inputReducer = (state, action) => {
       },
     };
   }
+  if (action.type === "EDIT_EXERCISE") {
+    return {};
+  }
 };
 
 const ExerciseInput = (props) => {
   const [exerciseName, setExerciseName] = useState("");
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
-  const [hasExerciseBeenAdded, setHasExerciseBeenAdded] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
+  const [exerciseSubmitted, setExerciseSubmitted] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
 
   // useReducer to manage the state of each exercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
 
   // need to pass up exercise data to NewWorkout where it can be submitted. Need to pass the data to a function that has been passed down from the parent as props. Important that when we send the data we include the id. Allows us to edit and delete later if required.
 
-  const { onInput } = props;
+  const { addExerciseData, setFormIsValid } = props;
   const { id, value } = exerciseState;
 
-  // onInupt function is called which sends id and exercise data to NewWorkout. Here it is added to the state of the entire form.
+  // onInupt function is called which sends id and exercise data to NewWorkout. Here it is added to the state of the entire form. We only want to call when
   useEffect(() => {
     if (exerciseState.value) {
-      console.log(exerciseState);
-      onInput(id, value);
-      setHasExerciseBeenAdded(true);
+      addExerciseData(id, value);
     }
   }, [id, value]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch({
-      type: "ADD/EDIT EXERCISE",
-      payload: {
-        exerciseName,
-        repetitions,
-        sets,
-        id: props.id,
-      },
-    });
+    if (!exerciseSubmitted) {
+      dispatch({
+        type: "ADD_EXERCISE",
+        payload: {
+          exerciseName,
+          repetitions,
+          sets,
+          id: props.id,
+        },
+      });
+      setExerciseSubmitted(true);
+    } else {
+      dispatch({
+        type: "EDIT_EXERCISE",
+      });
+      setFormIsValid(false);
+      setExerciseName("");
+      setRepetitions("");
+      setSets("");
+      setExerciseSubmitted(false);
+    }
   };
+
+  //WHEN WE EDIT EXERCISE WE NEED TO REMOVE STATE FROM PARENT IMMEDIATELY. call a function passed down from parent which dispatches an action to EXERCISE IN EDIT MODE this sets the value of the indiviudal exercises to undefined however important that we keep the Id. Also sets formValditiy to false.
 
   const { deleteExercise } = props;
   const deleteExerciseHandler = (e) => {
@@ -61,10 +75,7 @@ const ExerciseInput = (props) => {
   };
 
   return (
-    <form
-      onSubmit={submitHandler}
-      className={hasExerciseBeenAdded ? "exercise-added" : "exercise-not-added"}
-    >
+    <form onSubmit={submitHandler}>
       <div className="exercise-header">
         <h4 className="exercise-title">{`Exercise ${props.index + 1}`}</h4>
         <div className="exercise-btn-container">
@@ -75,7 +86,7 @@ const ExerciseInput = (props) => {
             }
             disabled={!exerciseName || !repetitions || !sets}
           >
-            {!exerciseState.value ? <HiPlus /> : <FaEdit />}
+            {!exerciseState.value ? <AiOutlineCheck /> : <FaEdit />}
           </button>
           <button className="delete-btn" onClick={deleteExerciseHandler}>
             <AiOutlineClose />
@@ -86,33 +97,42 @@ const ExerciseInput = (props) => {
         <div className="exercise-input">
           <label htmlFor="exercise">Exercise</label>
           <input
-            className="input-exerciseName"
+            className={`input-exerciseName ${
+              exerciseSubmitted ? "fill-input-exercise" : ""
+            }`}
             type="text"
             id="exercise"
             value={exerciseName}
             onChange={(e) => setExerciseName(e.target.value)}
+            readOnly={exerciseSubmitted ? true : false}
           />
         </div>
         <div className="exercise-input">
           <label htmlFor="reps">Reps</label>
           <input
-            className="input-reps"
+            className={`input-reps ${
+              exerciseSubmitted ? "fill-input-exercise" : ""
+            }`}
             type="number"
             min="1"
             id="exercise"
             value={repetitions}
             onChange={(e) => setRepetitions(e.target.value)}
+            readOnly={exerciseSubmitted ? true : false}
           />
         </div>
         <div className="exercise-input">
           <label htmlFor="sets">Sets</label>
           <input
-            className="input-sets"
+            className={`input-sets ${
+              exerciseSubmitted ? "fill-input-exercise" : ""
+            }`}
             type="number"
             id="sets"
             min="1"
             value={sets}
             onChange={(e) => setSets(e.target.value)}
+            readOnly={exerciseSubmitted ? true : false}
           />
         </div>
       </div>

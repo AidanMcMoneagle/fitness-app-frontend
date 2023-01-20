@@ -75,8 +75,8 @@ const UserExercise = (props) => {
 
   const changeHandler = (index, e) => {
     const inputValue = e.target.value;
-    console.log(inputValue);
-    console.log(index);
+    // console.log(inputValue);
+    // console.log(index);
     setInputState((prevState) => {
       const newArray = prevState.map((el, currIndex) => {
         if (currIndex !== index) {
@@ -89,10 +89,10 @@ const UserExercise = (props) => {
     });
   };
 
-  useEffect(() => {
-    console.log(inputState);
-    console.log(isSetInputPopulated);
-  }, [inputState, isSetInputPopulated]);
+  // useEffect(() => {
+  //   console.log(inputState);
+  //   console.log(isSetInputPopulated);
+  // }, [inputState, isSetInputPopulated]);
 
   // passes the state of the set inputs to parent. Once we have passed data to parent we set the inputs to be read only so these cannot be edited.
   const passDataToParent = (e) => {
