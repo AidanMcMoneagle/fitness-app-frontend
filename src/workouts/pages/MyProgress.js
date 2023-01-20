@@ -11,7 +11,8 @@ const MyProgress = () => {
   const { workoutId } = useParams();
   const auth = useContext(AuthContext);
 
-  const [workoutData, setWorkoutData] = useState(undefined);
+  const [workoutData, setWorkoutData] = useState();
+  // const [workout, setWorkout] = useState();
 
   // whenever the state in the custom hook changes the component using the custom hook will be re rendered.
   const { error, isLoading, sendRequest, clearError } =
@@ -29,6 +30,7 @@ const MyProgress = () => {
           }
         );
         setWorkoutData(responseData.workOutProgress); // array of objects. each object represents new instance of tracked workout.
+        // setWorkout(responseData.foundWorkout);
       } catch (e) {
         console.log(e);
       }
