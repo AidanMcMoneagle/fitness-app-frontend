@@ -32,7 +32,7 @@ const inputReducer = (state, action) => {
 
 const UserWorkout = (props) => {
   const { userWorkout, deleteHandler, isViewingArchivedWorkouts } = props;
-  console.log(userWorkout, userWorkout);
+  console.log(userWorkout, "userWorkout");
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [inTrackingMode, setIsTrackingMode] = useState(false);
@@ -153,7 +153,7 @@ const UserWorkout = (props) => {
       )}
       <Card className="workout-data">
         <div className="workout-header">
-          <h3>{`Workout Number ${props.index + 1}`}</h3>
+          <h3>{userWorkout.workoutName.trim()}</h3>
           <div className="workout-header-btns">
             {!isViewingArchivedWorkouts && !inTrackingMode && (
               <button className="archive" onClick={archiveWorkoutHandler}>
@@ -169,6 +169,11 @@ const UserWorkout = (props) => {
               <AiOutlineClose />
             </button>
           </div>
+        </div>
+        <div className="workout-date">
+          <h5>{`Created on: ${new Date(
+            userWorkout.date
+          ).toLocaleDateString()}`}</h5>
         </div>
         <form className="workout-table-form">
           <table className="workout-table">

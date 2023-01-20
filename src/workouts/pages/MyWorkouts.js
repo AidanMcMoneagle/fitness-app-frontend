@@ -5,6 +5,7 @@ import AuthContext from "../../shared/context/auth-context";
 import UserWorkoutList from "../components/UserWorkoutList";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import Card from "../../shared/components/UIElements/Card";
 
 import "./MyWorkout.css";
 
@@ -117,34 +118,41 @@ const MyWorkouts = () => {
       {userWorkouts && (
         <div className="navigation-btn-container">
           <h4>{"Navigate to:"}</h4>
-          <button
-            className={
-              isViewingArchivedWorkouts ? "not-active-page" : "active-page"
-            }
-            onClick={viewActiveWorkouts}
-          >
-            ACTIVE WORKOUTS
-          </button>
-          <button
-            className={
-              isViewingArchivedWorkouts ? "active-page" : "not-active-page"
-            }
-            onClick={viewArchivedWorkouts}
-          >
-            ARCHIVED WORKOUTS
-          </button>
+          <div className="navigation-btns">
+            <button
+              className={
+                isViewingArchivedWorkouts ? "not-active-page" : "active-page"
+              }
+              onClick={viewActiveWorkouts}
+            >
+              ACTIVE WORKOUTS
+            </button>
+            <button
+              className={
+                isViewingArchivedWorkouts ? "active-page" : "not-active-page"
+              }
+              onClick={viewArchivedWorkouts}
+            >
+              ARCHIVED WORKOUTS
+            </button>
+          </div>
         </div>
       )}
-      {userWorkouts && userWorkouts.length === 0 && (
-        <div className="section-center">
-          {"You Currently have not added any workouts, Please add one"}
-          <button>
-            <Link exact to="/workouts/new">
-              ADD WORKOUT
-            </Link>
-          </button>
-        </div>
-      )}
+      {userWorkouts &&
+        userWorkouts.length === 0 &&
+        !isViewingArchivedWorkouts && (
+          <Card className="no-workout-message btn-container">
+            <p>
+              You currently have no active workouts. To view active workouts
+              please create one.
+            </p>
+            <button className="add-workout-btn">
+              <Link exact to="/workouts/new">
+                ADD WORKOUT
+              </Link>
+            </button>
+          </Card>
+        )}
       {userWorkouts && (
         <UserWorkoutList
           userWorkouts={userWorkouts}
