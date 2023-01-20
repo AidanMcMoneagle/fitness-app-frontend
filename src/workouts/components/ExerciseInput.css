@@ -66,31 +66,18 @@
   font: inherit;
   border: 1px solid #ccc;
   background: #f8f8f8;
-  padding: 0.15rem 0.25rem;
+  padding: 0 0.25rem;
+  border-radius: 3px;
+}
+
+.fill-input-exercise {
+  background: gainsboro;
 }
 
 .input-sets,
 .input-reps {
   width: 30px;
 }
-
-/* .exercise-form-control input:focus,
-.exercise-form-control textarea:focus {
-  outline: none;
-  background: #ebebeb;
-  border-color: #510077;
-}
-
-.exercise-form-control--invalid label,
-.exercise-form-control--invalid p {
-  color: red;
-}
-
-.exercise-form-control--invalid input,
-.exercise-form-control--invalid textarea {
-  border-color: red;
-  background: #ffd1d1;
-} */
 
 .exercise-header {
   display: flex;
@@ -102,9 +89,7 @@
   margin-top: 0px;
 }
 
-.edit-btn,
-.delete-btn,
-.add-btn {
+.delete-btn {
   background: transparent;
   border-color: transparent;
   cursor: pointer;
@@ -112,43 +97,38 @@
   transition: var(--transition);
 }
 
-.edit-btn,
-.add-btn {
-  color: var(--clr-green-light);
-}
-.edit-btn:hover,
-.add-btn:hover {
-  color: var(--clr-green-dark);
-}
-
 .delete-btn {
   color: var(--clr-red-light);
 }
 .delete-btn:hover {
   color: var(--clr-red-dark);
-  font-size: 1.8rem;
-}
-
-.exercise-added input {
-  border-color: green;
-  background: #e0eae1;
 }
 
 /* BELOW IS CSS FOR THE ADD BTN. */
 
-.workout-table button.track-exercise-btn {
+.exercise-add-btn,
+.exercise-edit-btn {
   background: transparent;
   border-color: transparent;
   cursor: pointer;
-  color: var(--clr-green-dark);
-  font-size: 1.2rem;
+  color: var(--clr-green-light);
+  font-size: 1.5rem;
   transition: var(--transition);
 }
 
-.workout-table button.track-exercise-btn:disabled {
+.exercise-edit-btn {
+  font-size: 1.5rem;
+}
+
+.exercise-add-btn:hover,
+.exercise-edit-btn:hover {
+  color: var(--clr-green-dark);
+}
+
+.exercise-add-btn:disabled,
+.exercise-add-btn:disabled:hover {
   background: transparent;
   border-color: transparent;
   cursor: not-allowed;
-  font-size: 1rem;
   color: grey;
 }
