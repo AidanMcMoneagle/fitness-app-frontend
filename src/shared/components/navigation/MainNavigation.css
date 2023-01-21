@@ -9,6 +9,10 @@
   display: none;
 }
 
+.main-header__title {
+  font-size: 2rem;
+}
+
 .main-header__toggle-sidebar-btn {
   width: 3rem;
   height: 3rem;
@@ -50,7 +54,7 @@
   color: white;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .main-header {
     justify-content: space-between;
   }

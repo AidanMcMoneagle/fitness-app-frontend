@@ -110,7 +110,7 @@ const UserWorkout = (props) => {
         }
       );
       console.log(responseData);
-      history.push("/");
+      history.push(`/${userWorkout._id}/myprogress`);
     } catch (err) {
       console.log(err);
     }
@@ -139,11 +139,12 @@ const UserWorkout = (props) => {
           footer={
             <div>
               <button onClick={() => deleteHandler(userWorkout._id)}>
-                Yes
+                YES
               </button>
-              <button onClick={closeDeleteModal}>No</button>
+              <button onClick={closeDeleteModal}>NO</button>
             </div>
           }
+          onCancel={closeDeleteModal}
         >
           <p>
             Are you sure you want to delete this workout? If you delete this
@@ -171,9 +172,9 @@ const UserWorkout = (props) => {
           </div>
         </div>
         <div className="workout-date">
-          <h5>{`Created on: ${new Date(
-            userWorkout.date
-          ).toLocaleDateString()}`}</h5>
+          <h5>{`Created on: ${new Intl.DateTimeFormat("en-GB").format(
+            new Date(userWorkout.date)
+          )}`}</h5>
         </div>
         <form className="workout-table-form">
           <table className="workout-table">
