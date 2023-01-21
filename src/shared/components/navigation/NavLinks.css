@@ -27,7 +27,7 @@
   border-radius: 18px;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .nav-links {
     flex-direction: row;
   }

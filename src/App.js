@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -9,35 +9,21 @@ import {
 import NewWorkout from "./workouts/pages/NewWorkout";
 import MyWorkouts from "./workouts/pages/MyWorkouts";
 import MyProgress from "./workouts/pages/MyProgress";
-import MyPhotos from "./workouts/pages/MyPhotos";
 import AuthContext from "./shared/context/auth-context";
 import Auth from "./users/pages/Auth";
+
+import useAuth from "./shared/hooks/useAuth";
 
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  const login = (uid, token) => {
-    setIsLoggedIn(true);
-    setToken(token);
-    setUserId(uid);
-  };
-
-  // redirect to home page
-  const logout = () => {
-    setIsLoggedIn(false);
-    setToken(null);
-    setUserId(null);
-  };
+  const { login, logout, token } = useAuth();
 
   const routes = (
     <Switch>
-      <Route exact path="/">
+      {/* <Route exact path="/">
         <MainNavigation />
-      </Route>
+      </Route> */}
       <Route exact path="/myworkouts">
         <MyWorkouts />
       </Route>
@@ -47,18 +33,15 @@ function App() {
       <Route exact path="/:workoutId/myprogress">
         <MyProgress />
       </Route>
-      <Route exact path="/:userId/myphotos">
-        <MyPhotos />
-      </Route>
       <Route exact path="/login">
         <Auth />
       </Route>
-      <Redirect to="/" />
+      <Redirect to="/login" />
     </Switch>
   );
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, token, userId }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!token, login, logout, token }}>
       <Router>
         <MainNavigation />
         <main>{routes}</main>

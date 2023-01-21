@@ -43,18 +43,6 @@ const MyProgress = () => {
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
-      {workoutData && workoutData.length === 0 && (
-        <div className="section-center">
-          {
-            "You Currently have not tracked progress for this workout. To view workout progress please add workoutData.... "
-          }
-          <button>
-            <Link exact to="/myworkouts">
-              VIEW WORKOUTS
-            </Link>
-          </button>
-        </div>
-      )}
       {workoutData && workoutData.length > 0 && (
         <ExerciseProgressList workoutData={workoutData} />
       )}

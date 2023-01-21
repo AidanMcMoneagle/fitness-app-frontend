@@ -49,8 +49,8 @@ const ExerciseProgressGraph = (props) => {
           }
         }
         return {
-          date: new Date(workoutDate).toLocaleDateString(),
-          average_weight: averageWeightLifted,
+          date: new Intl.DateTimeFormat("en-GB").format(new Date(workoutDate)),
+          Average_Weight: averageWeightLifted,
         };
       });
       return arrayofObjects;
@@ -82,7 +82,7 @@ const ExerciseProgressGraph = (props) => {
             <Legend />
             <Line
               type="monotone"
-              dataKey="average_weight"
+              dataKey="Average_Weight"
               stroke="#1E90FF"
               activeDot={{ r: 8 }}
             />

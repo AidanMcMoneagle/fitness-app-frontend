@@ -13,7 +13,7 @@
   color: white;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .main-header {
     justify-content: space-between;
   }

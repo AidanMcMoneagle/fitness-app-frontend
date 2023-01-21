@@ -180,7 +180,7 @@ const NewWorkout = () => {
         }
       );
       console.log(responseData);
-      history.push("/workouts");
+      history.push("/myworkouts");
       // need to redirect somewhere. Potentially to the my workouts page.
     } catch (e) {}
   };

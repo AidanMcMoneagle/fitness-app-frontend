@@ -157,7 +157,8 @@ const Auth = () => {
         //response includes the userId and token
         const { userId, token } = responseData;
         auth.login(userId, token);
-        history.push("/"); // redirect to home page once we have logged in
+        console.log(token);
+        history.push("/myworkouts"); // redirect to home page once we have logged in
       } catch (err) {
         console.log(error);
       }
@@ -175,8 +176,9 @@ const Auth = () => {
         );
         // response includes the userId and token
         const { userId, token } = responseData;
+        console.log(token);
         auth.login(userId, token);
-        history.push("/"); //Redirect to home page once we have signed up
+        history.push("/myworkouts"); //Redirect to home page once we have signed up
       } catch (e) {
         console.log(e);
       }

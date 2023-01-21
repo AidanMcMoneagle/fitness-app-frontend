@@ -56,3 +56,25 @@
   opacity: 0;
   transition: all 200ms;
 }
+
+.modal__footer button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #000080;
+  border-radius: 18px;
+  background: #000080;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.modal__footer button:hover {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ff8c00;
+  border-radius: 18px;
+  background: #ff8c00;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+}
