@@ -188,7 +188,9 @@ const Auth = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && <ErrorModal error={error} clearError={clearError} />}
+      {error && !auth.isLoading && (
+        <ErrorModal error={error} clearError={clearError} />
+      )}
       <Card className="authentication">
         <h3>{isLoginMode ? "Login Required" : "Sign up Required"}</h3>
         <form onSubmit={onSubmitHandler}>

@@ -198,7 +198,9 @@ const NewWorkout = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && <ErrorModal error={error} clearError={clearError} />}
+      {error && !auth.isLoading && (
+        <ErrorModal error={error} clearError={clearError} />
+      )}
       <h3 className="page-title">NEW WORKOUT</h3>
       <Card className="workout-title">
         <form

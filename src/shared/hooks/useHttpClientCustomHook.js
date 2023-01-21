@@ -23,7 +23,6 @@ const useHttpClientCustomHook = () => {
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-
         setIsLoading(false);
       } catch (error) {
         console.log(error, "THIS IS THE ERROR");
@@ -35,7 +34,6 @@ const useHttpClientCustomHook = () => {
     },
     []
   );
-
   // will return this aswell so the componenets that use the hook can clear the error.
   const clearError = () => {
     setError(null);

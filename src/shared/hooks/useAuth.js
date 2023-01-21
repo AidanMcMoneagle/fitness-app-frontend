@@ -5,6 +5,7 @@ let logoutTimer;
 const useAuth = () => {
   const [token, setToken] = useState(null);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   // login with uid, token, expiration date.
   // create an expiration date. If no expiration date is passed in then we know user has just logged in.
@@ -33,7 +34,7 @@ const useAuth = () => {
 
   // on page reload we check if token data in localstorage. if there is token Data and the expiration date (Milliseconds) is greater than the current time in milliseconds then we log in, using the userId, token and expiration date of the token.
   useEffect(() => {
-    //JSON.parse to convert JSON string to JS Object.
+    setIsLoading(true);
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (
       storedData &&
@@ -46,11 +47,13 @@ const useAuth = () => {
         new Date(storedData.expiration)
       );
     }
-  }, [login, logout]);
+    setIsLoading(false);
+  }, [login, logout, setIsLoading]);
 
   // logs user out automatically if the token expires.
   // settimeout runs after tokenExpirationDate. Should re run whenever the token changes i.e. user is logged in. setTimeOut - accepts a callback function and a
   useEffect(() => {
+    setIsLoading(true);
     if (token && tokenExpirationDate) {
       const remainingTime =
         tokenExpirationDate.getTime() - new Date().getTime();
@@ -59,9 +62,10 @@ const useAuth = () => {
       // clearTimeOut when user logs out. Useffect will re run when token changes.
       clearTimeout(logoutTimer);
     }
+    setIsLoading(false);
   }, [token, logout, tokenExpirationDate]);
 
-  return { login, logout, token };
+  return { login, logout, token, isLoading };
 };
 
 export default useAuth;

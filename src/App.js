@@ -15,15 +15,13 @@ import Auth from "./users/pages/Auth";
 import useAuth from "./shared/hooks/useAuth";
 
 import MainNavigation from "./shared/components/navigation/MainNavigation";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 
 function App() {
-  const { login, logout, token } = useAuth();
+  const { login, logout, token, isLoading } = useAuth();
 
   const routes = (
     <Switch>
-      {/* <Route exact path="/">
-        <MainNavigation />
-      </Route> */}
       <Route exact path="/myworkouts">
         <MyWorkouts />
       </Route>
@@ -39,9 +37,10 @@ function App() {
       <Redirect to="/login" />
     </Switch>
   );
-
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!token, login, logout, token }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn: !!token, login, logout, token, isLoading }}
+    >
       <Router>
         <MainNavigation />
         <main>{routes}</main>

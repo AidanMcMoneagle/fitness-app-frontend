@@ -131,7 +131,7 @@ const UserWorkout = (props) => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && <ErrorModal error={error} clearError={clearError} />}
+      {error && !auth.isLoading && <ErrorModal error={error} clearError={clearError} />}
       {isDeleteModalOpen && (
         <Modal
           show

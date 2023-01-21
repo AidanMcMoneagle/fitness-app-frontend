@@ -114,7 +114,7 @@ const MyWorkouts = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && <ErrorModal error={error} clearError={clearError} />}
+      {error && auth.isLoading && <ErrorModal error={error} clearError={clearError} />}
       {userWorkouts && (
         <div className="navigation-btn-container">
           <h4>{"Navigate to:"}</h4>

@@ -42,7 +42,7 @@ const MyProgress = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && <ErrorModal error={error} clearError={clearError} />}
+      {error && !auth.isLoading && <ErrorModal error={error} clearError={clearError} />}
       {workoutData && workoutData.length > 0 && (
         <ExerciseProgressList workoutData={workoutData} />
       )}
