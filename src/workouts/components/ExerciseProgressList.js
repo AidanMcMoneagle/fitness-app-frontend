@@ -6,10 +6,7 @@ import "./ExerciseProgressList.css";
 
 const ExerciseProgressList = (props) => {
   const { workoutData } = props;
-  // const { workout } = props;
   const exerciseWeightsArray = workoutData[0].exerciseWeights;
-
-  //length of exerciseWeights is the equal to the number of exercises. we want to render component for each exercise.
 
   return (
     <React.Fragment>
@@ -22,8 +19,6 @@ const ExerciseProgressList = (props) => {
               exerciseId={exercise.exerciseId}
               key={exercise.exerciseId}
               name={exercise.exerciseName}
-              // exerciseSets={workout.exercises[index].sets}
-              // exerciseReps={workout.exercises[index].reps}
             />
           );
         })}

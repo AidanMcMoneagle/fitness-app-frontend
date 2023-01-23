@@ -25,7 +25,7 @@ const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: "",
     isValid: false,
-    isTouched: false, // we only want error text to show when the user clicks away from the input. Therefore we need this state
+    isTouched: false, // we only want error text to show when the user clicks away from the input.
   });
 
   // when there is a change in value i.e. key press this changes. The state of the input is changed.
@@ -37,15 +37,14 @@ const Input = (props) => {
     });
   };
 
-  // we want to show error messg for invalid input only when we loose focus. This is why we must include this.
+  // we want to show error messg for invalid input only when we loose focus.
   const touchHandler = () => {
     dispatch({
       type: "TOUCHED",
     });
   };
 
-  // whenever the state of the element changes we pass this up to the parent component. We do this by using a the onInput function which has been passed down as props.
-
+  // whenever the state of the element changes we pass this up to the parent component. We do this thorugh the onInput function passed down as props.
   const { onInput, id } = props;
   const { value, isValid } = inputState;
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
 import UserWorkoutList from "../components/UserWorkoutList";
@@ -9,7 +10,6 @@ import Card from "../../shared/components/UIElements/Card";
 
 import "./MyWorkout.css";
 
-// here we show all user workouts.
 const MyWorkouts = () => {
   const { error, isLoading, sendRequest, clearError } =
     useHttpClientCustomHook();
@@ -22,7 +22,6 @@ const MyWorkouts = () => {
   const auth = useContext(AuthContext);
 
   const deleteWorkoutHandler = async (workoutId) => {
-    // send request to backend to delete workout.
     console.log(workoutId);
     try {
       await sendRequest(
@@ -54,9 +53,7 @@ const MyWorkouts = () => {
         return workoutId !== workout._id;
       });
       setUserWorkouts(newUserWorkoutArray);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const unArchiveWorkout = async (workoutId) => {
@@ -73,9 +70,7 @@ const MyWorkouts = () => {
         return workoutId !== workout._id;
       });
       setUserWorkouts(newUserWorkoutArray);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const viewActiveWorkouts = () => {
@@ -86,9 +81,6 @@ const MyWorkouts = () => {
     setIsViewingArchivedWorkouts(true);
   };
 
-  // we then want the re render the workout page with the workout that has been deleted removed.
-
-  // send get request to /api/workouts/
   useEffect(() => {
     const fetchMyWorkouts = async () => {
       try {
@@ -102,15 +94,13 @@ const MyWorkouts = () => {
         );
         console.log(responseData.foundWorkouts);
         setUserWorkouts([...responseData.foundWorkouts]);
-
-        // setUserWorkouts(responseData.foundWorkouts);
       } catch (e) {
         console.log(e);
       }
     };
 
     fetchMyWorkouts();
-  }, [auth.token, sendRequest, isViewingArchivedWorkouts]); // not sure what to put in dependency array.
+  }, [auth.token, sendRequest, isViewingArchivedWorkouts]);
 
   return (
     <React.Fragment>

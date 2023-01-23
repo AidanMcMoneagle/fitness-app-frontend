@@ -1,20 +1,18 @@
-import React, { useState, useReducer, useContext, useEffect } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { HiOutlinePlusCircle } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
+
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
-
 import ExerciseList from "../components/ExerciseList";
-
-import "./NewWorkout.css";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Card from "../../shared/components/UIElements/Card";
 
+import "./NewWorkout.css";
+
 const inputReducer = (state, action) => {
   if (action.type === "EXERCISE_ADDED") {
-    // if this is the first exercise. the id will be an empty string.
     if (state.exercises[0].value) {
       return {
         ...state,
@@ -126,7 +124,7 @@ const NewWorkout = () => {
   };
 
   const deleteExercise = (id) => {
-    // loops through exerciseNumber Array and creates new Array with the deleted exercise not included.
+    // loops through exerciseNumber Array and creates new array with the deleted exercise not included.
     const newList = exerciseNumber.filter((element) => {
       return element !== id;
     });
@@ -161,13 +159,6 @@ const NewWorkout = () => {
       });
   };
 
-  useEffect(() => {
-    console.log(formData);
-    console.log(exerciseNumber);
-    console.log(formIsValid);
-  }, [formData, exerciseNumber, formIsValid]);
-
-  // need to ensure we send the token. Can be used to authenticate user. We then extract the userId from the token.
   const workoutSubmitHandler = async () => {
     console.log(formData);
     try {
@@ -182,7 +173,6 @@ const NewWorkout = () => {
       );
       console.log(responseData);
       history.push("/myworkouts");
-      // need to redirect somewhere. Potentially to the my workouts page.
     } catch (e) {}
   };
 

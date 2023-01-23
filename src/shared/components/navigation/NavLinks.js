@@ -4,8 +4,6 @@ import AuthContext from "../../context/auth-context";
 
 import "./NavLinks.css";
 
-// need user Id in routes. The user id will be sent from the backend once authenticated and will be stored on frontend globally.
-// user id is required as will be included in request to backend. enable us to fetch specific data in the backend
 const NavLinks = () => {
   const context = useContext(AuthContext);
   return (
@@ -51,7 +49,7 @@ const NavLinks = () => {
       )}
       {context.isLoggedIn && (
         <li>
-          <Link exact to="/" onClick={context.logout}>
+          <Link exact to="/login" onClick={context.logout}>
             LOGOUT
           </Link>
         </li>

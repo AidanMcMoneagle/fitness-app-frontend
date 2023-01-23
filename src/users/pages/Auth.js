@@ -1,21 +1,4 @@
-// page that renders a form to login/signup
-
-//need to have state at the top we can switch this
-
-//isloginmode - true or false can switch between these.
-
-//render two buttons at the bottom of the page
-
-// login button
-//swicth to signup
-
-import React, {
-  useState,
-  useReducer,
-  useEffect,
-  useCallback,
-  useContext,
-} from "react";
+import React, { useState, useReducer, useCallback, useContext } from "react";
 
 import { useHistory } from "react-router-dom";
 
@@ -24,7 +7,6 @@ import AuthContext from "../../shared/context/auth-context";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Card from "../../shared/components/UIElements/Card";
-
 import Input from "../../shared/components/FormElements/Input";
 import {
   VALIDATOR_MINLENGTH,
@@ -36,7 +18,6 @@ import "./Auth.css";
 
 const formReducer = (state, action) => {
   if (action.type === "INPUT_CHANGE") {
-    // manage the validity of the 2 other inputs
     let isValidForm = true;
     for (const [key, value] of Object.entries(state.inputs)) {
       if (key.toString() === action.payload.id) {
@@ -128,7 +109,7 @@ const Auth = () => {
     setIsLoginMode(!isLoginMode);
   };
 
-  // we pass inputChangeHandler into the dependency array of useEffect() in the Input element. We must therefore
+  // we pass inputChangeHandler into the dependency array of useEffect() in the Input element. We must therefore wrap in useCallback.
   const inputChangeHandler = useCallback((id, value, isValid) => {
     dispatch({
       type: "INPUT_CHANGE",
@@ -140,7 +121,6 @@ const Auth = () => {
     });
   }, []);
 
-  // send request to backend using hook. Need to include formState in the body. The response
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (isLoginMode) {
@@ -154,11 +134,11 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        //response includes the userId and token
+
         const { userId, token } = responseData;
         auth.login(userId, token);
         console.log(token);
-        history.push("/myworkouts"); // redirect to home page once we have logged in
+        history.push("/myworkouts"); // redirect to myworkouts page once we have logged in
       } catch (err) {
         console.log(error);
       }
@@ -174,11 +154,11 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        // response includes the userId and token
+
         const { userId, token } = responseData;
         console.log(token);
         auth.login(userId, token);
-        history.push("/myworkouts"); //Redirect to home page once we have signed up
+        history.push("/myworkouts");
       } catch (e) {
         console.log(e);
       }
@@ -188,9 +168,7 @@ const Auth = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && (
-        <ErrorModal error={error} clearError={clearError} />
-      )}
+      {error && <ErrorModal error={error} clearError={clearError} />}
       <Card className="authentication">
         <h3>{isLoginMode ? "Login Required" : "Sign up Required"}</h3>
         <form onSubmit={onSubmitHandler}>

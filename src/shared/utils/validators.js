@@ -21,7 +21,7 @@ export const VALIDATOR_MIN = (val) => ({ type: VALIDATOR_TYPE_MIN, val: val });
 export const VALIDATOR_MAX = (val) => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 
-// validate checks the validity of the input(value) based on the validators passed in. Validators is an array. We execute the functions above when
+// validate checks the validity of the input(value) based on the validators passed in. Validators is an array.
 export const validate = (value, validators) => {
   let isValid = true;
   for (const validator of validators) {

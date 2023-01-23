@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
@@ -12,7 +12,6 @@ const MyProgress = () => {
   const auth = useContext(AuthContext);
 
   const [workoutData, setWorkoutData] = useState();
-  // const [workout, setWorkout] = useState();
 
   // whenever the state in the custom hook changes the component using the custom hook will be re rendered.
   const { error, isLoading, sendRequest, clearError } =
@@ -30,10 +29,7 @@ const MyProgress = () => {
           }
         );
         setWorkoutData(responseData.workOutProgress); // array of objects. each object represents new instance of tracked workout.
-        // setWorkout(responseData.foundWorkout);
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     };
     getWorkoutProgress();
     //we want to send a request to end point to get workout tracking progress for the provided workout id.
