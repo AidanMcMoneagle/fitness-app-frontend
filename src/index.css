@@ -13,6 +13,11 @@ body {
   background: linear-gradient(90deg, #f2e3e3, #f9f8fb, #e0d9f2);
 }
 
+main {
+  z-index: 1;
+  position: relative;
+}
+
 .slide-in-left-enter {
   transform: translateX(-100%);
 }
