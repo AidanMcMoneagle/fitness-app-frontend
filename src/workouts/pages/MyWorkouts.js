@@ -108,13 +108,16 @@ const MyWorkouts = () => {
         console.log(e);
       }
     };
+
     fetchMyWorkouts();
   }, [auth.token, sendRequest, isViewingArchivedWorkouts]); // not sure what to put in dependency array.
 
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && auth.isLoading && <ErrorModal error={error} clearError={clearError} />}
+      {error && auth.isLoading && (
+        <ErrorModal error={error} clearError={clearError} />
+      )}
       {userWorkouts && (
         <div className="navigation-btn-container">
           <h4>{"Navigate to:"}</h4>

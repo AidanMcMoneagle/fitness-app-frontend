@@ -123,20 +123,19 @@ const NewWorkout = () => {
   const addExercise = () => {
     const newList = [...exerciseNumber, uuidv4()];
     setExerciseNumber(newList);
-    setFormIsValid(false);
   };
 
   const deleteExercise = (id) => {
-    dispatch({
-      type: "DELETE_EXERCISE",
-      payload: id,
-    });
-
     // loops through exerciseNumber Array and creates new Array with the deleted exercise not included.
     const newList = exerciseNumber.filter((element) => {
       return element !== id;
     });
     setExerciseNumber(newList);
+
+    dispatch({
+      type: "DELETE_EXERCISE",
+      payload: id,
+    });
   };
 
   const addExerciseData = (id, value) => {
@@ -164,7 +163,9 @@ const NewWorkout = () => {
 
   useEffect(() => {
     console.log(formData);
-  }, [formData]);
+    console.log(exerciseNumber);
+    console.log(formIsValid);
+  }, [formData, exerciseNumber, formIsValid]);
 
   // need to ensure we send the token. Can be used to authenticate user. We then extract the userId from the token.
   const workoutSubmitHandler = async () => {
@@ -241,7 +242,8 @@ const NewWorkout = () => {
             disabled={
               !formIsValid ||
               formData.exercises.length !== exerciseNumber.length ||
-              !formData.workoutName
+              !formData.workoutName ||
+              !formData.exercises[0].value
             }
             className="create-workout-btn"
           >
