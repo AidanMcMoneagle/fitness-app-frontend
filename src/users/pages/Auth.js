@@ -188,7 +188,7 @@ const Auth = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && !auth.isLoading && (
+      {error && (
         <ErrorModal error={error} clearError={clearError} />
       )}
       <Card className="authentication">

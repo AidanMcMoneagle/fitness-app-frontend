@@ -53,7 +53,6 @@ const useAuth = () => {
   // logs user out automatically if the token expires.
   // settimeout runs after tokenExpirationDate. Should re run whenever the token changes i.e. user is logged in. setTimeOut - accepts a callback function and a
   useEffect(() => {
-    setIsLoading(true);
     if (token && tokenExpirationDate) {
       const remainingTime =
         tokenExpirationDate.getTime() - new Date().getTime();
@@ -62,7 +61,6 @@ const useAuth = () => {
       // clearTimeOut when user logs out. Useffect will re run when token changes.
       clearTimeout(logoutTimer);
     }
-    setIsLoading(false);
   }, [token, logout, tokenExpirationDate]);
 
   return { login, logout, token, isLoading };

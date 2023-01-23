@@ -199,10 +199,8 @@ const NewWorkout = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && !auth.isLoading && (
-        <ErrorModal error={error} clearError={clearError} />
-      )}
-      <h3 className="page-title">NEW WORKOUT</h3>
+      {error && <ErrorModal error={error} clearError={clearError} />}
+      <h3 className="page-title">New Workout</h3>
       <Card className="workout-title">
         <form
           onSubmit={workoutTitleSubmitHandler}

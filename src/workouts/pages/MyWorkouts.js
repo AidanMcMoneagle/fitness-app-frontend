@@ -115,12 +115,10 @@ const MyWorkouts = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && auth.isLoading && (
-        <ErrorModal error={error} clearError={clearError} />
-      )}
+      {error && <ErrorModal error={error} clearError={clearError} />}
       {userWorkouts && (
         <div className="navigation-btn-container">
-          <h4>{"Navigate to:"}</h4>
+          <h3>{"Navigate to:"}</h3>
           <div className="navigation-btns">
             <button
               className={

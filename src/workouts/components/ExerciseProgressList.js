@@ -13,7 +13,7 @@ const ExerciseProgressList = (props) => {
 
   return (
     <React.Fragment>
-      <h2 className="page-title">Exercise Progress</h2>
+      <h3 className="page-title">Exercise Progress</h3>
       <div className="exercise-graph-list">
         {exerciseWeightsArray.map((exercise, index) => {
           return (
