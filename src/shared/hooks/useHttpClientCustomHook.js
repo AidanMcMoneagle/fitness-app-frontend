@@ -19,13 +19,12 @@ const useHttpClientCustomHook = () => {
 
         responseData = await response.json();
 
-        //throw new error object with the message property equal responseData.message=err.message on Backend(what we want to display to client)
+        //reponse.ok=false if 400/500 statuscode
         if (!response.ok) {
           throw new Error(responseData.message);
         }
         setIsLoading(false);
       } catch (error) {
-        console.log(error, "THIS IS THE ERROR");
         setError(error.message);
         setIsLoading(false);
         throw error;
@@ -34,12 +33,11 @@ const useHttpClientCustomHook = () => {
     },
     []
   );
-  // will return this aswell so the componenets that use the hook can clear the error.
+  // will return this so the componenets that use the hook can clear the error.
   const clearError = () => {
     setError(null);
   };
 
-  // return the error state and isLoading state and sendRequest Function.
   return { error, isLoading, sendRequest, clearError };
 };
 

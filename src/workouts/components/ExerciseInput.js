@@ -24,17 +24,14 @@ const ExerciseInput = (props) => {
   const [exerciseName, setExerciseName] = useState("");
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
-  const [exerciseSubmitted, setExerciseSubmitted] = useState(false); // change the style of the input text if has already been added. Maybe turn box to green.
+  const [exerciseSubmitted, setExerciseSubmitted] = useState(false); // used change the style of the input.
 
   // useReducer to manage the state of each exercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
 
-  // need to pass up exercise data to NewWorkout where it can be submitted. Need to pass the data to a function that has been passed down from the parent as props. Important that when we send the data we include the id. Allows us to edit and delete later if required.
-
   const { addExerciseData, setFormIsValid } = props;
   const { id, value } = exerciseState;
 
-  // onInupt function is called which sends id and exercise data to NewWorkout. Here it is added to the state of the entire form. We only want to call when
   useEffect(() => {
     if (exerciseState.value) {
       addExerciseData(id, value);
@@ -65,8 +62,6 @@ const ExerciseInput = (props) => {
       setExerciseSubmitted(false);
     }
   };
-
-  //WHEN WE EDIT EXERCISE WE NEED TO REMOVE STATE FROM PARENT IMMEDIATELY. call a function passed down from parent which dispatches an action to EXERCISE IN EDIT MODE this sets the value of the indiviudal exercises to undefined however important that we keep the Id. Also sets formValditiy to false.
 
   const { deleteExercise } = props;
   const deleteExerciseHandler = (e) => {

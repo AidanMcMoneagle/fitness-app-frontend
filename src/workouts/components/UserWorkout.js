@@ -6,6 +6,8 @@ import React, {
   useContext,
 } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";
+
 import UserExercise from "./UserExercise";
 import Modal from "../../shared/components/UIElements/Modal";
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
@@ -13,7 +15,6 @@ import AuthContext from "../../shared/context/auth-context";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Card from "../../shared/components/UIElements/Card";
-import { AiOutlineClose } from "react-icons/ai";
 
 import "./UserWorkout.css";
 
@@ -38,7 +39,7 @@ const UserWorkout = (props) => {
   const [inTrackingMode, setIsTrackingMode] = useState(false);
   const [numberOfSetHeaders, setNumberOfSetHeaders] = useState([]);
 
-  // if allExercises have been tracked i.e. every set input has been populated we change state to true and render button to submit data.
+  // if allExercises have been tracked i.e. every set input has been populated we change state to true and allow button to submit data.
   const [areAllExercisesTracked, setAreAllExercisesTracked] = useState(false);
 
   const [inputState, dispatch] = useReducer(inputReducer, []);
@@ -62,7 +63,7 @@ const UserWorkout = (props) => {
     setIsTrackingMode(!inTrackingMode);
   };
 
-  // every single time the page re renders I want to check if all inputs have been filled. I have to check if the length of the inputState is equal to the number of exercises in the workout. I have access to userWorkout. Once I do this I can enable the button to submit the workout.
+  // every single time the page re renders I want to check if all inputs have been filled. I have to check if the length of the inputState is equal to the number of exercises in the workout.
   useEffect(() => {
     if (inputState && inputState.length !== userWorkout.exercises.length) {
       return;
@@ -94,7 +95,6 @@ const UserWorkout = (props) => {
     });
   };
 
-  // want to redirect somewhere once we have submitted. Need to ensure we sent the workout Id. Should include this in the url. Important so we can ensure we adding tracked workouts.
   const submitWorkoutTrackingData = async () => {
     console.log(inputState);
     try {
@@ -111,9 +111,7 @@ const UserWorkout = (props) => {
       );
       console.log(responseData);
       history.push(`/${userWorkout._id}/myprogress`);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const { archiveWorkout } = props;
@@ -131,9 +129,7 @@ const UserWorkout = (props) => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
-      {error && (
-        <ErrorModal error={error} clearError={clearError} />
-      )}
+      {error && <ErrorModal error={error} clearError={clearError} />}
       {isDeleteModalOpen && (
         <Modal
           show

@@ -100,9 +100,9 @@
   background: transparent;
   border-color: transparent;
   cursor: pointer;
-  color: var(--clr-green-dark);
+  color: hsl(125, 67%, 44%);
   font-size: 1.2rem;
-  transition: var(--transition);
+  transition: all 0.2s linear;
 }
 
 .workout-table button.track-exercise-btn:disabled {

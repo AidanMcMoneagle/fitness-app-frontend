@@ -6,8 +6,6 @@ import BackDrop from "../UIElements/BackDrop";
 
 import "./MainNavigation.css";
 
-// this component is the main component for the navigation in the app.
-//Navlinks
 
 const MainNavigation = () => {
   const [sideDrawerOpen, setIsSideDrawerOpen] = useState(false);
