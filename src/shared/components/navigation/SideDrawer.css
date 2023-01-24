@@ -8,3 +8,9 @@
   background: #f3ebeb;
   box-shadow: 0 2px 8px rgba(238, 208, 208, 0.26);
 }
+
+@media (max-width: 500px) {
+  .side-drawer {
+    width: 80%;
+  }
+}
