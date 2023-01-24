@@ -42,14 +42,12 @@ const NavLinks = () => {
       )}
       {!context.isLoggedIn && (
         <li>
-          <Link exact to="/login">
-            LOGIN
-          </Link>
+          <Link to="/login">LOGIN</Link>
         </li>
       )}
       {context.isLoggedIn && (
         <li>
-          <Link exact to="/login" onClick={context.logout}>
+          <Link to="/login" onClick={context.logout}>
             LOGOUT
           </Link>
         </li>

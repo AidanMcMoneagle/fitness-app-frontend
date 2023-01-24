@@ -92,7 +92,6 @@ const MyWorkouts = () => {
             Authorization: "Bearer " + auth.token,
           }
         );
-        console.log(responseData.foundWorkouts);
         setUserWorkouts([...responseData.foundWorkouts]);
       } catch (e) {
         console.log(e);
