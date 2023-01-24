@@ -25,7 +25,7 @@ const MyWorkouts = () => {
     console.log(workoutId);
     try {
       await sendRequest(
-        `http://localhost:5000/api/workouts/${workoutId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/workouts/${workoutId}`,
         "DELETE",
         null,
         {
@@ -42,7 +42,7 @@ const MyWorkouts = () => {
   const archiveWorkout = async (workoutId) => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/workouts/archive/${workoutId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/workouts/archive/${workoutId}`,
         "PUT",
         null,
         {
@@ -59,7 +59,7 @@ const MyWorkouts = () => {
   const unArchiveWorkout = async (workoutId) => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/workouts/unarchive/${workoutId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/workouts/unarchive/${workoutId}`,
         "PUT",
         null,
         {
@@ -85,7 +85,7 @@ const MyWorkouts = () => {
     const fetchMyWorkouts = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/workouts/",
+          `${process.env.REACT_APP_BACKEND_URL}/workouts/`,
           "GET",
           null,
           {
@@ -137,9 +137,7 @@ const MyWorkouts = () => {
               please create one.
             </p>
             <button className="add-workout-btn">
-              <Link exact to="/workouts/new">
-                ADD WORKOUT
-              </Link>
+              <Link to="/workouts/new">ADD WORKOUT</Link>
             </button>
           </Card>
         )}

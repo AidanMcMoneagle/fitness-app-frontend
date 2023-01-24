@@ -162,7 +162,7 @@ const NewWorkout = () => {
   const workoutSubmitHandler = async () => {
     try {
       await sendRequest(
-        "http://localhost:5000/api/workouts/new",
+        `${process.env.REACT_APP_BACKEND_URL}/workouts/new`,
         "POST",
         JSON.stringify(formData),
         {
