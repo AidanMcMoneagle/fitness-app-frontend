@@ -67,3 +67,12 @@
     display: none;
   }
 }
+
+@media (max-width: 500px) {
+  .main-header__title {
+    font-size: 1.7rem;
+  }
+  .side-drawer__header {
+    width: 80%;
+  }
+}
