@@ -99,7 +99,7 @@ const UserWorkout = (props) => {
     console.log(inputState);
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/trackworkouts/${userWorkout._id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/trackworkouts/${userWorkout._id}`,
         "POST",
         JSON.stringify({
           exerciseWeights: inputState,
