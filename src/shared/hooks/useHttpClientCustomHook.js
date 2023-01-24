@@ -4,7 +4,6 @@ const useHttpClientCustomHook = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
-  // send request is configurable. Wrap in useCallback to ensure that the function never gets recreated when the component that uses the hook re renders.
   const sendRequest = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setIsLoading(true);

@@ -41,7 +41,7 @@ const MyWorkouts = () => {
 
   const archiveWorkout = async (workoutId) => {
     try {
-      const responseData = await sendRequest(
+      await sendRequest(
         `http://localhost:5000/api/workouts/archive/${workoutId}`,
         "PUT",
         null,
@@ -58,7 +58,7 @@ const MyWorkouts = () => {
 
   const unArchiveWorkout = async (workoutId) => {
     try {
-      const responseData = await sendRequest(
+      await sendRequest(
         `http://localhost:5000/api/workouts/unarchive/${workoutId}`,
         "PUT",
         null,

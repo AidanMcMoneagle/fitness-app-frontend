@@ -99,7 +99,7 @@ const NewWorkout = () => {
 
   const [workoutName, setWorkoutName] = useState("");
 
-  // holds the state of the formData we will send to the client. Form validity is not managed here.
+  // holds the state of the formData we will send to the server. Form validity is not managed here.
   const [formData, dispatch] = useReducer(inputReducer, {
     workoutName: "",
     exercises: [
@@ -160,9 +160,8 @@ const NewWorkout = () => {
   };
 
   const workoutSubmitHandler = async () => {
-    console.log(formData);
     try {
-      const responseData = await sendRequest(
+      await sendRequest(
         "http://localhost:5000/api/workouts/new",
         "POST",
         JSON.stringify(formData),
@@ -171,7 +170,6 @@ const NewWorkout = () => {
           Authorization: "Bearer " + auth.token,
         }
       );
-      console.log(responseData);
       history.push("/myworkouts");
     } catch (e) {}
   };
