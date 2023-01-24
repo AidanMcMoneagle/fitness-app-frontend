@@ -13,9 +13,10 @@ import AuthContext from "./shared/context/auth-context";
 import Auth from "./users/pages/Auth";
 import useAuth from "./shared/hooks/useAuth";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 
 function App() {
-  const { login, logout, token, isLoading } = useAuth();
+  const { login, logout, token, isCheckingAuth } = useAuth();
 
   const routes = (
     <Switch>
@@ -34,16 +35,28 @@ function App() {
       <Redirect to="/login" />
     </Switch>
   );
-  return (
-    <AuthContext.Provider
-      value={{ isLoggedIn: !!token, login, logout, token, isLoading }}
-    >
-      <Router>
-        <MainNavigation />
-        <main>{routes}</main>
-      </Router>
-    </AuthContext.Provider>
-  );
+
+  if (isCheckingAuth) {
+    return (
+      <React.Fragment>
+        <Router>
+          <MainNavigation />
+          <LoadingSpinner />
+        </Router>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <AuthContext.Provider
+        value={{ isLoggedIn: !!token, login, logout, token }}
+      >
+        <Router>
+          <MainNavigation />
+          <main>{routes}</main>
+        </Router>
+      </AuthContext.Provider>
+    );
+  }
 }
 
 export default App;

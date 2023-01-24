@@ -137,11 +137,8 @@ const Auth = () => {
 
         const { userId, token } = responseData;
         auth.login(userId, token);
-        console.log(token);
         history.push("/myworkouts"); // redirect to myworkouts page once we have logged in
-      } catch (err) {
-        console.log(error);
-      }
+      } catch (err) {}
     } else {
       try {
         const responseData = await sendRequest(
@@ -156,12 +153,9 @@ const Auth = () => {
         );
 
         const { userId, token } = responseData;
-        console.log(token);
         auth.login(userId, token);
         history.push("/myworkouts");
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     }
   };
 

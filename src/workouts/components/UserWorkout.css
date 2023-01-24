@@ -132,8 +132,7 @@
   display: inline-block;
 }
 
-.btn-container button:hover,
-.btn-container button:active {
+.btn-container button:hover {
   background: #87cefa;
   border-color: #87cefa;
 }
