@@ -1,8 +1,8 @@
-Welcome to the frontend of myWeightsTracker. This application allows users to create, track and view progress of their gym workouts. 
+Welcome to the frontend of myWeightsTracker. This application allows users to create, track and view progress of their gym workouts.
 
-To view the hosted application please use the following URL; https://myweightstracker.web.app/login. 
+To view the hosted application please use the following URL; https://myweightstracker.web.app/login. The frontend of this application is hosted on Firebase. The backend (seperate repo) is hosted on heroku. 
 
-The below screenshots show some of the main features of the app.
+If you would like to gain a quick overview of the application, the below screenshots some of the main features. 
 
 ![image](https://user-images.githubusercontent.com/99369057/214873409-8e663b60-dfc9-4bf0-a1dc-d7383b69d139.png)
 
