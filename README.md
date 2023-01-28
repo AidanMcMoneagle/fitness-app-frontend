@@ -24,8 +24,6 @@ If you would like to gain a quick overview of the application, the below screens
 
 ![image](https://user-images.githubusercontent.com/99369057/214873836-0bbc1636-d9d3-45ed-a9e6-47af29727af1.png)
 
-![image](https://user-images.githubusercontent.com/99369057/214873864-c02d28d4-98c9-4982-8178-30345f536b1e.png)
-
 ![image](https://user-images.githubusercontent.com/99369057/214873927-4438ba4d-0af7-4aef-9faf-c0e43a2ac91d.png)
 
 ![image](https://user-images.githubusercontent.com/99369057/214873973-d7fd383f-80f1-4203-89ed-904ec9348a13.png)
