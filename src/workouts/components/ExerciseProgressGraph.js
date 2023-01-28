@@ -50,7 +50,7 @@ const ExerciseProgressGraph = (props) => {
         }
         return {
           date: new Intl.DateTimeFormat("en-GB").format(new Date(workoutDate)),
-          Average_Weight: averageWeightLifted,
+          Average_Weight: Math.trunc(averageWeightLifted),
         };
       });
       return arrayofObjects;
