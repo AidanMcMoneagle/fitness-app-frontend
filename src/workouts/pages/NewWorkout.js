@@ -12,15 +12,15 @@ import Card from "../../shared/components/UIElements/Card";
 import "./NewWorkout.css";
 
 const inputReducer = (state, action) => {
-  if (action.type === "EXERCISE_ADDED") {
-    if (state.exercises[0].value) {
+  if (action.type === "ADD_EXERCISE_ID") {
+    if (state.exercises[0].id) {
       return {
         ...state,
         exercises: [
           ...state.exercises,
           {
-            id: action.payload.id,
-            value: action.payload.value,
+            id: action.payload,
+            value: "",
           },
         ],
       };
@@ -29,27 +29,29 @@ const inputReducer = (state, action) => {
         ...state,
         exercises: [
           {
-            id: action.payload.id,
-            value: action.payload.value,
+            id: action.payload,
+            value: "",
           },
         ],
       };
     }
   }
 
-  if (action.type === "EDIT_EXERCISE") {
-    const stateWithItemToEditRemoved = state.exercises.filter((exercise) => {
-      return action.payload.id !== exercise.id;
+  if (action.type === "EXERCISE_ADDED") {
+    const newExerciseArray = state.exercises.map((exercise) => {
+      console.log(exercise);
+      if (exercise.id !== action.payload.id) {
+        return exercise;
+      } else {
+        return {
+          id: action.payload.id,
+          value: action.payload.value,
+        };
+      }
     });
     return {
       ...state,
-      exercises: [
-        ...stateWithItemToEditRemoved,
-        {
-          id: action.payload.id,
-          value: action.payload.value,
-        },
-      ],
+      exercises: newExerciseArray,
     };
   }
 
@@ -118,9 +120,13 @@ const NewWorkout = () => {
   const history = useHistory();
 
   // creates a new element in the exerciseNumber array. UUID will be used to remove element from array when deleting exercise.
+  // every time an exercise is added we add an id to the state of the exercise array.
+
   const addExercise = () => {
-    const newList = [...exerciseNumber, uuidv4()];
+    const id = uuidv4();
+    const newList = [...exerciseNumber, id];
     setExerciseNumber(newList);
+    dispatch({ type: "ADD_EXERCISE_ID", payload: id });
   };
 
   const deleteExercise = (id) => {
@@ -137,26 +143,14 @@ const NewWorkout = () => {
   };
 
   const addExerciseData = (id, value) => {
-    const hasExerciseBeenAdded = formData.exercises.find((exercise) => {
-      return exercise.id === id;
-    });
     setFormIsValid(true);
-    if (!hasExerciseBeenAdded) {
-      dispatch({
-        type: "EXERCISE_ADDED",
-        payload: {
-          id,
-          value,
-        },
-      });
-    } else
-      dispatch({
-        type: "EDIT_EXERCISE",
-        payload: {
-          id,
-          value,
-        },
-      });
+    dispatch({
+      type: "EXERCISE_ADDED",
+      payload: {
+        id,
+        value,
+      },
+    });
   };
 
   const workoutSubmitHandler = async () => {
