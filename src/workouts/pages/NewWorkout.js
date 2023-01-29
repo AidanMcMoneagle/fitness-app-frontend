@@ -120,7 +120,7 @@ const NewWorkout = () => {
   const history = useHistory();
 
   // creates a new element in the exerciseNumber array. UUID will be used to remove element from array when deleting exercise.
-  // every time an exercise is added we need to add this onto the state of the exercise array. Should add an id. This way we can ensure that when we confirm the exercises and add them onto the state they are in the correct order.
+  // every time an exercise is added we add an id to the state of the exercise array.
 
   const addExercise = () => {
     const id = uuidv4();

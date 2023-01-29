@@ -18,23 +18,41 @@ import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 function App() {
   const { login, logout, token, isCheckingAuth } = useAuth();
 
-  const routes = (
-    <Switch>
-      <Route exact path="/myworkouts">
-        <MyWorkouts />
-      </Route>
-      <Route exact path="/workouts/new">
-        <NewWorkout />
-      </Route>
-      <Route exact path="/:workoutId/myprogress">
-        <MyProgress />
-      </Route>
-      <Route exact path="/login">
-        <Auth />
-      </Route>
-      <Redirect to="/login" />
-    </Switch>
-  );
+  let routes;
+  if (!token) {
+    routes = (
+      <Switch>
+        <Route exact path="/myworkouts">
+          <MyWorkouts />
+        </Route>
+        <Route exact path="/workouts/new">
+          <NewWorkout />
+        </Route>
+        <Route exact path="/:workoutId/myprogress">
+          <MyProgress />
+        </Route>
+        <Route exact path="/login">
+          <Auth />
+        </Route>
+        <Redirect to="/login" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route exact path="/myworkouts">
+          <MyWorkouts />
+        </Route>
+        <Route exact path="/workouts/new">
+          <NewWorkout />
+        </Route>
+        <Route exact path="/:workoutId/myprogress">
+          <MyProgress />
+        </Route>
+        <Redirect to="/myworkouts" />
+      </Switch>
+    );
+  }
 
   if (isCheckingAuth) {
     return (
