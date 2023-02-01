@@ -2,7 +2,7 @@ Welcome to the front-end of myWeightsTracker. This full-stack MERN application a
 
 To view the hosted application please use the following URL; https://myweightstracker.web.app. The front-end of this application is hosted on Firebase. The back-end (seperate repo) is hosted on Heroku. 
 
-If you would like to gain a quick overview of the application, the below screenshots some of the main features. 
+If you would like to gain a quick overview of the application, the below screenshots show some of the main features:
 
 ![image](https://user-images.githubusercontent.com/99369057/214873409-8e663b60-dfc9-4bf0-a1dc-d7383b69d139.png)
 
