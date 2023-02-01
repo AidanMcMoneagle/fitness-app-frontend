@@ -33,7 +33,6 @@ const inputReducer = (state, action) => {
 
 const UserWorkout = (props) => {
   const { userWorkout, deleteHandler, isViewingArchivedWorkouts } = props;
-  console.log(userWorkout, "userWorkout");
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [inTrackingMode, setIsTrackingMode] = useState(false);
@@ -196,9 +195,8 @@ const UserWorkout = (props) => {
             <tbody>
               {userWorkout.exercises.map((exercise) => {
                 return (
-                  <tr>
+                  <tr key={exercise._id}>
                     <UserExercise
-                      key={exercise._id}
                       exercise={exercise}
                       inTrackingMode={inTrackingMode}
                       passNumberOfSetInputs={passNumberOfSetInputs}

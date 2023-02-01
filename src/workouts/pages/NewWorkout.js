@@ -1,4 +1,10 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, {
+  useState,
+  useReducer,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
@@ -39,13 +45,29 @@ const inputReducer = (state, action) => {
 
   if (action.type === "EXERCISE_ADDED") {
     const newExerciseArray = state.exercises.map((exercise) => {
-      console.log(exercise);
       if (exercise.id !== action.payload.id) {
         return exercise;
       } else {
         return {
           id: action.payload.id,
           value: action.payload.value,
+        };
+      }
+    });
+    return {
+      ...state,
+      exercises: newExerciseArray,
+    };
+  }
+
+  if (action.type === "EXERCISE_EDITING") {
+    const newExerciseArray = state.exercises.map((exercise) => {
+      if (exercise.id !== action.payload.id) {
+        return exercise;
+      } else {
+        return {
+          id: action.payload.id,
+          value: "",
         };
       }
     });
@@ -135,20 +157,28 @@ const NewWorkout = () => {
       return element !== id;
     });
     setExerciseNumber(newList);
-
     dispatch({
       type: "DELETE_EXERCISE",
       payload: id,
     });
   };
 
-  const addExerciseData = (id, value) => {
-    setFormIsValid(true);
+  const addExerciseData = useCallback((id, value) => {
     dispatch({
       type: "EXERCISE_ADDED",
       payload: {
         id,
         value,
+      },
+    });
+  }, []);
+
+  // pass function down to exercise input, used to clear exercise value once edit button is clicked.
+  const editExerciseData = (id) => {
+    dispatch({
+      type: "EXERCISE_EDITING",
+      payload: {
+        id,
       },
     });
   };
@@ -177,6 +207,27 @@ const NewWorkout = () => {
       setWorkoutName("");
     }
   };
+
+  // We check the validity of the form every time the formData changes.
+  useEffect(() => {
+    let formValid = false;
+    const isFormValid = () => {
+      const element = formData.exercises.find((exercise) => {
+        return exercise.value === "";
+      });
+      if (element) {
+        return (formValid = false);
+      } else {
+        return (formValid = true);
+      }
+    };
+    isFormValid();
+    if (!formData.workoutName) {
+      setFormIsValid(false);
+    } else {
+      setFormIsValid(formValid);
+    }
+  }, [formData]);
 
   return (
     <React.Fragment>
@@ -208,7 +259,7 @@ const NewWorkout = () => {
         exerciseNumber={exerciseNumber}
         addExerciseData={addExerciseData}
         deleteExercise={deleteExercise}
-        setFormIsValid={setFormIsValid}
+        editExerciseData={editExerciseData}
       />
       <div className="center">
         <button onClick={addExercise} className="add-exercise-btn">
@@ -219,12 +270,7 @@ const NewWorkout = () => {
         <div className="center">
           <button
             onClick={workoutSubmitHandler}
-            disabled={
-              !formIsValid ||
-              formData.exercises.length !== exerciseNumber.length ||
-              !formData.workoutName ||
-              !formData.exercises[0].value
-            }
+            disabled={!formIsValid}
             className="create-workout-btn"
           >
             CREATE WORKOUT

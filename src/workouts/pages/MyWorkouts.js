@@ -1,12 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Link } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
 import UserWorkoutList from "../components/UserWorkoutList";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import Card from "../../shared/components/UIElements/Card";
 
 import "./MyWorkout.css";
 
@@ -128,19 +126,6 @@ const MyWorkouts = () => {
           </div>
         </div>
       )}
-      {userWorkouts &&
-        userWorkouts.length === 0 &&
-        !isViewingArchivedWorkouts && (
-          <Card className="no-workout-message btn-container">
-            <p>
-              You currently have no active workouts. To view active workouts
-              please create one.
-            </p>
-            <button className="add-workout-btn">
-              <Link to="/workouts/new">ADD WORKOUT</Link>
-            </button>
-          </Card>
-        )}
       {userWorkouts && (
         <UserWorkoutList
           userWorkouts={userWorkouts}
