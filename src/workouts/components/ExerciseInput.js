@@ -29,14 +29,14 @@ const ExerciseInput = (props) => {
   // useReducer to manage the state of each exercise (name, reps, sets)
   const [exerciseState, dispatch] = useReducer(inputReducer, {});
 
-  const { addExerciseData, setFormIsValid } = props;
+  const { addExerciseData, editExerciseData } = props;
   const { id, value } = exerciseState;
 
   useEffect(() => {
-    if (exerciseState.value) {
+    if (value) {
       addExerciseData(id, value);
     }
-  }, [id, value]);
+  }, [id, value, addExerciseData]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -55,11 +55,11 @@ const ExerciseInput = (props) => {
       dispatch({
         type: "EDIT_EXERCISE",
       });
-      setFormIsValid(false);
       setExerciseName("");
       setRepetitions("");
       setSets("");
       setExerciseSubmitted(false);
+      editExerciseData(props.id);
     }
   };
 

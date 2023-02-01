@@ -6,7 +6,7 @@ import ExerciseInput from "./ExerciseInput";
 import "./ExerciseList.css";
 
 const ExerciseList = (props) => {
-  const { exerciseNumber, addExerciseData, setFormIsValid} = props;
+  const { exerciseNumber } = props;
 
   return (
     <div className="new-exercise-list">
@@ -15,10 +15,10 @@ const ExerciseList = (props) => {
           <Card key={id} className="input-exercise-list">
             <ExerciseInput
               index={index}
-              addExerciseData={addExerciseData}
-              setFormIsValid={setFormIsValid}
+              addExerciseData={props.addExerciseData}
               id={id}
               deleteExercise={props.deleteExercise}
+              editExerciseData={props.editExerciseData}
             />
           </Card>
         );
