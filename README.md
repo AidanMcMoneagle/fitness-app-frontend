@@ -1,6 +1,8 @@
 # mtWeightsTracker
 Welcome to the front-end of myWeightsTracker. This full-stack MERN application allows users to create, track and view progress of their gym workouts. To view the hosted application and start using the app please use the following URL; https://myweightstracker.web.app.
 
+The back-end of this application is contained within my-weights-tracker-backend repository. 
+
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
@@ -8,25 +10,25 @@ Welcome to the front-end of myWeightsTracker. This full-stack MERN application a
 * [Screenshots](#screenshots)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-<!-- * [License](#license) -->
 
 ## General Information
-- 
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+- The app has 4 main pages: 
+  1. Login/Signup page
+  2. My Workouts page - displays all workouts the user has created.
+  3. New Workout page - allows the user to create a new workout
+  4. My Progress page - displays the exercise progress of the selected workout. 
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- React.js
+- Express.js
+- Node.js 
+- MongoDB
 
 ## Features
-List the ready features here:
-- the myWorkots page displays all workouts the user has created. In one click
-- the new
-- Awesome feature 3
+The main feature of this application is allowing the user to track their workouts and view the progress of each exercise over time. 
+- By clicking the 'Track Workout' button on the 'My Workouts' page the user can track the weight lifted for every set of each exercise in the workout. 
+- Once all inputs have been filled and the exercises weights confirmed the user can log the workout. 
+- By clicking the 'View Progress' button the user is redirected to the 'My Progress' page. This page displays a graph for each exercise in the workout. The y-axis represents the average weight lifted and the x axis represents the workout date.
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/99369057/214873409-8e663b60-dfc9-4bf0-a1dc-d7383b69d139.png)
