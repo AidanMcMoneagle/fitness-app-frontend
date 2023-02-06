@@ -33,6 +33,8 @@ The main feature of this application is allowing the user to track their workout
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/99369057/214873409-8e663b60-dfc9-4bf0-a1dc-d7383b69d139.png)
 
+![image](https://user-images.githubusercontent.com/99369057/217110590-eb789dea-44a9-4e31-8d4a-24760a84c7c8.png)
+
 ![image](https://user-images.githubusercontent.com/99369057/214873546-13813a4a-1693-4fe2-8ca2-41c8e5892c89.png)
 
 ![image](https://user-images.githubusercontent.com/99369057/214873594-6d0fa0cc-dd45-4723-8a1b-0d3bc302f1ce.png)
