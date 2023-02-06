@@ -1,5 +1,5 @@
 # myWeightsTracker
-Welcome to the front-end of myWeightsTracker. This fullly responsive, full-stack MERN application allows users to create, track and view progress of their gym workouts. To view the hosted application and start using the app please use the following URL; https://myweightstracker.web.app.
+Welcome to the front-end of myWeightsTracker. This fully responsive, full-stack MERN application allows users to create, track and view progress of their gym workouts. To view the hosted application and start using the app please use the following URL; https://myweightstracker.web.app.
 
 The back-end of this application is contained within my-weights-tracker-backend repository. 
 
