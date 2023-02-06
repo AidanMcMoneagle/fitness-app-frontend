@@ -12,11 +12,11 @@ The back-end of this application is contained within my-weights-tracker-backend 
 * [Room for Improvement](#room-for-improvement)
 
 ## General Information
-- The app has 4 main pages: 
-  1. Login/Signup page
-  2. My Workouts page - displays all workouts the user has created.
-  3. New Workout page - allows the user to create a new workout
-  4. My Progress page - displays the exercise progress of the selected workout. 
+The app has 4 main pages:
+- Login/Signup page
+- My Workouts page - displays all workouts the user has created.
+- New Workout page - allows the user to create a new workout
+- My Progress page - displays the exercise progress of the selected workout. 
 
 ## Technologies Used
 - React.js
