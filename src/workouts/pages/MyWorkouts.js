@@ -72,10 +72,12 @@ const MyWorkouts = () => {
   };
 
   const viewActiveWorkouts = () => {
+    setUserWorkouts(undefined);
     setIsViewingArchivedWorkouts(false);
   };
 
   const viewArchivedWorkouts = () => {
+    setUserWorkouts(undefined);
     setIsViewingArchivedWorkouts(true);
   };
 
@@ -103,29 +105,28 @@ const MyWorkouts = () => {
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
-      {userWorkouts && (
-        <div className="navigation-btn-container">
-          <h3>{"Navigate to:"}</h3>
-          <div className="navigation-btns">
-            <button
-              className={
-                isViewingArchivedWorkouts ? "not-active-page" : "active-page"
-              }
-              onClick={viewActiveWorkouts}
-            >
-              ACTIVE WORKOUTS
-            </button>
-            <button
-              className={
-                isViewingArchivedWorkouts ? "active-page" : "not-active-page"
-              }
-              onClick={viewArchivedWorkouts}
-            >
-              ARCHIVED WORKOUTS
-            </button>
-          </div>
+      <div className="navigation-btn-container">
+        <h3>{"Navigate to:"}</h3>
+        <div className="navigation-btns">
+          <button
+            className={
+              isViewingArchivedWorkouts ? "not-active-page" : "active-page"
+            }
+            onClick={viewActiveWorkouts}
+          >
+            ACTIVE WORKOUTS
+          </button>
+          <button
+            className={
+              isViewingArchivedWorkouts ? "active-page" : "not-active-page"
+            }
+            onClick={viewArchivedWorkouts}
+          >
+            ARCHIVED WORKOUTS
+          </button>
         </div>
-      )}
+      </div>
+
       {userWorkouts && (
         <UserWorkoutList
           userWorkouts={userWorkouts}
