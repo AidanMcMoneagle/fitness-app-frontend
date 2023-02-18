@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
@@ -73,7 +73,7 @@ const ResetPassword = () => {
             <Input
               id="password"
               type="password"
-              labelText="Password"
+              labelText="New Password"
               errorText="please enter a password with a min length 8 characters"
               onInput={inputChangeHandler}
               validators={[VALIDATOR_MINLENGTH(8)]}
@@ -85,7 +85,7 @@ const ResetPassword = () => {
                 "form-control--invalid"
               }`}
             >
-              <label htmlFor="confirmpassword">Confirm Password</label>
+              <label htmlFor="confirmpassword">Confirm New Password</label>
               <input
                 type="password"
                 id="confirmpassword"
@@ -98,13 +98,22 @@ const ResetPassword = () => {
               )}
               <div>
                 <button disabled={!isConfirmPasswordValid}>
-                  UPDATE PASSWORD
+                  RESET PASSWORD
                 </button>
               </div>
             </div>
           </form>
         )}
-        {isPasswordReset && <p>Your Password has been updated</p>}
+        {isPasswordReset && (
+          <>
+            <p>Your Password has been updated</p>
+            <div>
+              <Link exact to={"/login"}>
+                <button>LOGIN</button>
+              </Link>
+            </div>
+          </>
+        )}
       </Card>
     </React.Fragment>
   );
