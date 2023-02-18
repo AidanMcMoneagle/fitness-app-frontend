@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useCallback, useContext } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
@@ -192,6 +192,13 @@ const Auth = () => {
             onInput={inputChangeHandler}
             validators={[VALIDATOR_MINLENGTH(8)]}
           />
+          <div>
+            {isLoginMode && (
+              <Link exact to={"/forgotpassword"}>
+                Forgot Password?
+              </Link>
+            )}
+          </div>
           <div>
             <button disabled={!formState.formIsValid}>
               {isLoginMode ? "LOGIN" : "SIGN UP"}

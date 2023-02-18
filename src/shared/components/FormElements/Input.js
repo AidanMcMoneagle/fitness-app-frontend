@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { validate } from "../../utils/validators";
 
 // manage the state of each input here inlcuding validity. Then when we have a re-render we pass this up to the parent component to manage overall validity there. We manage the overall validity of the form in parent component.
@@ -49,7 +50,9 @@ const Input = (props) => {
   const { value, isValid } = inputState;
 
   useEffect(() => {
-    onInput(id, value, isValid);
+    if (onInput) {
+      onInput(id, value, isValid);
+    }
   }, [id, value, isValid, onInput]);
 
   return (
@@ -59,6 +62,7 @@ const Input = (props) => {
       }`}
     >
       <label htmlFor={props.id}>{props.labelText}</label>
+
       <input
         type={props.type}
         id={props.id}
@@ -66,6 +70,7 @@ const Input = (props) => {
         onBlur={touchHandler} //onBlur event occurs when user loses focus on element.
         value={inputState.value}
       />
+
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </div>
   );
