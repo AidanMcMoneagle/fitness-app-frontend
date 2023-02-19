@@ -52,7 +52,7 @@ Project is: in progress.
 
 ## Room for Improvement
 Room for improvement:
-- Add forgot password feature. 
+- Add forgot password feature (Feature has now been added)
 - Implement filter function on graphs that will display progress by time period. 
 
 To do:
