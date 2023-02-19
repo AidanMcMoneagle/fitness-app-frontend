@@ -62,6 +62,7 @@ function App() {
     );
   }
 
+  // need this if check as we do not want to try and render routes on page refresh. A request will be made to the backend without a token which will throw an error.
   if (isCheckingAuth) {
     return (
       <React.Fragment>
