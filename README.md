@@ -1,6 +1,11 @@
 # myWeightsTracker
 Welcome to the front-end of myWeightsTracker. This fully responsive, full-stack MERN application allows users to create, track and view progress of their gym workouts. To view the hosted application and start using the app please click <a href='https://myweightstracker.web.app'>here</a>.
 
+Highlights:
+-Implements JWT user authentication and secure password reset via email with nodemailer.
+-Uses recharts library to produce graphs visualising workout progress.
+-Client side routing using React Router.
+
 The back-end of this application is contained within my-weights-tracker-backend repository. 
 
 ## Table of Contents
