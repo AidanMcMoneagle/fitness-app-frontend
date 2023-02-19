@@ -24,15 +24,6 @@ function App() {
   if (!token) {
     routes = (
       <Switch>
-        <Route exact path="/myworkouts">
-          <MyWorkouts />
-        </Route>
-        <Route exact path="/workouts/new">
-          <NewWorkout />
-        </Route>
-        <Route exact path="/:workoutId/myprogress">
-          <MyProgress />
-        </Route>
         <Route exact path="/login">
           <Auth />
         </Route>
