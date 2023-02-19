@@ -30,6 +30,10 @@ The main feature of this application is allowing the user to track their workout
 - Once all inputs have been filled and the exercises weights confirmed the user can log the workout. 
 - By clicking the 'View Progress' button the user is redirected to the 'My Progress' page. This page displays a graph (created using recharts library) for each exercise in the workout. The y-axis represents the average weight lifted and the x-axis represents the workout date.
 
+Additional features include:
+- Secure password reset functionality via email using nodemailer. 
+- Delete and archive workout functionality.
+
 ## Screenshots
 
 <img src="https://user-images.githubusercontent.com/99369057/214873409-8e663b60-dfc9-4bf0-a1dc-d7383b69d139.png" width="600">
