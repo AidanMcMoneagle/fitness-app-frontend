@@ -1,9 +1,6 @@
-import React, { useState, useCallback, useContext } from "react";
-
-import { useHistory } from "react-router-dom";
+import React, { useState, useCallback } from "react";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
-import AuthContext from "../../shared/context/auth-context";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Card from "../../shared/components/UIElements/Card";
@@ -18,10 +15,6 @@ const ForgotPassword = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   const { error, isLoading, sendRequest, clearError } =
     useHttpClientCustomHook();
-
-  const auth = useContext(AuthContext);
-
-  const history = useHistory();
 
   const inputChangeHandler = useCallback((id, value, isValid) => {
     setEmail(value);
