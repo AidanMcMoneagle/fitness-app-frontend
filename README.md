@@ -25,7 +25,7 @@ The app has 4 main pages:
 - MongoDB
 
 ## Features
-The main feature of this application is allowing the user to track their workouts and view the progress of each exercise over time. 
+The main feature of this application is allowing the user to track their created workouts and view the progress of each exercise in the workout over time. 
 - By clicking the 'Track Workout' button on the 'My Workouts' page the user can track the weight lifted for every set of each exercise in the workout. 
 - Once all inputs have been filled and the exercises weights confirmed the user can log the workout. 
 - By clicking the 'View Progress' button the user is redirected to the 'My Progress' page. This page displays a graph (created using recharts library) for each exercise in the workout. The y-axis represents the average weight lifted and the x-axis represents the workout date.
@@ -33,6 +33,7 @@ The main feature of this application is allowing the user to track their workout
 Additional features include:
 - Secure password reset functionality via email using nodemailer. 
 - Delete and archive workout functionality.
+- Automatic login.
 
 ## Screenshots
 
