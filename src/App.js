@@ -11,6 +11,8 @@ import MyWorkouts from "./workouts/pages/MyWorkouts";
 import MyProgress from "./workouts/pages/MyProgress";
 import AuthContext from "./shared/context/auth-context";
 import Auth from "./users/pages/Auth";
+import ForgotPassword from "./users/pages/ForgotPassword";
+import ResetPassword from "./users/pages/ResetPassword";
 import useAuth from "./shared/hooks/useAuth";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
@@ -33,6 +35,12 @@ function App() {
         </Route>
         <Route exact path="/login">
           <Auth />
+        </Route>
+        <Route exact path="/forgotpassword">
+          <ForgotPassword />
+        </Route>
+        <Route exact path="/passwordreset/:resetToken">
+          <ResetPassword />
         </Route>
         <Redirect to="/login" />
       </Switch>

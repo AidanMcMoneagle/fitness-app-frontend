@@ -1,6 +1,12 @@
-import React, { useState, useReducer, useCallback, useContext } from "react";
+import React, {
+  useState,
+  useReducer,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
 import AuthContext from "../../shared/context/auth-context";
@@ -8,6 +14,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
+import ConfirmPasswordInput from "../../shared/components/FormElements/ConfirmPasswordInput";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
@@ -88,6 +95,9 @@ const Auth = () => {
     formIsValid: false,
   });
 
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isConfirmPasswordValid, setConfirmPasswordValid] = useState(false);
+
   const { error, isLoading, sendRequest, clearError } =
     useHttpClientCustomHook();
 
@@ -111,15 +121,30 @@ const Auth = () => {
 
   // we pass inputChangeHandler into the dependency array of useEffect() in the Input element. We must therefore wrap in useCallback.
   const inputChangeHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      payload: {
-        id,
-        value,
-        isValid,
-      },
-    });
+    if (id !== "confirmpassword")
+      dispatch({
+        type: "INPUT_CHANGE",
+        payload: {
+          id,
+          value,
+          isValid,
+        },
+      });
+    else {
+      setConfirmPassword(value);
+    }
   }, []);
+
+  useEffect(() => {
+    if (
+      formState.inputs.password.isValid &&
+      formState.inputs.password.value === confirmPassword
+    ) {
+      setConfirmPasswordValid(true);
+    } else {
+      setConfirmPasswordValid(false);
+    }
+  }, [formState.inputs.password, confirmPassword]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -193,9 +218,30 @@ const Auth = () => {
             validators={[VALIDATOR_MINLENGTH(8)]}
           />
           <div>
-            <button disabled={!formState.formIsValid}>
-              {isLoginMode ? "LOGIN" : "SIGN UP"}
-            </button>
+            {isLoginMode && (
+              <Link exact to={"/forgotpassword"}>
+                Forgot Password?
+              </Link>
+            )}
+          </div>
+          {!isLoginMode && (
+            <ConfirmPasswordInput
+              isConfirmPasswordValid={isConfirmPasswordValid}
+              onInput={inputChangeHandler}
+              labelText="Confirm Password"
+            />
+          )}
+          <div>
+            {isLoginMode && (
+              <button disabled={!formState.formIsValid}>LOGIN</button>
+            )}
+            {!isLoginMode && (
+              <button
+                disabled={!formState.formIsValid || !isConfirmPasswordValid}
+              >
+                SIGN UP
+              </button>
+            )}
           </div>
           <div>
             <button onClick={toggleLoginMode}>
