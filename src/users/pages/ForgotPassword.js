@@ -72,7 +72,9 @@ const ForgotPassword = () => {
             </form>
           </React.Fragment>
         )}
-        {isEmailSent && <p>A password reset link has been sent your email.</p>}
+        {isEmailSent && (
+          <p>{`A password reset link has been sent to ${email}`}.</p>
+        )}
       </Card>
     </React.Fragment>
   );

@@ -9,14 +9,13 @@ import Input from "../../shared/components/FormElements/Input";
 import { VALIDATOR_MINLENGTH } from "../../shared/utils/validators";
 
 import "./Auth.css";
+import ConfirmPasswordInput from "../../shared/components/FormElements/ConfirmPasswordInput";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isConfirmPasswordValid, setConfirmPasswordValid] = useState(false);
-  const [isConfirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
-
   const [isPasswordReset, setIsPasswordReset] = useState(false);
 
   const { error, isLoading, sendRequest, clearError } =
@@ -24,22 +23,21 @@ const ResetPassword = () => {
 
   const { resetToken } = useParams();
 
+  // we handle the values of the inputs here
   const inputChangeHandler = useCallback((id, value, isValid) => {
-    setPassword(value);
-    setIsPasswordValid(isValid);
+    if (id === "password") {
+      setPassword(value);
+      setIsPasswordValid(isValid);
+    }
+    if (id === "confirmpassword") {
+      setConfirmPassword(value);
+    }
   }, []);
-
-  const changeHandler = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const touchHandler = (e) => {
-    setConfirmPasswordTouched(true);
-  };
 
   useEffect(() => {
     if (isPasswordValid && password === confirmPassword) {
       setConfirmPasswordValid(true);
+      console.log("values are the same");
     } else {
       setConfirmPasswordValid(false);
     }
@@ -78,29 +76,13 @@ const ResetPassword = () => {
               onInput={inputChangeHandler}
               validators={[VALIDATOR_MINLENGTH(8)]}
             />
-            <div
-              className={`form-control ${
-                !isConfirmPasswordValid &&
-                isConfirmPasswordTouched &&
-                "form-control--invalid"
-              }`}
-            >
-              <label htmlFor="confirmpassword">Confirm New Password</label>
-              <input
-                type="password"
-                id="confirmpassword"
-                onChange={changeHandler}
-                onBlur={touchHandler} //onBlur event occurs when user loses focus on element.
-                value={confirmPassword}
-              />
-              {!isConfirmPasswordValid && isConfirmPasswordTouched && (
-                <p>passwords do not match</p>
-              )}
-              <div>
-                <button disabled={!isConfirmPasswordValid}>
-                  RESET PASSWORD
-                </button>
-              </div>
+            <ConfirmPasswordInput
+              isConfirmPasswordValid={isConfirmPasswordValid}
+              onInput={inputChangeHandler}
+              labelText="Confirm New Password"
+            />
+            <div>
+              <button disabled={!isConfirmPasswordValid}>RESET PASSWORD</button>
             </div>
           </form>
         )}
