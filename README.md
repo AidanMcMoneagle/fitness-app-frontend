@@ -13,7 +13,7 @@ The back-end of this application is contained within my-weights-tracker-backend 
 
 ## General Information
 The app has 4 main pages:
-- Login/Signup page
+- Login/Signup page inc forgot/reset password pages
 - My Workouts page - displays all workouts the user has created.
 - New Workout page - allows the user to create a new workout
 - My Progress page - displays the exercise progress of the selected workout. 
@@ -61,8 +61,6 @@ Additional features include:
 
 ### 4.New Workout Page
 <img src="https://user-images.githubusercontent.com/99369057/214873624-e3c631c4-0747-49ec-85e5-9b3447a5f8e1.png" width="600">
-
-
 <img src="https://user-images.githubusercontent.com/99369057/214873655-4c8300ba-192e-4105-b502-470947ef0d94.png" width="600">
 <img src="https://user-images.githubusercontent.com/99369057/214873701-0373357c-d874-4d05-b91c-bb5263b6d0ec.png" width="600">
 <img src="https://user-images.githubusercontent.com/99369057/214873732-718e3ce4-af4c-4232-8116-3d67c41531bb.png" width="600">
