@@ -115,6 +115,15 @@ const inputReducer = (state, action) => {
   }
 };
 
+const reducerActions = {
+  ADD_EXERCISE_ID: "ADD_EXERCISE_ID",
+  EXERCISE_ADDED: "EXERCISE_ADDED",
+  EXERCISE_EDITING: "EXERCISE_EDITING",
+  DELETE_EXERCISE: "DELETE_EXERCISE",
+  ADD_WORKOUT_NAME: "ADD_WORKOUT_NAME",
+  EDIT_WORKOUT_NAME: "EDIT_WORKOUT_NAME",
+};
+
 const NewWorkout = () => {
   // contains the state of the number of exercises on the page
   const [exerciseNumber, setExerciseNumber] = useState([]);
@@ -122,6 +131,9 @@ const NewWorkout = () => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [workoutName, setWorkoutName] = useState("");
+
+  // use this state to render exercises on initial load. Set this to false when there is any interaction with the page
+  const [initialLoad, setInitialLoad] = useState(true);
 
   // holds the state of the formData we will send to the server. Form validity is not managed here.
   const [formData, dispatch] = useReducer(inputReducer, {
@@ -143,12 +155,15 @@ const NewWorkout = () => {
 
   // creates a new element in the exerciseNumber array. UUID will be used to remove element from array when deleting exercise.
   // every time an exercise is added we add an id to the state of the exercise array.
-
-  const addExercise = () => {
+  const addExercise = (e = undefined) => {
+    // check if there is an event. i.e if the add button has been clicked
+    if (e) {
+      setInitialLoad(false);
+    }
     const id = uuidv4();
     const newList = [...exerciseNumber, id];
     setExerciseNumber(newList);
-    dispatch({ type: "ADD_EXERCISE_ID", payload: id });
+    dispatch({ type: reducerActions.ADD_EXERCISE_ID, payload: id });
   };
 
   const deleteExercise = (id) => {
@@ -157,15 +172,16 @@ const NewWorkout = () => {
       return element !== id;
     });
     setExerciseNumber(newList);
+    setInitialLoad(false);
     dispatch({
-      type: "DELETE_EXERCISE",
+      type: reducerActions.DELETE_EXERCISE,
       payload: id,
     });
   };
 
   const addExerciseData = useCallback((id, value) => {
     dispatch({
-      type: "EXERCISE_ADDED",
+      type: reducerActions.EXERCISE_ADDED,
       payload: {
         id,
         value,
@@ -176,7 +192,7 @@ const NewWorkout = () => {
   // pass function down to exercise input, used to clear exercise value once edit button is clicked.
   const editExerciseData = (id) => {
     dispatch({
-      type: "EXERCISE_EDITING",
+      type: reducerActions.EXERCISE_EDITING,
       payload: {
         id,
       },
@@ -201,12 +217,19 @@ const NewWorkout = () => {
   const workoutTitleSubmitHandler = (e) => {
     e.preventDefault();
     if (!formData.workoutName)
-      dispatch({ type: "ADD_WORKOUT_NAME", payload: workoutName });
+      dispatch({ type: reducerActions.ADD_WORKOUT_NAME, payload: workoutName });
     else {
-      dispatch({ type: "EDIT_WORKOUT_NAME" });
+      dispatch({ type: reducerActions.EDIT_WORKOUT_NAME });
       setWorkoutName("");
     }
   };
+
+  //When we load the page we initially want to add a certain number of excercises. I have chosen to add 4 exercises to start.
+  useEffect(() => {
+    if (exerciseNumber.length < 4 && initialLoad) {
+      addExercise();
+    }
+  });
 
   // We check the validity of the form every time the formData changes.
   useEffect(() => {
@@ -233,7 +256,7 @@ const NewWorkout = () => {
     <React.Fragment>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
-      <h3 className="page-title">New Workout</h3>
+      <h2 className="page-title">New Workout</h2>
       <Card className="workout-title">
         <form
           onSubmit={workoutTitleSubmitHandler}
@@ -262,7 +285,7 @@ const NewWorkout = () => {
         editExerciseData={editExerciseData}
       />
       <div className="center">
-        <button onClick={addExercise} className="add-exercise-btn">
+        <button onClick={(e) => addExercise(e)} className="add-exercise-btn">
           ADD EXERCISE
         </button>
       </div>
