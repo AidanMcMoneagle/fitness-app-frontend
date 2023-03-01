@@ -16,7 +16,7 @@ import Card from "../../shared/components/UIElements/Card";
 import "./ExerciseProgressGraph.css";
 
 const ExerciseProgressGraph = (props) => {
-  const { workoutData, exerciseId, name } = props;
+  const { workoutData, exerciseId, name, sets, reps } = props;
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -62,6 +62,9 @@ const ExerciseProgressGraph = (props) => {
   return (
     <Card className="exercise-progress-graph">
       <h3>{name}</h3>
+      <p>
+        Reps: {reps} Sets: {sets}
+      </p>
       {graphData && graphData.length > 0 && (
         <ResponsiveContainer width="100%" aspect="2">
           <LineChart

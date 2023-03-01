@@ -106,7 +106,7 @@ const MyWorkouts = () => {
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
       <div className="navigation-btn-container">
-        <h3>{"Navigate to:"}</h3>
+        <h2>{"Navigate to:"}</h2>
         <div className="navigation-btns">
           <button
             className={

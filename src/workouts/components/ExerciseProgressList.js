@@ -5,12 +5,12 @@ import ExerciseProgressGraph from "./ExerciseProgressGraph";
 import "./ExerciseProgressList.css";
 
 const ExerciseProgressList = (props) => {
-  const { workoutData } = props;
+  const { workoutData, workoutName, workoutExercises } = props;
   const exerciseWeightsArray = workoutData[0].exerciseWeights;
 
   return (
     <React.Fragment>
-      <h3 className="page-title">Exercise Progress</h3>
+      <h2 className="page-title">{`${workoutName} Exercise Progress`}</h2>
       <div className="exercise-graph-list">
         {exerciseWeightsArray.map((exercise, index) => {
           return (
@@ -19,6 +19,8 @@ const ExerciseProgressList = (props) => {
               exerciseId={exercise.exerciseId}
               key={exercise.exerciseId}
               name={exercise.exerciseName}
+              sets={workoutExercises[index].sets}
+              reps={workoutExercises[index].reps}
             />
           );
         })}

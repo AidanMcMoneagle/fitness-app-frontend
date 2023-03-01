@@ -12,6 +12,8 @@ const MyProgress = () => {
   const auth = useContext(AuthContext);
 
   const [workoutData, setWorkoutData] = useState();
+  const [workoutName, setWorkoutName] = useState();
+  const [workoutExercises, setWorkoutExercises] = useState();
 
   // whenever the state in the custom hook changes the component using the custom hook will be re rendered.
   const { error, isLoading, sendRequest, clearError } =
@@ -28,7 +30,10 @@ const MyProgress = () => {
             Authorization: "Bearer " + auth.token,
           }
         );
+        console.log(responseData);
         setWorkoutData(responseData.workOutProgress); // array of objects. each object represents new instance of tracked workout.
+        setWorkoutName(responseData.workoutName);
+        setWorkoutExercises(responseData.workoutExercises);
       } catch (e) {}
     };
     getWorkoutProgress();
@@ -40,7 +45,11 @@ const MyProgress = () => {
       {isLoading && <LoadingSpinner />}
       {error && <ErrorModal error={error} clearError={clearError} />}
       {workoutData && workoutData.length > 0 && (
-        <ExerciseProgressList workoutData={workoutData} />
+        <ExerciseProgressList
+          workoutData={workoutData}
+          workoutName={workoutName}
+          workoutExercises={workoutExercises}
+        />
       )}
     </React.Fragment>
   );
