@@ -1,4 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { closeDropDown } from "../../features/UI/uiSlice";
 
 let logoutTimer;
 
@@ -6,6 +8,8 @@ const useAuth = () => {
   const [token, setToken] = useState(null);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  const dispatch = useDispatch();
 
   // login with uid, token, expiration date.
   // create an expiration date. If no expiration date is passed in then we know user has just logged in.
@@ -29,6 +33,7 @@ const useAuth = () => {
   const logout = useCallback(() => {
     setToken(null);
     setTokenExpirationDate(null);
+    dispatch(closeDropDown());
     localStorage.removeItem("userData");
   }, []);
 

@@ -21,6 +21,12 @@
   color: black;
 }
 
+.user-item__image {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
 .nav-links li a:hover {
   color: white;
   background-color: #1e90ff;

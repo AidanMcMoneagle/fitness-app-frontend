@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import AuthContext from "../../context/auth-context";
+import ProfileButton from "./ProfileButton";
 
 import "./NavLinks.css";
 
@@ -52,6 +53,8 @@ const NavLinks = () => {
           </Link>
         </li>
       )}
+      {/* we want this button to open a drop down menu for user profile same as in Linkedin*/}
+      {context.isLoggedIn && <ProfileButton />}
     </ul>
   );
 };

@@ -6,6 +6,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 import NewWorkout from "./workouts/pages/NewWorkout";
 import MyWorkouts from "./workouts/pages/MyWorkouts";
 import MyProgress from "./workouts/pages/MyProgress";
@@ -16,9 +18,13 @@ import ResetPassword from "./users/pages/ResetPassword";
 import useAuth from "./shared/hooks/useAuth";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+import DropDown from "./shared/components/UIElements/DropDown";
 
 function App() {
   const { login, logout, token, isCheckingAuth } = useAuth();
+
+  // listens to changes in value of
+  const dropDownOpen = useSelector((state) => state.ui.isDropDownOpen);
 
   let routes;
   if (!token) {
@@ -38,18 +44,21 @@ function App() {
     );
   } else {
     routes = (
-      <Switch>
-        <Route exact path="/myworkouts">
-          <MyWorkouts />
-        </Route>
-        <Route exact path="/workouts/new">
-          <NewWorkout />
-        </Route>
-        <Route exact path="/:workoutId/myprogress">
-          <MyProgress />
-        </Route>
-        <Redirect to="/myworkouts" />
-      </Switch>
+      <React.Fragment>
+        {dropDownOpen && <DropDown />}
+        <Switch>
+          <Route exact path="/myworkouts">
+            <MyWorkouts />
+          </Route>
+          <Route exact path="/workouts/new">
+            <NewWorkout />
+          </Route>
+          <Route exact path="/:workoutId/myprogress">
+            <MyProgress />
+          </Route>
+          <Redirect to="/myworkouts" />
+        </Switch>
+      </React.Fragment>
     );
   }
 
