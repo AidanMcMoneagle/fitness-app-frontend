@@ -1,26 +1,25 @@
-import React, { useState } from "react";
-// import { useDispatch } from "@reduxjs/toolkit";
-import { toggleDropDown } from "../../../features/UI/uiSlice";
-import DropDown from "../UIElements/DropDown";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { toggleMyProfile } from "../../../features/UI/uiSlice";
+import Avatar from "../UIElements/Avatar";
 
 import "./ProfileButton.css";
-import Avatar from "../UIElements/Avatar";
-import { useDispatch } from "react-redux";
 
-// Onclick will open the profile dropdown which will allow user to change details.
 const ProfileButton = () => {
-  // need to be able to access this state somewhere on the page.
-  // can use redux. We need to use redux here as need to be able the state of the dropdown elsewhere in the application
   const dispatch = useDispatch();
-  const openDropDown = () => {
-    dispatch(toggleDropDown());
+
+  const userImage = useSelector((state) => state.userProfile.userImage);
+
+  const openMyProfile = () => {
+    dispatch(toggleMyProfile());
   };
 
   return (
     <React.Fragment>
-      <button className="profile-image-header" onClick={openDropDown}>
+      <button className="profile-image-header" onClick={openMyProfile}>
         <Avatar
-          image="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"
+          image={userImage}
           alt="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"
         />
       </button>

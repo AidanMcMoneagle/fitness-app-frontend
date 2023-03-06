@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { closeDropDown } from "../../features/UI/uiSlice";
+import { closeMyProfile } from "../../features/UI/uiSlice";
+import { clearUserProfile } from "../../features/UserProfile/userProfileSlice";
 
 let logoutTimer;
 
@@ -33,7 +34,8 @@ const useAuth = () => {
   const logout = useCallback(() => {
     setToken(null);
     setTokenExpirationDate(null);
-    dispatch(closeDropDown());
+    dispatch(closeMyProfile());
+    dispatch(clearUserProfile());
     localStorage.removeItem("userData");
   }, []);
 

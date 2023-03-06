@@ -25,3 +25,25 @@
 .pick-img-btn {
   margin-left: 5px;
 }
+
+.pick-img-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #000080;
+  border-radius: 18px;
+  background: #000080;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.pick-img-btn:hover {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ff8c00;
+  border-radius: 18px;
+  background: #ff8c00;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+}

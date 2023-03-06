@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isDropDownOpen: false,
+  isMyProfileOpen: false,
 };
 
 // createSlice automatically generates action creators and action types that correspond to the reducers and state.
@@ -9,16 +9,16 @@ const uiSlice = createSlice({
   name: "uiSlice",
   initialState,
   reducers: {
-    toggleDropDown: (state) => {
-      state.isDropDownOpen = !state.isDropDownOpen;
+    toggleMyProfile: (state) => {
+      state.isMyProfileOpen = !state.isMyProfileOpen;
     },
-    closeDropDown: (state) => {
-      state.isDropDownOpen = false;
+    closeMyProfile: (state) => {
+      state.isMyProfileOpen = false;
     },
   },
 });
 
 // action creator. we dispatch this in the components.
-export const { toggleDropDown, closeDropDown } = uiSlice.actions;
+export const { toggleMyProfile, closeMyProfile } = uiSlice.actions;
 
 export default uiSlice.reducer;

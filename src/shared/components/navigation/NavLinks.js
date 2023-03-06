@@ -46,14 +46,6 @@ const NavLinks = () => {
           <Link to="/login">LOGIN</Link>
         </li>
       )}
-      {context.isLoggedIn && (
-        <li>
-          <Link to="/login" onClick={context.logout}>
-            LOGOUT
-          </Link>
-        </li>
-      )}
-      {/* we want this button to open a drop down menu for user profile same as in Linkedin*/}
       {context.isLoggedIn && <ProfileButton />}
     </ul>
   );

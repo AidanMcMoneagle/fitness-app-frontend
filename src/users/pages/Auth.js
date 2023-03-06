@@ -6,6 +6,13 @@ import React, {
   useEffect,
 } from "react";
 
+import { useDispatch } from "react-redux";
+import {
+  setUserEmail,
+  setUserImage,
+  setUserName,
+} from "../../features/UserProfile/userProfileSlice";
+
 import { useHistory, Link } from "react-router-dom";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
@@ -105,6 +112,8 @@ const Auth = () => {
 
   const history = useHistory();
 
+  const dispatchRedux = useDispatch();
+
   const toggleLoginMode = (e) => {
     e.preventDefault();
     if (isLoginMode) {
@@ -160,8 +169,14 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
 
-        const { userId, token } = responseData;
+        const { userId, token, userEmail, userName, userImage } = responseData;
         auth.login(userId, token);
+
+        // need to also set the user details. We should do this in redux. Dispatch some actions to the store.
+        dispatchRedux(setUserEmail(userEmail));
+        dispatchRedux(setUserName(userName));
+        dispatchRedux(setUserImage(userImage));
+
         history.push("/myworkouts"); // redirect to myworkouts page once we have logged in
       } catch (err) {}
     } else {
@@ -177,8 +192,11 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
 
-        const { userId, token } = responseData;
+        const { userId, token, userEmail, userName } = responseData;
         auth.login(userId, token);
+        dispatchRedux(setUserEmail(userEmail));
+        dispatchRedux(setUserName(userName));
+
         history.push("/myworkouts");
       } catch (e) {}
     }

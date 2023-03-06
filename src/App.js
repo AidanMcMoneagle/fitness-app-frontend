@@ -18,13 +18,13 @@ import ResetPassword from "./users/pages/ResetPassword";
 import useAuth from "./shared/hooks/useAuth";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
-import DropDown from "./shared/components/UIElements/DropDown";
+import MyProfile from "./shared/components/UIElements/MyProfile";
 
 function App() {
   const { login, logout, token, isCheckingAuth } = useAuth();
 
   // listens to changes in value of
-  const dropDownOpen = useSelector((state) => state.ui.isDropDownOpen);
+  const myProfileOpen = useSelector((state) => state.ui.isMyProfileOpen);
 
   let routes;
   if (!token) {
@@ -45,7 +45,7 @@ function App() {
   } else {
     routes = (
       <React.Fragment>
-        {dropDownOpen && <DropDown />}
+        {myProfileOpen && <MyProfile />}
         <Switch>
           <Route exact path="/myworkouts">
             <MyWorkouts />

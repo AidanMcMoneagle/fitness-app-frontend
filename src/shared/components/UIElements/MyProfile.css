@@ -24,3 +24,12 @@
   justify-content: left;
   align-items: center;
 }
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.myprofile-footer {
+  padding-top: 0;
+}
