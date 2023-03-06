@@ -20,7 +20,7 @@ const ProfileButton = () => {
       <button className="profile-image-header" onClick={openMyProfile}>
         <Avatar
           image={userImage}
-          alt="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"
+          alt="https://www.pngarts.com/files/10/Default-Profile-Picture-Transparent-Image.png"
         />
       </button>
     </React.Fragment>

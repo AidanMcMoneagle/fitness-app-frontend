@@ -46,7 +46,11 @@ const NavLinks = () => {
           <Link to="/login">LOGIN</Link>
         </li>
       )}
-      {context.isLoggedIn && <ProfileButton />}
+      {context.isLoggedIn && (
+        <li>
+          <ProfileButton />
+        </li>
+      )}
     </ul>
   );
 };
