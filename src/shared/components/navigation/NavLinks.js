@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import AuthContext from "../../context/auth-context";
+import ProfileButton from "./ProfileButton";
 
 import "./NavLinks.css";
 
@@ -45,13 +46,7 @@ const NavLinks = () => {
           <Link to="/login">LOGIN</Link>
         </li>
       )}
-      {context.isLoggedIn && (
-        <li>
-          <Link to="/login" onClick={context.logout}>
-            LOGOUT
-          </Link>
-        </li>
-      )}
+      {context.isLoggedIn && <ProfileButton />}
     </ul>
   );
 };

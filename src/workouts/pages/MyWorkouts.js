@@ -81,6 +81,7 @@ const MyWorkouts = () => {
     setIsViewingArchivedWorkouts(true);
   };
 
+  // We load
   useEffect(() => {
     const fetchMyWorkouts = async () => {
       try {
@@ -93,6 +94,7 @@ const MyWorkouts = () => {
           }
         );
         setUserWorkouts([...responseData.foundWorkouts]);
+       
       } catch (e) {
         console.log(e);
       }
