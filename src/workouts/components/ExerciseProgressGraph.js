@@ -7,7 +7,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -82,7 +81,6 @@ const ExerciseProgressGraph = (props) => {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Legend />
             <Line
               type="monotone"
               dataKey="Average_Weight"

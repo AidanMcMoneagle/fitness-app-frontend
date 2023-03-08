@@ -1,14 +1,25 @@
 import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
+
 import AuthContext from "../../context/auth-context";
 import ProfileButton from "./ProfileButton";
 
 import "./NavLinks.css";
 
-const NavLinks = () => {
+const NavLinks = (props) => {
+  const { sideDrawerOpen } = props;
   const context = useContext(AuthContext);
+
   return (
     <ul className="nav-links">
+      {context.isLoggedIn && sideDrawerOpen && (
+        <li>
+          <ProfileButton className={"profile-image-sidebar"} />
+          <p className="center" style={{ fontSize: "15px", margin: 0 }}>
+            MY PROFILE
+          </p>
+        </li>
+      )}
       {context.isLoggedIn && (
         <li>
           <NavLink
@@ -46,9 +57,9 @@ const NavLinks = () => {
           <Link to="/login">LOGIN</Link>
         </li>
       )}
-      {context.isLoggedIn && (
+      {context.isLoggedIn && !sideDrawerOpen && (
         <li>
-          <ProfileButton />
+          <ProfileButton className={"profile-image-header"} />
         </li>
       )}
     </ul>
