@@ -6,7 +6,6 @@ import BackDrop from "../UIElements/BackDrop";
 
 import "./MainNavigation.css";
 
-
 const MainNavigation = () => {
   const [sideDrawerOpen, setIsSideDrawerOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
@@ -41,7 +40,7 @@ const MainNavigation = () => {
           <h1 className="main-header__title">myWeightsTracker</h1>
         </header>
         <div className="main-header__sidebar-navlinks">
-          <NavLinks />
+          <NavLinks sideDrawerOpen={sideDrawerOpen} />
         </div>
       </SideDrawer>
 
@@ -56,7 +55,7 @@ const MainNavigation = () => {
         </button>
         <h1 className="main-header__title">myWeightsTracker</h1>
         <div className="main-header__navlinks">
-          <NavLinks />
+          <NavLinks sideDrawerOpen={sideDrawerOpen} />
         </div>
       </MainHeader>
     </React.Fragment>

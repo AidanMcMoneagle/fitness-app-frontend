@@ -6,7 +6,7 @@ import Avatar from "../UIElements/Avatar";
 
 import "./ProfileButton.css";
 
-const ProfileButton = () => {
+const ProfileButton = (props) => {
   const dispatch = useDispatch();
 
   const userImage = useSelector((state) => state.userProfile.userImage);
@@ -17,10 +17,11 @@ const ProfileButton = () => {
 
   return (
     <React.Fragment>
-      <button className="profile-image-header" onClick={openMyProfile}>
+      <button className={props.className} onClick={openMyProfile}>
         <Avatar
           image={userImage}
           alt="https://www.pngarts.com/files/10/Default-Profile-Picture-Transparent-Image.png"
+          // className={props.className}
         />
       </button>
     </React.Fragment>
