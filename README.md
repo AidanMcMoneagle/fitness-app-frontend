@@ -74,6 +74,11 @@ Additional features include:
 ### 5.My Progress Page 
 <img src="https://user-images.githubusercontent.com/99369057/215341977-c2160441-f914-4b78-b1c9-df471991b532.png" width="600">
 
+### 6. My Profile (New Feature)
+<img src="https://user-images.githubusercontent.com/99369057/224760112-2537172c-c00f-4484-a0a4-b886688ad1c0.png" width="600">
+<img src="https://user-images.githubusercontent.com/99369057/224760244-ee3be264-299d-4d8d-bf3f-dce32d6446dd.png" width="600">
+<img src="https://user-images.githubusercontent.com/99369057/224760332-3cab3395-e248-43f1-b18b-70be04a9edbd.png" width="600">
+<img src="https://user-images.githubusercontent.com/99369057/224760717-52ba4ff1-5c4f-4b1e-83db-ba24aa74e5de.png" width="600">
 
 ## Project Status
 Project is: in progress. 
