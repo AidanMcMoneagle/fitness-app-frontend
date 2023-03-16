@@ -1,9 +1,15 @@
 import React, { useState, useContext, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { MdModeEditOutline } from "react-icons/md";
+import { AiOutlineCheck } from "react-icons/ai";
 
 import { closeMyProfile } from "../../../features/UI/uiSlice";
-import { setUserImage } from "../../../features/UserProfile/userProfileSlice";
+import {
+  setUserEmail,
+  setUserImage,
+  setUserName,
+} from "../../../features/UserProfile/userProfileSlice";
 
 import useHttpClientCustomHook from "../../hooks/useHttpClientCustomHook";
 import AuthContext from "../../context/auth-context";
@@ -12,6 +18,8 @@ import LoadingSpinner from "./LoadingSpinner";
 import ErrorModal from "./ErrorModal";
 import Modal from "./Modal";
 import ImageUpload from "../FormElements/ImageUpload";
+import Input from "../FormElements/Input";
+import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL } from "../../utils/validators";
 
 import "./MyProfile.css";
 
@@ -20,6 +28,14 @@ import "./MyProfile.css";
 const MyProfile = () => {
   const [previewUrl, setPreviewUrl] = useState(undefined);
   const [image, setImage] = useState(undefined);
+
+  const [iseditingName, setIsEditingName] = useState(false);
+  const [iseditingEmail, setIsEditingEmail] = useState(false);
+  const [newEmailConfirmed, setNewEmailConfirmed] = useState(false);
+  const [newUserName, setNewUserName] = useState(undefined);
+  const [newEmail, setNewEmail] = useState(undefined);
+  const [newNameConfirmed, setNewNameConfirmed] = useState(false);
+
   const auth = useContext(AuthContext);
 
   const dispatch = useDispatch();
@@ -32,7 +48,6 @@ const MyProfile = () => {
     useHttpClientCustomHook();
 
   const inputHandler = (pickedFile) => {
-    console.log(pickedFile);
     setImage(pickedFile);
   };
 
@@ -44,24 +59,69 @@ const MyProfile = () => {
     dispatch(closeMyProfile());
   };
 
-  // want to upload the image. Once complete we want to add the image to our redux store and then also close the My profile modal.
-  const submitFormHandler = async () => {
-    if (!image) {
-      return;
+  const toggleEditEmailHandler = () => {
+    setIsEditingEmail(!iseditingEmail);
+    setNewEmailConfirmed(false);
+    setNewEmail(undefined);
+  };
+
+  const toggleEditNameHandler = () => {
+    setIsEditingName(!iseditingName);
+    setNewNameConfirmed(false);
+    setNewUserName(undefined);
+  };
+
+  //whenever the input changes this sets the value of of newUserName/newemail
+  const inputChangeHandler = useCallback((id, value, isValid) => {
+    if (id === "name" && isValid === true) {
+      setNewUserName(value);
     }
+    if (id === "name" && isValid !== true) {
+      setNewUserName(undefined);
+    }
+    if (id === "email" && isValid === true) {
+      setNewEmail(value);
+    }
+    if (id === "email" && isValid !== true) {
+      setNewEmail(undefined);
+    }
+  }, []);
+
+  const confirmInputChange = (id) => {
+    if (id === "email") {
+      setNewEmailConfirmed(true);
+      setIsEditingEmail(false);
+    }
+    if (id === "name") {
+      setNewNameConfirmed(true);
+      setIsEditingName(false);
+    }
+  };
+
+  const submitFormHandler = async () => {
     try {
       let formData = new FormData();
-      formData.append("image", image);
+      if (image) {
+        formData.append("image", image);
+      }
+      if (newEmail) {
+        formData.append("email", newEmail);
+      }
+      if (newUserName) {
+        formData.append("name", newUserName);
+      }
       const responseData = await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/users/updateprofile`,
-        "POST",
+        "PATCH",
         formData,
         {
           Authorization: "Bearer " + auth.token,
         }
       );
-      // want to close the modal but also want to update the image.
+
       dispatch(setUserImage(responseData.image));
+      dispatch(setUserEmail(responseData.email));
+      dispatch(setUserName(responseData.name));
       closeMyProfileModal();
     } catch (e) {
       console.log(e);
@@ -77,8 +137,11 @@ const MyProfile = () => {
         header={"MY PROFILE"}
         footer={
           <div>
-            <button onClick={submitFormHandler} disabled={!image}>
-              UPDATE PROFILE
+            <button
+              onClick={submitFormHandler}
+              disabled={!image && !newEmailConfirmed && !newNameConfirmed}
+            >
+              SAVE CHANGES
             </button>
             <button>
               <Link to="/login" onClick={auth.logout} className="logout-link">
@@ -109,8 +172,72 @@ const MyProfile = () => {
               buttonText={image || userImage ? "UPDATE IMAGE" : "ADD IMAGE"}
             />
           </div>
-          <h4>Name: {userName} </h4>
-          <h4>Email: {userEmail}</h4>
+          <div className="profile-name-container">
+            <h4>Name :</h4>
+            {!iseditingName && (
+              <h4 style={{ marginLeft: "5px" }}>
+                {!newUserName ? userName : newUserName}
+              </h4>
+            )}
+            {iseditingName && (
+              <div style={{ marginLeft: "5px" }}>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder={userName}
+                  onInput={inputChangeHandler}
+                  validators={[VALIDATOR_REQUIRE()]}
+                />
+              </div>
+            )}
+            {iseditingName && (
+              <button
+                onClick={() => confirmInputChange("name")}
+                className="confirm-input-btn"
+                disabled={!newUserName}
+              >
+                <AiOutlineCheck />
+              </button>
+            )}
+            <button onClick={toggleEditNameHandler} className="edit-input-btn">
+              <MdModeEditOutline />
+            </button>
+          </div>
+          <div className="profile-email-container">
+            <h4>Email : </h4>
+            {!iseditingEmail && (
+              <h4
+                style={{
+                  marginLeft: "10px",
+                }}
+              >
+                {!newEmail ? userEmail : newEmail}
+              </h4>
+            )}
+            {iseditingEmail && (
+              <div style={{ marginLeft: "10px" }}>
+                <Input
+                  id="email"
+                  type="text"
+                  placeholder={userEmail}
+                  onInput={inputChangeHandler}
+                  validators={[VALIDATOR_EMAIL()]}
+                />
+              </div>
+            )}
+            {iseditingEmail && (
+              <button
+                onClick={() => confirmInputChange("email")}
+                className="confirm-input-btn"
+                disabled={!newEmail}
+              >
+                <AiOutlineCheck />
+              </button>
+            )}
+            <button onClick={toggleEditEmailHandler} className="edit-input-btn">
+              <MdModeEditOutline />
+            </button>
+          </div>
         </div>
       </Modal>
     </React.Fragment>
