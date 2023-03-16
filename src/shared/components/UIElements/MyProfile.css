@@ -20,11 +20,16 @@
   border-radius: 50%;
 }
 
-.profile-image-container {
+.profile-image-container,
+.profile-name-container,
+.profile-email-container {
   display: flex;
   justify-content: left;
   align-items: center;
+  padding: 0.15rem 0.25rem;
 }
+
+
 
 .logout-link {
   color: white;
@@ -33,4 +38,29 @@
 
 .myprofile-footer {
   padding-top: 0;
+}
+
+button.confirm-input-btn {
+  background: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  color: hsl(125, 67%, 44%);
+  font-size: 1.2rem;
+  transition: all 0.2s linear;
+}
+
+button.confirm-input-btn:disabled {
+  background: transparent;
+  border-color: transparent;
+  cursor: not-allowed;
+  font-size: 1.2rem;
+  color: grey;
+}
+
+button.edit-input-btn {
+  background: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s linear;
 }

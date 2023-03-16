@@ -57,11 +57,18 @@ const Input = (props) => {
 
   return (
     <div
-      className={`form-control ${
-        !inputState.isValid && inputState.isTouched && "form-control--invalid"
-      }`}
+      className={
+        !props.className
+          ? `form-control ${
+              !inputState.isValid &&
+              inputState.isTouched &&
+              "form-control--invalid"
+            }`
+          : ""
+      }
+      style={props.style}
     >
-      <label htmlFor={props.id}>{props.labelText}</label>
+      {props.labelText && <label htmlFor={props.id}>{props.labelText}</label>}
 
       <input
         type={props.type}
@@ -69,9 +76,12 @@ const Input = (props) => {
         onChange={changeHandler}
         onBlur={touchHandler} //onBlur event occurs when user loses focus on element.
         value={inputState.value}
+        placeholder={props.placeholder}
       />
 
-      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
+      {!inputState.isValid && inputState.isTouched && props.errorText && (
+        <p>{props.errorText}</p>
+      )}
     </div>
   );
 };
