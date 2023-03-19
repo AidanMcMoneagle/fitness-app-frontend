@@ -41,7 +41,7 @@ const MyWorkouts = () => {
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/workouts/archive/${workoutId}`,
-        "PUT",
+        "PATCH",
         null,
         {
           Authorization: "Bearer " + auth.token,
@@ -58,7 +58,7 @@ const MyWorkouts = () => {
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/workouts/unarchive/${workoutId}`,
-        "PUT",
+        "PATCH",
         null,
         {
           Authorization: "Bearer " + auth.token,
@@ -94,7 +94,6 @@ const MyWorkouts = () => {
           }
         );
         setUserWorkouts([...responseData.foundWorkouts]);
-       
       } catch (e) {
         console.log(e);
       }
