@@ -49,7 +49,7 @@ const ResetPassword = () => {
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/users/resetpassword/${resetToken}`, // we send the
-        "PUT",
+        "PATCH",
         JSON.stringify({
           password: password,
         }),
