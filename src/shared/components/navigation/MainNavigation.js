@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AuthContext from "../../context/auth-context";
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
@@ -9,6 +10,8 @@ import "./MainNavigation.css";
 const MainNavigation = () => {
   const [sideDrawerOpen, setIsSideDrawerOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
+
+  const context = useContext(AuthContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,14 +48,16 @@ const MainNavigation = () => {
       </SideDrawer>
 
       <MainHeader>
-        <button
-          className="main-header__toggle-sidebar-btn"
-          onClick={openSideDrawer}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        {context.isLoggedIn && (
+          <button
+            className="main-header__toggle-sidebar-btn"
+            onClick={openSideDrawer}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        )}
         <h1 className="main-header__title">myWeightsTracker</h1>
         <div className="main-header__navlinks">
           <NavLinks sideDrawerOpen={sideDrawerOpen} />

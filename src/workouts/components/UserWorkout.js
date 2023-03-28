@@ -160,7 +160,7 @@ const UserWorkout = (props) => {
             )}
             {isViewingArchivedWorkouts && (
               <button className="unarchive" onClick={unArchiveWorkoutHandler}>
-                ADD TO ACTIVE WORKOUTS
+                ACTIVATE WORKOUT
               </button>
             )}
             <button className="delete-btn" onClick={openDeleteModal}>
