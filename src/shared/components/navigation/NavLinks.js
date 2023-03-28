@@ -52,11 +52,11 @@ const NavLinks = (props) => {
           </NavLink>
         </li>
       )}
-      {!context.isLoggedIn && (
+      {/* {!context.isLoggedIn && (
         <li>
           <Link to="/login">LOGIN</Link>
         </li>
-      )}
+      )} */}
       {context.isLoggedIn && !sideDrawerOpen && (
         <li>
           <ProfileButton className={"profile-image-header"} />
