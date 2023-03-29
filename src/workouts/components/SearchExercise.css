@@ -1,0 +1,57 @@
+.search-exercise {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-exercise__diff,
+.filter-exercise__type,
+.filter-exercise__muscle {
+  margin: 1rem 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* .search-exercise {
+  display: block;
+} */
+
+.search-exercise label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.filter-exercise__diff label,
+.filter-exercise__type label,
+.filter-exercise__muscle label {
+  margin-right: 10px;
+}
+
+.filter-exercise__type label {
+  margin-right: 40px;
+}
+
+.filter-exercise__muscle label {
+  margin-right: 22px;
+}
+
+@media (max-width: 620px) {
+  .filter-exercise__diff,
+  .filter-exercise__type,
+  .filter-exercise__muscle {
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem 0rem;
+  }
+
+  .filter-exercise__diff label,
+  .filter-exercise__type label,
+  .filter-exercise__muscle label {
+    margin-right: 0px;
+  }
+}
