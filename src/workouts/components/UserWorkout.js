@@ -179,7 +179,7 @@ const UserWorkout = (props) => {
               <tr>
                 <th>Exercise</th>
                 <th>Repetitions</th>
-                <th>Sets</th>
+                {!inTrackingMode && <th>Sets</th>}
                 {inTrackingMode &&
                   numberOfSetHeaders.length > 0 &&
                   numberOfSetHeaders.map((input, index) => {

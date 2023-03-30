@@ -118,14 +118,14 @@ const UserExercise = (props) => {
       )}
       <td>
         {name}{" "}
-        {instructions && (
+        {instructions && !inTrackingMode && (
           <button className="exercise-info-btn" onClick={openInstructionModal}>
             <ImInfo />
           </button>
         )}
       </td>
       <td>{reps}</td>
-      <td>{sets}</td>
+      {!inTrackingMode && <td>{sets}</td>}
       {inTrackingMode &&
         numberOfSetInputs.length > 0 &&
         numberOfSetInputs.map((input, index) => {
