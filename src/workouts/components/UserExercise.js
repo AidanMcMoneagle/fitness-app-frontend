@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 
+import { ImInfo } from "react-icons/im";
+import ExerciseInstructionModal from "./ExerciseInstructionModal";
+
 import "./UserExercise.css";
 
 const UserExercise = (props) => {
-  const { name, sets, reps, _id } = props.exercise;
+  const { name, sets, reps, _id, instructions } = props.exercise;
   const { passNumberOfSetInputs, numberOfSetHeaders, inTrackingMode, onInput } =
     props;
+
+  const [instructionModalOpen, setInstructionModalOpen] = useState(false);
 
   //state for number of sets for each exercise. We map over array and for each element (set) we return a form input.
   const [numberOfSetInputs, setNumberOfSetInputs] = useState([]);
@@ -93,9 +98,32 @@ const UserExercise = (props) => {
     setIsSetInputPopulated(false);
   };
 
+  const openInstructionModal = (e) => {
+    e.preventDefault();
+    setInstructionModalOpen(true);
+  };
+
+  const closeInstructionModal = () => {
+    setInstructionModalOpen(false);
+  };
+
   return (
     <React.Fragment>
-      <td>{name}</td>
+      {instructionModalOpen && (
+        <ExerciseInstructionModal
+          instructions={instructions}
+          closeInstructionModal={closeInstructionModal}
+          exerciseName={name}
+        />
+      )}
+      <td>
+        {name}{" "}
+        {instructions && (
+          <button className="exercise-info-btn" onClick={openInstructionModal}>
+            <ImInfo />
+          </button>
+        )}
+      </td>
       <td>{reps}</td>
       <td>{sets}</td>
       {inTrackingMode &&
