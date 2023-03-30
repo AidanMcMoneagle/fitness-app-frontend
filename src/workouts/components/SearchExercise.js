@@ -14,6 +14,14 @@ const SearchExercise = (props) => {
   const { error, isLoading, sendRequest, clearError } =
     useHttpClientCustomHook();
 
+    // // exercise is an object with below: 
+    // {
+    //   value: {
+    //     'all properties of fetched exercise'
+    //   }
+    //   label: ex.name
+
+    // }
   const [exercise, setExercise] = useState(undefined);
   const [type, setType] = useState(undefined);
   const [difficulty, setDifficulty] = useState(undefined);
@@ -34,9 +42,11 @@ const SearchExercise = (props) => {
           "X-RapidAPI-Host": "exercises-by-api-ninjas.p.rapidapi.com",
         }
       );
+
+      console.log(responseData);
       const resObject = responseData.map((ex) => {
         return {
-          value: ex.name,
+          value: ex,
           label: ex.name,
         };
       });
@@ -49,7 +59,7 @@ const SearchExercise = (props) => {
   };
 
   useEffect(() => {
-    if (exercise) fetchExercise(exercise.value);
+    if (exercise) fetchExercise(exercise.value.name);
   }, [exercise, type, difficulty, muscle]);
 
   const handleExerciseChange = (selectedExercise) => {

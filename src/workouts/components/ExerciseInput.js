@@ -14,6 +14,7 @@ const inputReducer = (state, action) => {
         exerciseName: action.payload.exerciseName,
         repetitions: action.payload.repetitions,
         sets: action.payload.sets,
+        exerciseInstructions: action.payload.exerciseInstructions,
       },
     };
   }
@@ -26,6 +27,7 @@ const ExerciseInput = (props) => {
   const [exerciseName, setExerciseName] = useState("");
   const [repetitions, setRepetitions] = useState("");
   const [sets, setSets] = useState("");
+  const [exerciseInstructions, setExerciseInstructions] = useState("");
   const [exerciseSubmitted, setExerciseSubmitted] = useState(false); // used change the style of the input.
 
   const [isSearchingExercise, setIsSearchingExercise] = useState(false);
@@ -36,6 +38,7 @@ const ExerciseInput = (props) => {
   const { addExerciseData, editExerciseData } = props;
   const { id, value } = exerciseState;
 
+  // where we also need to pass the exercise instructions.
   useEffect(() => {
     if (value) {
       addExerciseData(id, value);
@@ -51,6 +54,7 @@ const ExerciseInput = (props) => {
           exerciseName,
           repetitions,
           sets,
+          exerciseInstructions,
           id: props.id,
         },
       });
@@ -62,6 +66,7 @@ const ExerciseInput = (props) => {
       setExerciseName("");
       setRepetitions("");
       setSets("");
+      setExerciseInstructions("");
       setExerciseSubmitted(false);
       editExerciseData(props.id);
     }
@@ -78,8 +83,11 @@ const ExerciseInput = (props) => {
     setIsSearchingExercise(true);
   };
 
+  // also neeed to pass full exercise details to database.
   const addExerciseFromSearch = (input) => {
-    setExerciseName(input);
+    console.log("exercise details", input);
+    setExerciseName(input.name);
+    setExerciseInstructions(input.instructions);
     setIsSearchingExercise(false);
   };
 

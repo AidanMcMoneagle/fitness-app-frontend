@@ -8,7 +8,8 @@ import "./SearchExerciseModal.css";
 const SearchExerciseModal = (props) => {
   const { setIsSearchingExercise, addExerciseFromSearch } = props;
 
-  const [exercise, setExercise] = useState("");
+  // exercise is an object with properties name, type, muscle, equipment, instruction, difficulty. 
+  const [exercise, setExercise] = useState(undefined);
 
   const closeSearchModal = () => {
     setIsSearchingExercise(false);

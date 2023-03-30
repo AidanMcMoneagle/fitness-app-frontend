@@ -13,11 +13,13 @@
   width: 100%;
   padding: 1rem 0.5rem;
   background: #2a006e;
-  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .modal__header h2 {
   margin: 0.5rem;
+  color: white;
 }
 
 .modal__content {
