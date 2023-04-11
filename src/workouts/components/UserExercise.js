@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
+import { BsYoutube } from "react-icons/bs";
 
 import { ImInfo } from "react-icons/im";
 import ExerciseInstructionModal from "./ExerciseInstructionModal";
+import ExerciseVideoModal from "./ExerciseVideoModal";
 
 import "./UserExercise.css";
 
@@ -12,6 +14,7 @@ const UserExercise = (props) => {
     props;
 
   const [instructionModalOpen, setInstructionModalOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   //state for number of sets for each exercise. We map over array and for each element (set) we return a form input.
   const [numberOfSetInputs, setNumberOfSetInputs] = useState([]);
@@ -107,6 +110,15 @@ const UserExercise = (props) => {
     setInstructionModalOpen(false);
   };
 
+  const openVideoModal = (e) => {
+    e.preventDefault();
+    setVideoModalOpen(true);
+  };
+
+  const closeVideoModal = () => {
+    setVideoModalOpen(false);
+  };
+
   return (
     <React.Fragment>
       {instructionModalOpen && (
@@ -116,13 +128,31 @@ const UserExercise = (props) => {
           exerciseName={name}
         />
       )}
+      {videoModalOpen && (
+        <ExerciseVideoModal
+          closeVideoModal={closeVideoModal}
+          exerciseName={name}
+        />
+      )}
       <td>
         {name}{" "}
-        {instructions && !inTrackingMode && (
-          <button className="exercise-info-btn" onClick={openInstructionModal}>
-            <ImInfo />
-          </button>
-        )}
+        <span>
+          {instructions && !inTrackingMode && (
+            <button
+              className="exercise-info-btn"
+              onClick={openInstructionModal}
+            >
+              <ImInfo />
+            </button>
+          )}
+        </span>
+        <span>
+          {!inTrackingMode && (
+            <button className="exercise-video-btn" onClick={openVideoModal}>
+              <BsYoutube />
+            </button>
+          )}
+        </span>
       </td>
       <td>{reps}</td>
       {!inTrackingMode && <td>{sets}</td>}

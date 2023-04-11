@@ -13,4 +13,16 @@
   background: transparent;
   border-color: transparent;
   cursor: pointer;
+  position: relative;
+  top: 1px;
+  padding-left: 1px;
+}
+
+.exercise-video-btn {
+  background: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+  padding-left: 0px;
 }
