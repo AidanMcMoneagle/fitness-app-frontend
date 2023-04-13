@@ -134,25 +134,25 @@ const UserExercise = (props) => {
           exerciseName={name}
         />
       )}
-      <td>
+      <td className="exercise-name-column">
         {name}{" "}
-        <span>
-          {instructions && !inTrackingMode && (
+        {instructions && !inTrackingMode && (
+          <span>
             <button
               className="exercise-info-btn"
               onClick={openInstructionModal}
             >
               <ImInfo />
             </button>
-          )}
-        </span>
-        <span>
-          {!inTrackingMode && (
+          </span>
+        )}
+        {!inTrackingMode && (
+          <span>
             <button className="exercise-video-btn" onClick={openVideoModal}>
               <BsYoutube />
             </button>
-          )}
-        </span>
+          </span>
+        )}
       </td>
       <td>{reps}</td>
       {!inTrackingMode && <td>{sets}</td>}

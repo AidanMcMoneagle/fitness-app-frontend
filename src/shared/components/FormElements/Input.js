@@ -77,6 +77,7 @@ const Input = (props) => {
         onBlur={touchHandler} //onBlur event occurs when user loses focus on element.
         value={inputState.value}
         placeholder={props.placeholder}
+        style={props.inputStyle}
       />
 
       {!inputState.isValid && inputState.isTouched && props.errorText && (

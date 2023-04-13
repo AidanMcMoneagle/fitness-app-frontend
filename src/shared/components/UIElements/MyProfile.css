@@ -30,6 +30,20 @@
   padding: 0.15rem 0.25rem;
 }
 
+.profile-image-container {
+  margin-bottom: 8px;
+}
+
+.profile-name-container h4 {
+  margin: 0;
+  padding: 10px 0px;
+}
+
+.profile-email-container h4 {
+  margin: 0;
+  padding: 10px 0px;
+}
+
 .logout-link {
   color: white;
   text-decoration: none;

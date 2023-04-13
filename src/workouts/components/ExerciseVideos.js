@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
 import "./ExerciseVideo.css";
 
@@ -20,10 +21,7 @@ const ExerciseVideos = (props) => {
         const responseData = await sendRequest(
           `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${exerciseName}%20tutorial&key=${process.env.REACT_APP_GOOGLE_API_KEY}`,
           "GET",
-          null,
-          {
-            Authorization: "Bearer",
-          }
+          null
         );
 
         const videoIdArray = responseData.items.map((item) => {
@@ -39,7 +37,8 @@ const ExerciseVideos = (props) => {
   // there will be 5 player
   return (
     <>
-      {videoIds.length > 0 && (
+      {isLoading && <LoadingSpinner />}
+      {videoIds.length === 5 && (
         <div className="player-wrapper">
           <ReactPlayer
             className="react-player"

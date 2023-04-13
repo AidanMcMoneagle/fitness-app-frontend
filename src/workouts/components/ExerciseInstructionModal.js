@@ -10,9 +10,10 @@ const ExerciseInstructionModal = (props) => {
   return (
     <Modal
       show
-      header={`${exerciseName} Instructions`}
+      header={`Exercise Instructions - ${exerciseName}`}
       onCancel={closeInstructionModal}
       contentClass="exercise-instruction-content"
+      footerStyle={{ display: "none" }}
     >
       {instructions}
     </Modal>
