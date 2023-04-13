@@ -187,6 +187,8 @@ const MyProfile = () => {
                   placeholder={userName}
                   onInput={inputChangeHandler}
                   validators={[VALIDATOR_REQUIRE()]}
+                  style={{ margin: "0px" }}
+                  inputStyle={{ margin: "0px" }}
                 />
               </div>
             )}
@@ -222,6 +224,8 @@ const MyProfile = () => {
                   placeholder={userEmail}
                   onInput={inputChangeHandler}
                   validators={[VALIDATOR_EMAIL()]}
+                  style={{ margin: "0px" }}
+                  inputStyle={{ margin: "0px" }}
                 />
               </div>
             )}

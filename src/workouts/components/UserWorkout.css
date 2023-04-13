@@ -79,6 +79,14 @@
   padding: 12px 15px;
 }
 
+.workout-table .exercise-name-column {
+  padding: 0px 10px;
+}
+
+.workout-table td span {
+  padding: 0;
+}
+
 .workout-table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
