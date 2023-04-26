@@ -38,6 +38,8 @@ const UserWorkout = (props) => {
   const [inTrackingMode, setIsTrackingMode] = useState(false);
   const [numberOfSetHeaders, setNumberOfSetHeaders] = useState([]);
 
+  const [maxSetNumber, setMaxSetNumber] = useState(undefined);
+
   // if allExercises have been tracked i.e. every set input has been populated we change state to true and allow button to submit data.
   const [areAllExercisesTracked, setAreAllExercisesTracked] = useState(false);
 
@@ -61,6 +63,21 @@ const UserWorkout = (props) => {
   const openTrackingMode = () => {
     setIsTrackingMode(!inTrackingMode);
   };
+
+  useEffect(() => {
+    let maxNumberofSets = 0;
+    const calcMaxNumberSets = () => {
+      userWorkout.exercises.forEach((exercise) => {
+        if (exercise.sets > maxNumberofSets) {
+          return (maxNumberofSets = exercise.sets);
+        } else {
+          maxNumberofSets = maxNumberofSets;
+        }
+      });
+    };
+    calcMaxNumberSets();
+    setMaxSetNumber(maxNumberofSets);
+  }, [userWorkout]);
 
   // every single time the page re renders I want to check if all inputs have been filled. I have to check if the length of the inputState is equal to the number of exercises in the workout.
   useEffect(() => {
@@ -178,7 +195,7 @@ const UserWorkout = (props) => {
             <thead>
               <tr>
                 <th>Exercise</th>
-                <th>Repetitions</th>
+                <th>Reps</th>
                 {!inTrackingMode && <th>Sets</th>}
                 {inTrackingMode &&
                   numberOfSetHeaders.length > 0 &&
@@ -189,7 +206,10 @@ const UserWorkout = (props) => {
                       }`}</th>
                     );
                   })}
-                {inTrackingMode && numberOfSetHeaders.length > 0 && <th></th>}
+                {inTrackingMode && numberOfSetHeaders.length > 0 && (
+                  <th>Check</th>
+                )}
+                {!inTrackingMode && <th>Tutorial</th>}
               </tr>
             </thead>
             <tbody>
@@ -201,6 +221,7 @@ const UserWorkout = (props) => {
                       inTrackingMode={inTrackingMode}
                       passNumberOfSetInputs={passNumberOfSetInputs}
                       numberOfSetHeaders={numberOfSetHeaders}
+                      maxSetNumber={maxSetNumber}
                       onInput={onInput}
                     />
                   </tr>
