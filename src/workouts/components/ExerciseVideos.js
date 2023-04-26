@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 import useHttpClientCustomHook from "../../shared/hooks/useHttpClientCustomHook";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import LoadingSpinnerCentreParent from "../../shared/components/UIElements/LoadingSpinnerCentreParent";
 
 import "./ExerciseVideo.css";
 
@@ -37,7 +37,7 @@ const ExerciseVideos = (props) => {
   // there will be 5 player
   return (
     <>
-      {isLoading && <LoadingSpinner />}
+      {isLoading && <div className="player-wrapper"></div>}
       {videoIds.length === 5 && (
         <div className="player-wrapper">
           <ReactPlayer

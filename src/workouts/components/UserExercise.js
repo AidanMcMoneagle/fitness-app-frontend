@@ -10,11 +10,18 @@ import "./UserExercise.css";
 
 const UserExercise = (props) => {
   const { name, sets, reps, _id, instructions } = props.exercise;
-  const { passNumberOfSetInputs, numberOfSetHeaders, inTrackingMode, onInput } =
-    props;
+  const {
+    passNumberOfSetInputs,
+    numberOfSetHeaders,
+    inTrackingMode,
+    onInput,
+    maxSetNumber,
+  } = props;
 
   const [instructionModalOpen, setInstructionModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+
+  const [numberofEmptySetInputs, setNumberOfEmptySetInputs] = useState([]);
 
   //state for number of sets for each exercise. We map over array and for each element (set) we return a form input.
   const [numberOfSetInputs, setNumberOfSetInputs] = useState([]);
@@ -26,6 +33,17 @@ const UserExercise = (props) => {
   const [isSetInputPopulated, setIsSetInputPopulated] = useState(false);
 
   const [isInputsReadOnly, setisInputsReadOnly] = useState(false);
+
+  useEffect(() => {
+    const numberEmptySetColumns = maxSetNumber - sets;
+    if (numberEmptySetColumns > 0) {
+      let emptySetInputArray = [];
+      for (let i = 0; i < numberEmptySetColumns; i++) {
+        emptySetInputArray.push("emptyinput");
+      }
+      setNumberOfEmptySetInputs(emptySetInputArray);
+    }
+  }, [maxSetNumber, sets]);
 
   useEffect(() => {
     if (!numberOfSetHeaders.length > 0) {
@@ -146,13 +164,13 @@ const UserExercise = (props) => {
             </button>
           </span>
         )}
-        {!inTrackingMode && (
+        {/* {!inTrackingMode && (
           <span>
             <button className="exercise-video-btn" onClick={openVideoModal}>
               <BsYoutube />
             </button>
           </span>
-        )}
+        )} */}
       </td>
       <td>{reps}</td>
       {!inTrackingMode && <td>{sets}</td>}
@@ -171,6 +189,14 @@ const UserExercise = (props) => {
             </td>
           );
         })}
+
+      {inTrackingMode &&
+        numberOfSetInputs.length > 0 &&
+        numberofEmptySetInputs.length > 0 &&
+        numberofEmptySetInputs.map((el, index) => {
+          return <td key={index}></td>;
+        })}
+
       {inTrackingMode && numberOfSetInputs.length > 0 && (
         <td>
           <button
@@ -179,6 +205,13 @@ const UserExercise = (props) => {
             onClick={(e) => passDataToParent(e)}
           >
             <AiOutlineCheck />
+          </button>
+        </td>
+      )}
+      {!inTrackingMode && (
+        <td>
+          <button className="exercise-video-btn" onClick={openVideoModal}>
+            <BsYoutube />
           </button>
         </td>
       )}

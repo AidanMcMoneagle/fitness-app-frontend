@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 
 import "./LoadingSpinner.css";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = (props) => {
   const content = (
-    <div className="loading-spinner__overlay">
+    <div className="loading-spinner__overlay" style={props.overLayStyle}>
       <div className="lds-dual-ring"></div>
     </div>
   );
